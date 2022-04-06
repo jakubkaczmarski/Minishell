@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:12:30 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/06 19:40:56 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/04/06 21:39:22 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ char *find_cmd(int *starting_index, char *str)
 	first_size = *starting_index;
 	w_size = 0;
 	i = 0;
+	if(!str[*starting_index])
+	{
+		printf("NULL");
+		return NULL;
+	}
 	while(str[*starting_index])
 	{
 		if(str[*starting_index] == ' ' || str[*starting_index] == '\t')
@@ -28,56 +33,46 @@ char *find_cmd(int *starting_index, char *str)
 		else
 			break;
 	}
-
 	while(str[*starting_index])
 	{
 		if(str[*starting_index] != ' ' && str[*starting_index] != '\t')
 		{
 			w_size++;
-		}else{
+		}else
+		{
 			break;
 		}
 		*starting_index = *starting_index + 1;
 	}
-	
 	if(w_size == 0)
 		return NULL;
-	*starting_index -= w_size + 1;
+	*starting_index -= w_size;
 	char *cmd = malloc(sizeof(char) * (w_size + 1));
 	
-	while(*starting_index < w_size + first_size)
+	while(str[*starting_index] && *starting_index < w_size + first_size + 1)
 	{
-		*starting_index = *starting_index + 1;
+
 		cmd[i++] = str[*starting_index];
+		*starting_index = *starting_index + 1;
 	}
-	cmd[i] = '\0';
+	cmd[i + 1] = '\0';
 	return cmd;
 }
-// char **create_command_table(char *str)
-// {
-// 	int i = 0;
-// 	// int	quote_flag = 0; 
-// 	while(str[i])
-// 	{
-// 		if(str[i] != '|')
-// 		{
-			
-// 		}
-// 		i++;
-// 	}     
-// }
+
 int main(void)
 {
 	int starting_index = 0;
 	char *wrd;
 	int i = 0;
-	while(i < 2)
+	while(1)
 	{
-		wrd = find_cmd(&starting_index, "owdqokodqw Marek");
-		printf("%s Index %d\n" , wrd, starting_index);
-		if(!wrd)
+		wrd = find_cmd(&starting_index,"echo Sˇiemanko");
+		if(wrd)
+		{
+			printf("%d\n", i);
+		}
+		else
 			break;
 		i++;
 	}
-	// printf("%s", find_cmd(0,"echo Marek\n"));
 }
