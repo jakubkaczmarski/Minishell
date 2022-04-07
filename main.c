@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/07 12:16:34 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/07 13:30:27 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ int main(int argc, char **argv, char **envv)
 	counter = 0;
 	if (argc != 1)
 		return (input_error());
-	copy_envv(info, envv);
+	copy_envv(&info->envv, envv);
+	envv[0] = "hallo";
 	printf("%s", argv[0]); //for testing
 	while (1)
 	{
 		input = readline("minishell>");
 		if (!input)
 			break ;
-		handle_input(info, input, counter);
+		handle_input(&info, input, counter);
+		add_history(input);
 		counter++;
 		free(input);
 	}
