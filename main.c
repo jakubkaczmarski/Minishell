@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/07 14:35:12 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/07 16:50:31 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int argc, char **argv, char **envv)
 	counter = 0;
 	if (argc != 1)
 		return (input_error());
-	copy_envv(&info, envv);
+	copy_envv(info, envv);
 	printf("%s", argv[0]); //for testing
 	while (1)
 	{
