@@ -1,7 +1,12 @@
+NAME = minishell
+
+SRCS =	main.c \
+		parse/input.c
+
 all: minishell
 
-minishell:
-	gcc -Wall -Wextra -Werror -o minishell main.c 
+$(NAME):
+	gcc -Wall -Wextra -Werror -o $(NAME) $(SRCS)
 clean:
 	@rm -f minishell
 fclean:
