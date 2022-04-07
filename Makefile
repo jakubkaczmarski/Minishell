@@ -8,7 +8,7 @@ SRCS =	main.c \
 all: minishell
 
 $(NAME):
-	gcc -Wall -Wextra -Werror -o $(NAME) $(SRCS)
+	gcc -Wall -Wextra -Werror -lreadline -o $(NAME) $(SRCS)
 clean:
 	@rm -f minishell
 fclean:

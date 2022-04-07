@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/07 11:26:23 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/07 12:16:34 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,27 @@ int input_error()
 int main(int argc, char **argv, char **envv)
 {
 	t_data *info;
+	char *input;
+	int counter;
 
 	info = malloc(sizeof(t_data));
+	info->cmd_table = malloc(sizeof(char **));
+	counter = 0;
 	if (argc != 1)
 		return (input_error());
-
-	handle_input(info, envv);
-	//replace_envv(argv, envv);
-	printf("%s%s\n", argv[0], envv[0]); //for testing
+	copy_envv(info, envv);
+	printf("%s", argv[0]); //for testing
 	while (1)
 	{
-		
+		input = readline("minishell>");
+		if (!input)
+			break ;
+		handle_input(info, input, counter);
+		counter++;
+		free(input);
 	}
+	free(info->cmd_table);
+	free(info->envv);
+	free(info);
 	return (0);
 }
