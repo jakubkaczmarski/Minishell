@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/07 11:29:15 by jtomala          ###   ########.fr       */
+/*   Created: 2021/11/17 15:02:39 by jtomala           #+#    #+#             */
+/*   Updated: 2021/11/29 13:25:43 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include <stdio.h>
+#include <string.h>
 
-/*
-put envv in a struct and replace them with the actual values
-*/
-void handle_input(t_data *info, char **envv)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_list *tmp;
-	int i;
+	size_t	i;
 
 	i = 0;
-	while (envv[i])
-	{
-		tmp = ft_lstnew(envv);
-		ft_lstadd_back(&info->envv, tmp);
+	if (n == 0)
+		return (0);
+	while (s1[i] != '\0' && s1[i] == s2[i] && i < n - 1)
 		i++;
-	}
-	//replace_envv(info);
-}
-
-/*
-if there is a variable in argv then the function searchs for this 
-in envv and replace it by the value
-*/
-void replace_envv()
-{
-
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

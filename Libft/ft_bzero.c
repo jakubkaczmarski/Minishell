@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/07 11:29:15 by jtomala          ###   ########.fr       */
+/*   Created: 2021/11/16 14:17:19 by jtomala           #+#    #+#             */
+/*   Updated: 2021/11/25 11:52:02 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include <strings.h>
+#include <stdio.h>
 
-/*
-put envv in a struct and replace them with the actual values
-*/
-void handle_input(t_data *info, char **envv)
+void	ft_bzero(void *s, size_t n)
 {
-	t_list *tmp;
-	int i;
+	size_t			i;
+	unsigned char	*p;
 
+	p = (unsigned char *) s;
 	i = 0;
-	while (envv[i])
+	while (i < n)
 	{
-		tmp = ft_lstnew(envv);
-		ft_lstadd_back(&info->envv, tmp);
+		*p = '\0';
+		p++;
 		i++;
 	}
-	//replace_envv(info);
-}
-
-/*
-if there is a variable in argv then the function searchs for this 
-in envv and replace it by the value
-*/
-void replace_envv()
-{
-
 }

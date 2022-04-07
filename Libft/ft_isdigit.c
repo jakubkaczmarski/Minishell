@@ -1,43 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/07 11:33:11 by jtomala          ###   ########.fr       */
+/*   Created: 2021/11/16 11:11:41 by jtomala           #+#    #+#             */
+/*   Updated: 2021/11/25 11:52:39 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <stdio.h>
 
-# include "Libft/libft.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-
-
-//for each command
-typedef struct s_cmd {
-	char	*name;
-	int amount_of_args;
-}				t_cmd;
-
-
-//main-struct
-typedef struct s_data {
-	t_list	*cmd_table;
-	t_list	*envv;
-	t_cmd	*cmd;
-}				t_data;
-
-
-//			parse
-//input.c
-void handle_input(t_data *info, char **envv);
-
-
-
-#endif
+int	ft_isdigit(int arg)
+{
+	if (arg >= 48 && arg <= 57)
+		return (1);
+	else
+		return (0);
+}

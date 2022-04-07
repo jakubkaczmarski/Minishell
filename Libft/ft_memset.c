@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/07 11:29:15 by jtomala          ###   ########.fr       */
+/*   Created: 2021/11/16 12:45:00 by jtomala           #+#    #+#             */
+/*   Updated: 2021/12/02 10:59:11 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include <stdio.h>
 
-/*
-put envv in a struct and replace them with the actual values
-*/
-void handle_input(t_data *info, char **envv)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	t_list *tmp;
-	int i;
+	char		*p;
 
-	i = 0;
-	while (envv[i])
+	p = b;
+	while (len > 0)
 	{
-		tmp = ft_lstnew(envv);
-		ft_lstadd_back(&info->envv, tmp);
-		i++;
+		*p = c;
+		p++;
+		len--;
 	}
-	//replace_envv(info);
-}
-
-/*
-if there is a variable in argv then the function searchs for this 
-in envv and replace it by the value
-*/
-void replace_envv()
-{
-
+	return (b);
 }

@@ -1,43 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/07 11:33:11 by jtomala          ###   ########.fr       */
+/*   Created: 2021/11/24 11:31:02 by jtomala           #+#    #+#             */
+/*   Updated: 2021/11/25 11:53:08 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <string.h>
+#include "libft.h"
 
-# include "Libft/libft.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
+char	*ft_strdup(const char *s1)
+{
+	char	*str;
+	size_t	size;
 
-
-//for each command
-typedef struct s_cmd {
-	char	*name;
-	int amount_of_args;
-}				t_cmd;
-
-
-//main-struct
-typedef struct s_data {
-	t_list	*cmd_table;
-	t_list	*envv;
-	t_cmd	*cmd;
-}				t_data;
-
-
-//			parse
-//input.c
-void handle_input(t_data *info, char **envv);
-
-
-
-#endif
+	size = ft_strlen(s1) + 1;
+	str = malloc(size);
+	if (str == NULL)
+		return (NULL);
+	if (str)
+		ft_memcpy(str, s1, size);
+	return (str);
+}

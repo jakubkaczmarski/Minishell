@@ -1,43 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/07 11:33:11 by jtomala          ###   ########.fr       */
+/*   Created: 2021/11/30 15:10:54 by jtomala           #+#    #+#             */
+/*   Updated: 2021/12/01 09:29:53 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include "Libft/libft.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-
-
-//for each command
-typedef struct s_cmd {
-	char	*name;
-	int amount_of_args;
-}				t_cmd;
-
-
-//main-struct
-typedef struct s_data {
-	t_list	*cmd_table;
-	t_list	*envv;
-	t_cmd	*cmd;
-}				t_data;
-
-
-//			parse
-//input.c
-void handle_input(t_data *info, char **envv);
-
-
-
-#endif
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	if (!lst)
+		return ;
+	del(lst->content);
+	free(lst);
+}

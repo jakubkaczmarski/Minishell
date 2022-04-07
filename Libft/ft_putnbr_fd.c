@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/07 11:29:15 by jtomala          ###   ########.fr       */
+/*   Created: 2021/11/28 11:39:51 by jtomala           #+#    #+#             */
+/*   Updated: 2021/11/29 10:46:38 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-/*
-put envv in a struct and replace them with the actual values
-*/
-void handle_input(t_data *info, char **envv)
+void	ft_putnbr_fd(int n, int fd)
 {
-	t_list *tmp;
-	int i;
-
-	i = 0;
-	while (envv[i])
+	if (n == -2147483648)
+		ft_putstr_fd("-2147483648", fd);
+	else if (n < 0)
 	{
-		tmp = ft_lstnew(envv);
-		ft_lstadd_back(&info->envv, tmp);
-		i++;
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(-n, fd);
 	}
-	//replace_envv(info);
-}
-
-/*
-if there is a variable in argv then the function searchs for this 
-in envv and replace it by the value
-*/
-void replace_envv()
-{
-
+	else if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putchar_fd(n % 10 + '0', fd);
+	}
+	else
+		ft_putchar_fd(n + '0', fd);
 }
