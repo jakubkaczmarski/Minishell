@@ -10,3 +10,6 @@ check_input:
 
 echo $USER
 
+FETT MEMORY LEAKS
+get rid of ft_strjoin -> write your own 
+		str_insert
