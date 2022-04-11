@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/11 09:06:53 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/11 15:19:26 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int main(int argc, char **argv, char **envv)
 		input = readline("minishell>");
 		if (!input)
 			break ;
-		handle_input(&info, input, counter);
 		add_history(input);
+		handle_input(&info, input, counter);
 		counter++;
 		free(input);
 	}
