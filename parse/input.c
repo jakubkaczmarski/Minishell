@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/11 15:28:14 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/11 15:52:50 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,14 @@ char *check_input(t_data *info, char *input)
 	if (var_start)
 	{
 		var = ft_split(var_start, ' ');
-		var_end = &input[ft_strlen(var_start) + ft_strlen(var[0])];
+		var_end = &input[ft_strncmp(input, var[0], ft_strlen(var[0]))]; //gets calculated wrong
 		value = exchange_envv(info->envv, var[0] + 1);
 		if (!value)
 			return (input);
 		input[ft_strchr(input, '$') - input] = '\0';
 		input = ft_strjoin(input, value);
-		input = ft_strjoin(input, var_end);
+		printf("END: %s\n", var_end);
+		//input = ft_strjoin(input, var_end);
 	}
 	return (input);
 	

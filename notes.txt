@@ -8,3 +8,5 @@ check_input:
 		then continue with the rest of the string 
 		 so we need the end of the value which is input[var_start + ft_strlen(var[0])]
 
+echo $USER
+
