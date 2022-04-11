@@ -6,13 +6,13 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 10:54:48 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/07 10:50:39 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/11 08:48:04 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(char *content)
 {
 	t_list	*lst;
 

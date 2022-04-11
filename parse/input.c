@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/07 17:00:40 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/11 11:05:11 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,24 @@ Split command and arguments
 /*
 takes a variable(name) and gives its value back
 */
-char *exchange_envv(t_data **info, char *str)
+char *exchange_envv(t_list *l_envv, char *str)
 {
 	char **split;
-	char *envv;
-	
-	write(1, "G", 1);
-	split = NULL;
-	while ((*info)->envv != NULL)
+	int i;
+
+	i = 0;
+	l_envv = l_envv->next;
+	while (l_envv->next != NULL)
 	{
-		envv = (*info)->envv->content;
-		split = ft_split(envv, '=');
-		if (split[0] == str)
+		split = ft_split(l_envv->content, '=');
+		printf("LIST: %s\n", l_envv->content);
+		printf("SPLIT: %s\n", split[i]);
+		// if (!split)
+		// 	continue ;
+		if (split[i] == str)
 			printf("REPLACE");
-		(*info)->envv = (*info)->envv->next;
+		l_envv = l_envv->next;
+		i++;
 	}
 	return (split[1]);
 }
@@ -58,7 +62,7 @@ void check_input(t_data *info, char *input)
 		var = ft_split(var_start, ' ');
 		var[0] += 1;
 		printf("%s\n", var[0]);
-		exchange_envv(&info, var[0]);
+		exchange_envv(info->envv, var[0]);
 	}
 	
 }
@@ -78,7 +82,7 @@ void handle_input(t_data **info, char *input, int counter)
 /*
 handles the input given by the user and puts it into a struct
 */
-void copy_envv(t_data *info, char **envv)
+void	copy_envv(t_list **l_envv, char **envv)
 {
 	t_list *tmp;
 	int i;
@@ -86,10 +90,8 @@ void copy_envv(t_data *info, char **envv)
 	i = 0;
 	while (envv[i])
 	{
-		printf("%s\n", envv[i]);
 		tmp = ft_lstnew(envv[i]);
-		ft_lstadd_back(&(info->envv), tmp);
-		//printf("%s\n", info->envv->content);
+		ft_lstadd_back(l_envv, tmp);
 		i++;
 	}
 }
