@@ -6,25 +6,12 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/12 18:37:53 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/14 09:34:09 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-/*
-Split command and arguments
-*/
-// void execute_cmd(t_data *info, int current_index)
-// {
-// 	if(current_index == 0)
-// 	printf("%s", info->envv->content);
-// }
-
-/*
-takes a variable(name) and gives its value back
-*/
 char *exchange_envv(t_list *l_envv, char *str)
 {
 	int i;
@@ -44,83 +31,93 @@ char *exchange_envv(t_list *l_envv, char *str)
 	return (NULL);
 }
 
-/*
-checks the input for enviromental variables
-*/
-// char *check_input(t_data *info, char *input)
-// {
-// 	char *var_start;
-// 	char **var;
-// 	char *value;
-// 	int i;
-	
-// 	var_start = ft_strchr(input, '$');
-// 	var = NULL;
-// 	value = malloc(sizeof(char *));
-// 	i = 1;
-// 	if (var_start)
-// 	{
-// 		var = ft_split(var_start, ' ');
-// 		value = exchange_envv(info->envv, var[0] + 1);
-// 		if (!value)
-// 			return (input);
-// 		input[ft_strchr(input, '$') - input] = '\0';
-// 		input = ft_strjoin(input, value);
-// 		input = ft_strjoin(input, " ");
-// 		while (var[i])
-// 		{
-// 			input = ft_strjoin(input, var[i++]);
-// 			input = ft_strjoin(input, " ");
-// 		}
-// 	}
-// 	return (input);
-// }
-
 char *get_value(char *input, int *counter)
 {
 	int i;
+	char *value;
 
 	i = 0;
+	value = malloc(sizeof(char *));
 	if (!input)
 		return (NULL);
-	while(input[i])
+	while (input[i])
 	{
 		if (input[i] == ' ')
-			while (input[i])
-				input[i++] = '\0';
-		i++;
+		{
+			value = ft_memcpy(value, input, i);
+			*counter = i;
+		}
+		i++;					
 	}
-	*counter = i + 1;
-	return (input);
+	return (value);
 }
 
-char *modify_input(char *input, char *value, int counter, int len)
+int	ft_copy(char *dst, char *src, int len)
+{
+	int i;
+
+	i = 0;
+	if (len == 0)
+	{
+		while (src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+	}
+	else
+	{
+		len--;
+		while (i < len && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+	}
+	dst[i] = '\0';
+	return (i);
+}
+
+char *ft_realloc(char *s1, char *s2, int free_s1, int free_s2)
+{
+	int s1_len;
+	int s2_len;
+	char *output;
+	int i;
+
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	output = (char *) malloc(s1_len + s2_len + 1);
+	if (!output)
+		return (NULL);
+	i = ft_copy(output, s1, 0);
+	ft_copy(&output[i], s2, 0);
+	if (free_s1)
+		free(s1);
+	if (free_s2)
+		free(s2);
+	return (output);
+}
+
+/*
+takes the input and the value of envv and replaces the variable by their actual value
+*/
+char *modify_input(char *input, char *value, int var_len)
 {
 	int i;
 	int j;
-	char *safe_beg;
-	char *safe_end;
+	char *new_input;
 
 	i = 0;
-	j = 0;
+	new_input = malloc(ft_strlen(input) + ft_strlen(value) + 1);
 	while (input[i])
-	{
-		if (input[i] == '$')
-		{
-			safe_beg = ft_substr(input, i, i);
-			safe_end = safe_beg;
-			printf("SAFE_BEG: %s%d\n", safe_beg, counter); //HERE IS THE PROBLEM
-			printf("SAFE_END: %s\n", safe_end);
-			while (j < len)
-				input[i++] = value[j++];
-		}
-		i++;
-	}
-	j = 0;
-	while (safe_end[j])
-		input[i++] = safe_end[j++];
-	input[i] = '\0';
-	return (input);
+		if (input[i++] == '$')
+			break ;
+	printf("VAR_LEN: %d\n", var_len);
+	i = ft_copy(new_input, input, i);
+	j = ft_copy(&new_input[i], value, 0);
+	ft_copy(&new_input[i + j], &input[i + var_len], 0);
+	return (new_input);
 }
 
 char *check_input(t_data *info, char *input)
@@ -131,7 +128,7 @@ char *check_input(t_data *info, char *input)
 	int counter;
 
 	var = get_value(ft_strchr(input, '$'), &counter);
-	printf("INPUT: %s\n", input);
+	printf("VAR: %s\n", var);
 	value = malloc(sizeof(char *));
 	if (!value)
 		return (input);
@@ -139,8 +136,9 @@ char *check_input(t_data *info, char *input)
 	if (var)
 	{
 		value = exchange_envv(info->envv, var + 1);
-		input = modify_input(input, value, counter, ft_strlen(value));
+		input = modify_input(input, value, counter);
 	}
+	free(var);
 	free(value);
 	return (input);
 }

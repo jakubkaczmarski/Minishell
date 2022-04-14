@@ -13,3 +13,6 @@ echo $USER
 FETT MEMORY LEAKS
 get rid of ft_strjoin -> write your own 
 		str_insert
+
+-------------------------------------------------------------------
+line 135: input gets lost in the get_value function
