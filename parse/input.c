@@ -6,52 +6,15 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/14 09:34:09 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/14 10:28:20 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char *exchange_envv(t_list *l_envv, char *str)
-{
-	int i;
-	char **value;
-
-	i = 0;
-	while (l_envv->next != NULL)
-	{
-		if (!ft_strncmp(l_envv->content, str, ft_strlen(str)))
-		{
-			value = ft_split(l_envv->content, '=');
-			return (value[1]);
-		}
-		l_envv = l_envv->next;
-		i++;
-	}
-	return (NULL);
-}
-
-char *get_value(char *input, int *counter)
-{
-	int i;
-	char *value;
-
-	i = 0;
-	value = malloc(sizeof(char *));
-	if (!input)
-		return (NULL);
-	while (input[i])
-	{
-		if (input[i] == ' ')
-		{
-			value = ft_memcpy(value, input, i);
-			*counter = i;
-		}
-		i++;					
-	}
-	return (value);
-}
-
+/*
+copy function that puts two strings together. If len == 0 then everyrthing gets copied,
+otherwise len == how many characters of src should get copied.
+*/
 int	ft_copy(char *dst, char *src, int len)
 {
 	int i;
@@ -78,27 +41,6 @@ int	ft_copy(char *dst, char *src, int len)
 	return (i);
 }
 
-char *ft_realloc(char *s1, char *s2, int free_s1, int free_s2)
-{
-	int s1_len;
-	int s2_len;
-	char *output;
-	int i;
-
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	output = (char *) malloc(s1_len + s2_len + 1);
-	if (!output)
-		return (NULL);
-	i = ft_copy(output, s1, 0);
-	ft_copy(&output[i], s2, 0);
-	if (free_s1)
-		free(s1);
-	if (free_s2)
-		free(s2);
-	return (output);
-}
-
 /*
 takes the input and the value of envv and replaces the variable by their actual value
 */
@@ -120,6 +62,55 @@ char *modify_input(char *input, char *value, int var_len)
 	return (new_input);
 }
 
+/*
+returns the value of the variable that is given in str. If none is found NULL gets returned
+*/
+char *return_envv_val(t_list *l_envv, char *str)
+{
+	int i;
+	char **value;
+
+	i = 0;
+	while (l_envv->next != NULL)
+	{
+		if (!ft_strncmp(l_envv->content, str, ft_strlen(str)))
+		{
+			value = ft_split(l_envv->content, '=');
+			return (value[1]);
+		}
+		l_envv = l_envv->next;
+		i++;
+	}
+	return (NULL);
+}
+
+/*
+modifies the value by cutting the rest off. Everything after whitespace.
+*/
+char *get_value(char *var, int *counter)
+{
+	int i;
+	char *value;
+
+	i = 0;
+	value = malloc(sizeof(char *));
+	if (!var)
+		return (NULL);
+	while (var[i])
+	{
+		if (var[i] == ' ')
+		{
+			value = ft_memcpy(value, var, i);
+			*counter = i;
+		}
+		i++;					
+	}
+	return (value);
+}
+
+/*
+is checking the input for $-sign and replaces the variable by the value
+*/
 char *check_input(t_data *info, char *input)
 {
 	char *var;
@@ -128,14 +119,13 @@ char *check_input(t_data *info, char *input)
 	int counter;
 
 	var = get_value(ft_strchr(input, '$'), &counter);
-	printf("VAR: %s\n", var);
 	value = malloc(sizeof(char *));
 	if (!value)
 		return (input);
 	i = 1;
 	if (var)
 	{
-		value = exchange_envv(info->envv, var + 1);
+		value = return_envv_val(info->envv, var + 1);
 		input = modify_input(input, value, counter);
 	}
 	free(var);
@@ -152,7 +142,6 @@ void handle_input(t_data **info, char *input, int counter)
 	(*info)->cmd_table[counter] = malloc(sizeof(input));
 	(*info)->cmd_table[counter] = input;
 	printf("[%d]%s\n", counter, (*info)->cmd_table[counter]);
-	//execute_cmd(*info, counter);	
 }
 
 /*
