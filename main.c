@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/15 09:06:05 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/15 09:48:56 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@ int input_error()
 {
 	printf("Input Error\n");
 	return (1);
+}
+
+void print_envv(t_list *envv)
+{
+	while (envv->next != NULL)
+	{
+		printf("[] %s\n", envv->content);
+		envv = envv->next;
+	}
 }
 
 /*
@@ -45,7 +54,8 @@ int main(int argc, char **argv, char **envv)
 		if (!input)
 			break ;
 		add_history(input);
-		handle_input(&info, input, counter);
+		print_envv(info->envv);
+		handle_input(info, input, counter);
 		free(input);
 		counter++;
 	}

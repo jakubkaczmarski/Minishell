@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/15 09:05:36 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/15 09:51:48 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ char *modify_input(char *input, char *value, int var_len)
 	char *new_input;
 
 	i = 0;
-	if (input && value && var_len >= 0)
-		new_input = malloc(ft_strlen(input) + ft_strlen(value) + 1);
-	else
-		return (NULL);
+	new_input = malloc(ft_strlen(input) + ft_strlen(value) + 1);
 	if (!new_input)
 		return (NULL);
 	while (input[i])
@@ -135,7 +132,10 @@ char *check_input(t_data *info, char *input)
 		input = modify_input(input, value, counter);
 	}
 	else
+	{
+		free(var);
 		return (input);
+	}
 	free(var);
 	free(value);
 	return (input);
@@ -144,12 +144,13 @@ char *check_input(t_data *info, char *input)
 /*
 put envv in a struct and replace them with the actual values
 */
-void handle_input(t_data **info, char *input, int counter)
+void handle_input(t_data *info, char *input, int counter)
 {
-	input = check_input(*info, input);
-	(*info)->cmd_table[counter] = malloc(sizeof(input));
-	(*info)->cmd_table[counter] = input;
-	printf("[%d]%s\n", counter, (*info)->cmd_table[counter]);
+	if (ft_strchr(input, '$'))
+		input = check_input(info, input);
+	info->cmd_table[counter] = malloc(sizeof(input));
+	info->cmd_table[counter] = input;
+	printf("[%d]%s\n", counter, info->cmd_table[counter]);
 }
 
 /*
