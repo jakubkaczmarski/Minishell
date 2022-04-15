@@ -6,13 +6,14 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/14 10:28:20 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/15 08:07:27 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 /*
-copy function that puts two strings together. If len == 0 then everyrthing gets copied,
+copy function that puts two strings together.
+If len == 0 then everyrthing gets copied,
 otherwise len == how many characters of src should get copied.
 */
 int	ft_copy(char *dst, char *src, int len)
@@ -58,7 +59,8 @@ char *modify_input(char *input, char *value, int var_len)
 	printf("VAR_LEN: %d\n", var_len);
 	i = ft_copy(new_input, input, i);
 	j = ft_copy(&new_input[i], value, 0);
-	ft_copy(&new_input[i + j], &input[i + var_len], 0);
+	if (&input[i + var_len])
+		ft_copy(&new_input[i + j], &input[i + var_len], 0);
 	return (new_input);
 }
 
@@ -93,7 +95,7 @@ char *get_value(char *var, int *counter)
 	char *value;
 
 	i = 0;
-	value = malloc(sizeof(char *));
+	value = malloc(sizeof(var));
 	if (!var)
 		return (NULL);
 	while (var[i])
@@ -102,8 +104,10 @@ char *get_value(char *var, int *counter)
 		{
 			value = ft_memcpy(value, var, i);
 			*counter = i;
+			break ;
 		}
 		i++;					
+		*counter = i;
 	}
 	return (value);
 }
@@ -119,15 +123,14 @@ char *check_input(t_data *info, char *input)
 	int counter;
 
 	var = get_value(ft_strchr(input, '$'), &counter);
-	value = malloc(sizeof(char *));
-	if (!value)
-		return (input);
 	i = 1;
 	if (var)
 	{
 		value = return_envv_val(info->envv, var + 1);
 		input = modify_input(input, value, counter);
 	}
+	else
+		return (input);
 	free(var);
 	free(value);
 	return (input);

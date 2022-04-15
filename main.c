@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/11 17:45:51 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/14 10:50:13 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int main(int argc, char **argv, char **envv)
 			break ;
 		add_history(input);
 		handle_input(&info, input, counter);
-		counter++;
 		free(input);
+		counter++;
 	}
 	free(info->cmd_table);
 	free(info->envv);
