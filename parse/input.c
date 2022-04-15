@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/15 08:07:27 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/15 08:14:51 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,9 @@ char *check_input(t_data *info, char *input)
 {
 	char *var;
 	char *value;
-	int i;
 	int counter;
 
 	var = get_value(ft_strchr(input, '$'), &counter);
-	i = 1;
 	if (var)
 	{
 		value = return_envv_val(info->envv, var + 1);

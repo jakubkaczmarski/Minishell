@@ -1,8 +1,8 @@
 NAME = minishell
 
 SRCS =	main.c \
+		Libft/*.c \
 		parse/input.c \
-		libft/*.c \
 
 
 all: minishell
