@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/15 11:47:48 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/15 13:16:27 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,11 @@ void handle_input(t_data *info, char *input, int counter)
 {
 	if (ft_strchr(input, '$'))
 		input = check_input(info, input);
+	printf("%p there is an adress of cmd_table\n", info->cmd_table[counter]);
 	info->cmd_table[counter] = malloc(sizeof(input));
+	printf("%p there is an adress of cmd_table\n", info->cmd_table[counter]);
 	info->cmd_table[counter] = input;
+	printf("%p there is an adress of cmd_table\n", info->cmd_table[counter]);
 	printf("[%d]%s\n", counter, info->cmd_table[counter]);
 }
 
