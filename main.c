@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/15 09:48:56 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/15 11:44:39 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int main(int argc, char **argv, char **envv)
 		if (!input)
 			break ;
 		add_history(input);
-		print_envv(info->envv);
+		//print_envv(info->envv);
 		handle_input(info, input, counter);
 		free(input);
 		counter++;

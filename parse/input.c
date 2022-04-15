@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/15 09:51:48 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/15 11:47:48 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,10 @@ char *modify_input(char *input, char *value, int var_len)
 
 	i = 0;
 	new_input = malloc(ft_strlen(input) + ft_strlen(value) + 1);
-	if (!new_input)
-		return (NULL);
-	while (input[i])
-		if (input[i++] == '$')
-			break ;
+	if (!new_input || !value)
+		return (input);
+	while (input[i] != '$')
+		i++;
 	printf("VAR_LEN: %d\n", var_len);
 	i = ft_copy(new_input, input, i);
 	j = ft_copy(&new_input[i], value, 0);
@@ -87,6 +86,7 @@ char *return_envv_val(t_list *l_envv, char *str)
 		tmp = tmp->next;
 		i++;
 	}
+	printf("returned NULL");
 	return (NULL);
 }
 
