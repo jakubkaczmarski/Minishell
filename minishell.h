@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/14 10:29:49 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/15 09:05:42 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	copy_envv(t_list **l_envv, char **envv);
 void	handle_input(t_data **info, char *input, int counter);
 char	*check_input(t_data *info, char *input);
 char	*get_value(char *var, int *counter);
-char	*return_envv_val(t_list *l_envv, char *str);
+char *return_envv_val(t_list *l_envv, char *str);
 char	*modify_input(char *input, char *value, int var_len);
 int		ft_copy(char *dst, char *src, int len);
 

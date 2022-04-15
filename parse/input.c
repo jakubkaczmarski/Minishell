@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/15 08:21:34 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/15 09:05:36 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,12 @@ char *modify_input(char *input, char *value, int var_len)
 	char *new_input;
 
 	i = 0;
-	new_input = malloc(ft_strlen(input) + ft_strlen(value) + 1);
+	if (input && value && var_len >= 0)
+		new_input = malloc(ft_strlen(input) + ft_strlen(value) + 1);
+	else
+		return (NULL);
+	if (!new_input)
+		return (NULL);
 	while (input[i])
 		if (input[i++] == '$')
 			break ;
@@ -71,16 +76,18 @@ char *return_envv_val(t_list *l_envv, char *str)
 {
 	int i;
 	char **value;
+	t_list *tmp;
 
 	i = 0;
-	while (l_envv->next != NULL)
+	tmp = l_envv;
+	while (tmp->next != NULL)
 	{
-		if (!ft_strncmp(l_envv->content, str, ft_strlen(str)))
+		if (!ft_strncmp(tmp->content, str, ft_strlen(str)))
 		{
-			value = ft_split(l_envv->content, '=');
+			value = ft_split(tmp->content, '=');
 			return (value[1]);
 		}
-		l_envv = l_envv->next;
+		tmp = tmp->next;
 		i++;
 	}
 	return (NULL);
@@ -153,12 +160,14 @@ void	copy_envv(t_list **l_envv, char **envv)
 	t_list *tmp;
 	int i;
 
-	i = 0;
+	i = 1;
+	(*l_envv)->content = envv[0];
+	(*l_envv)->next = NULL;
 	while (envv[i])
 	{
 		tmp = ft_lstnew(envv[i]);
 		ft_lstadd_back(l_envv, tmp);
 		i++;
 	}
-	*l_envv = (*l_envv)->next;
+	//*l_envv = (*l_envv)->next;
 }
