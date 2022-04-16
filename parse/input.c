@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/15 13:16:27 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/16 07:03:35 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char *modify_input(char *input, char *value, int var_len)
 	while (input[i] != '$')
 		i++;
 	printf("VAR_LEN: %d\n", var_len);
-	i = ft_copy(new_input, input, i);
+	i = ft_copy(new_input, input, i + 1);
 	j = ft_copy(&new_input[i], value, 0);
 	if (&input[i + var_len])
 		ft_copy(&new_input[i + j], &input[i + var_len], 0);
@@ -148,11 +148,8 @@ void handle_input(t_data *info, char *input, int counter)
 {
 	if (ft_strchr(input, '$'))
 		input = check_input(info, input);
-	printf("%p there is an adress of cmd_table\n", info->cmd_table[counter]);
 	info->cmd_table[counter] = malloc(sizeof(input));
-	printf("%p there is an adress of cmd_table\n", info->cmd_table[counter]);
-	info->cmd_table[counter] = input;
-	printf("%p there is an adress of cmd_table\n", info->cmd_table[counter]);
+	ft_copy(info->cmd_table[counter], input, 0);
 	printf("[%d]%s\n", counter, info->cmd_table[counter]);
 }
 
