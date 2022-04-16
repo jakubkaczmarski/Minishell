@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/16 07:03:35 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/16 07:14:20 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char *modify_input(char *input, char *value, int var_len)
 	char *new_input;
 
 	i = 0;
-	new_input = malloc(ft_strlen(input) + ft_strlen(value) + 1);
+	new_input = malloc(ft_strlen(input) - var_len + ft_strlen(value) + 1);
 	if (!new_input || !value)
 		return (input);
 	while (input[i] != '$')
@@ -99,7 +99,7 @@ char *get_value(char *var, int *counter)
 	char *value;
 
 	i = 0;
-	value = malloc(sizeof(var));
+	value = malloc(sizeof(char *));
 	if (!var)
 		return (NULL);
 	while (var[i])
@@ -123,13 +123,13 @@ char *check_input(t_data *info, char *input)
 {
 	char *var;
 	char *value;
-	int counter;
+	int var_len;
 
-	var = get_value(ft_strchr(input, '$'), &counter);
+	var = get_value(ft_strchr(input, '$'), &var_len);
 	if (var)
 	{
 		value = return_envv_val(info->envv, var + 1);
-		input = modify_input(input, value, counter);
+		input = modify_input(input, value, var_len);
 	}
 	else
 	{
@@ -146,8 +146,8 @@ put envv in a struct and replace them with the actual values
 */
 void handle_input(t_data *info, char *input, int counter)
 {
-	if (ft_strchr(input, '$'))
-		input = check_input(info, input);
+	while (ft_strchr(input, '$'))
+		input = check_input(info, input); //realloc input so no segfault can happen | flag for the while loop to protect
 	info->cmd_table[counter] = malloc(sizeof(input));
 	ft_copy(info->cmd_table[counter], input, 0);
 	printf("[%d]%s\n", counter, info->cmd_table[counter]);
