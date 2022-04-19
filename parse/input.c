@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/19 17:09:55 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/19 17:35:45 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char *modify_input(char *input, char *value, int var_len)
 
 	i = 0;
 	new_input = malloc(ft_strlen(input) + ft_strlen(value) + 1);
-	if (!new_input || !value)
+	if (!new_input)
 		return (input);
 	while (input[i] != '$')
 		i++;
@@ -71,17 +71,25 @@ returns the value of the variable that is given in str. If none is found NULL ge
 char *return_envv_val(t_list *l_envv, char *str)
 {
 	int i;
-	char **value;
+	int counter;
+	char *value;
 	t_list *tmp;
 
 	i = 0;
+	counter = 0;
 	tmp = l_envv;
+	value = malloc(sizeof(char *));
+	if (!value)
+		return (NULL);
 	while (tmp->next != NULL)
 	{
 		if (!ft_strncmp(tmp->content, str, ft_strlen(str)))
 		{
-			value = ft_split(tmp->content, '=');
-			return (value[1]);
+			//value = ft_split(tmp->content, '=');
+			while (tmp->content[counter] != '=')
+				counter++;
+			ft_copy(value, &(tmp->content[counter + 1]), 0);
+			return (value);
 		}
 		tmp = tmp->next;
 		i++;
