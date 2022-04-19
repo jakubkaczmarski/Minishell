@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/16 06:58:57 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/19 17:01:02 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main(int argc, char **argv, char **envv)
 	int counter;
 
 	info = malloc(sizeof(t_data));
-	info->cmd_table = malloc(sizeof(char **));
+	info->cmd_table = malloc(sizeof(char **)); //protect against alloc-fail
 	counter = 0;
 	if (argc != 1)
 		return (input_error());
