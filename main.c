@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/19 17:40:06 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/20 10:49:04 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ int main(int argc, char **argv, char **envv)
 		input = readline("minishell>");
 		if (!input)
 			break ;
-		//add_history(input);
-		// print_envv(info->envv);
-		handle_input(info, input, counter);
+		add_history(input);
+		//print_envv(info->envv);
+		input = handle_input(info, input, counter);
 		free(input);
+		printf("FREE_INPUT: %p\n", input); //should be NULL ?!
+		printf("-------------------------------------------------\n");
 		counter++;
 	}
 	free(info->cmd_table);
