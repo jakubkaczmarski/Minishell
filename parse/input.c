@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 09:12:22 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 11:25:08 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char *return_envv_val(char **envv, char *str)
 		return (NULL);
 	while (envv[i])
 	{
-		if (!ft_strncmp(envv[i], str, ft_strlen(str))) //SEGFAULTs
+		if (!ft_strncmp(envv[i], str, ft_strlen(str)))
 		{
 			while (envv[i][counter] != '=')
 				counter++;
@@ -98,29 +98,48 @@ char *return_envv_val(char **envv, char *str)
 }
 
 /*
+function should remove the brackets. e.g.: {USER} -> USER
+*/
+char *ft_crop_brackets(char *var)
+{
+	char *new_var;
+
+	new_var = ft_calloc(sizeof(char *), ft_strlen(var) + 1);
+	ft_copy(new_var, var, 1);
+	ft_copy(&new_var[1], &var[2], ft_strlen(&var[2]));
+	free(var);
+	return (new_var);
+}
+
+/*
 modifies the value by cutting the rest off. Everything after whitespace.
 */
 char *get_value(char *var, int *counter)
 {
 	int i;
-	char *value;
+	char *variable;
 
 	i = 0;
-	value = malloc(sizeof(char *));
+	variable = malloc(sizeof(char *));
 	if (!var)
 		return (NULL);
 	while (var[i])
 	{
-		if (var[i] == ' ')
+		if (var[i] == ' ') //every non alphnumeric character
 		{
-			value = ft_memcpy(value, var, i);
+			
+			variable = ft_memcpy(variable, var, i); //ft_strdup
 			*counter = i;
-			return (value);
+			printf("BEFORE:	%s\n", variable);
+			if (ft_strchr(variable, '{'))
+				variable = ft_crop_brackets(variable);
+			printf("AFTER:	%s\n", variable);
+			return (variable);
 		}
 		i++;					
 		*counter = i;
 	}
-	return (value);
+	return (variable);
 }
 
 /*
@@ -133,6 +152,7 @@ char *check_input(char *input, char **envv)
 	int var_len;
 
 	var = get_value(ft_strchr(input, '$'), &var_len);
+	printf("RETURNED:	%s\n", var);
 	if (var)
 	{
 		value = return_envv_val(envv, var + 1); //SEGFAULT
