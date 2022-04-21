@@ -1,18 +1,3 @@
 		/*input.c*/
-check_input:
-	input have to be modified so that the variable gets replace by the actual value#
-		input is the entire string
-		var start is the beginning from that on it should be cutted
-		lets cut say input[var_start] gets null terminated
-		then join the value to the input
-		then continue with the rest of the string 
-		 so we need the end of the value which is input[var_start + ft_strlen(var[0])]
-
-echo $USER
-
-FETT MEMORY LEAKS
-get rid of ft_strjoin -> write your own 
-		str_insert
-
--------------------------------------------------------------------
-line 135: input gets lost in the get_value function
+copy_envv: for some reason the content of the first pointer gets
+			changed but I never touch the list after coping ?!?!
