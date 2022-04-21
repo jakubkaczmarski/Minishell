@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 07:50:59 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 08:03:39 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ char *modify_input(char *input, char *value, int var_len)
 	i = 0;
 	new_input = malloc(ft_strlen(input) + ft_strlen(value) + 1);
 	if (!new_input)
+	{
+		printf("allocation failed\n");
 		return (input);
+	}
 	while (input[i] != '$')
 		i++;
 	i = ft_copy(new_input, input, i + 1); 
@@ -134,15 +137,12 @@ char *check_input(char *input, char **envv)
 	{
 		value = return_envv_val(envv, var + 1); //SEGFAULT
 		input = modify_input(input, value, var_len);
-		free(value);
-		free(var);
-		return (input);
 	}
-	else
-	{
+	//if (value)
+	//	free(value);
+	if (var)
 		free(var);
-		return (input);
-	}
+	return (input);
 }
 
 /*
