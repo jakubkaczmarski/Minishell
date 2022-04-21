@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 11:28:58 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 12:00:28 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ char *get_value(char *var, int *counter)
 	char *variable;
 
 	i = 0;
-	//variable = malloc(sizeof(char *));
 	variable = NULL;
 	if (!var)
 		return (NULL);
@@ -129,12 +128,9 @@ char *get_value(char *var, int *counter)
 		if (var[i] == ' ') //every non alphnumeric character
 		{
 			variable = ft_substr(var, 0, i);
-			//variable = ft_memcpy(variable, var, i); //ft_strdup
 			*counter = i;
-			printf("BEFORE:	%s\n", variable);
 			if (ft_strchr(variable, '{'))
 				variable = ft_crop_brackets(variable);
-			printf("AFTER:	%s\n", variable);
 			return (variable);
 		}
 		i++;					
@@ -153,14 +149,11 @@ char *check_input(char *input, char **envv)
 	int var_len;
 
 	var = get_value(ft_strchr(input, '$'), &var_len);
-	printf("RETURNED:	%s\n", var);
 	if (var)
 	{
-		value = return_envv_val(envv, var + 1); //SEGFAULT
+		value = return_envv_val(envv, var + 1);
 		input = modify_input(input, value, var_len);
 	}
-	//if (value)
-	//	free(value);
 	if (var)
 		free(var);
 	return (input);
@@ -171,9 +164,20 @@ put envv in a struct and replace them with the actual values
 */
 char *handle_input(t_data *info, char *input, int counter, char **envv)
 {
-	//while (ft_strchr(input, '$'))
-	input = check_input(input, envv); // flag for the while loop to protect
-	info->cmd_table[counter] = malloc(sizeof(input + 1));
+	int i;
+	int amount_dollars;
+
+	i = 0;
+	amount_dollars = 0;
+	while (input[i])
+		if (input[i++] == '$')
+			amount_dollars++;
+	while (amount_dollars-- > 0)
+	{
+		input = check_input(input, envv); // flag for the while loop to protect
+		printf("input: %s\n", input);
+	}
+	info->cmd_table[counter] = ft_calloc(sizeof(char *), ft_strlen(input) + 1);
 	ft_copy(info->cmd_table[counter], input, 0);
 	printf("[%d]%s\n", counter, info->cmd_table[counter]);
 	return (input);
