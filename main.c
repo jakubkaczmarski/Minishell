@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 11:27:01 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 11:34:29 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int main(int argc, char **argv, char **envv)
 	counter = 0;
 	if (argc != 1)
 		return (input_error());
-	info->envv = malloc(sizeof(t_list *));
+	info->envv = malloc(sizeof(envv));
 	if (!(info->envv))
 		return (1);
 	copy_envv((info->envv), envv);

@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 11:25:08 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 11:28:58 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,15 +120,16 @@ char *get_value(char *var, int *counter)
 	char *variable;
 
 	i = 0;
-	variable = malloc(sizeof(char *));
+	//variable = malloc(sizeof(char *));
+	variable = NULL;
 	if (!var)
 		return (NULL);
 	while (var[i])
 	{
 		if (var[i] == ' ') //every non alphnumeric character
 		{
-			
-			variable = ft_memcpy(variable, var, i); //ft_strdup
+			variable = ft_substr(var, 0, i);
+			//variable = ft_memcpy(variable, var, i); //ft_strdup
 			*counter = i;
 			printf("BEFORE:	%s\n", variable);
 			if (ft_strchr(variable, '{'))
