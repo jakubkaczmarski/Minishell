@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 07:57:25 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 08:18:27 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ int input_error()
 
 void print_envv(t_list *envv)
 {
+	printf("==> %p\n", envv);
 	while (envv->next != NULL)
 	{
-		printf("[] %s\n", envv->content);
+		printf("=> %s\n", envv->content);
+		printf("==> %p\n", envv->next);
 		envv = envv->next;
 	}
 }
@@ -46,14 +48,14 @@ int main(int argc, char **argv, char **envv)
 	info->envv = malloc(sizeof(t_list *));
 	if (!(info->envv))
 		return (1);
-	copy_envv((&info->envv), envv);
+	copy_envv((info->envv), envv);
 	printf("%s", argv[0]); //for testing
 	while (1)
 	{
 		input = readline("minishell>");
 		if (!input)
 			break ;
-		//add_history(input);
+		add_history(input);
 		//print_envv(info->envv);
 		input = handle_input(info, input, counter, envv);
 		free(input);

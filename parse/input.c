@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 08:03:39 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 08:17:34 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,18 +161,21 @@ char *handle_input(t_data *info, char *input, int counter, char **envv)
 /*
 handles the input given by the user and puts it into a struct
 */
-void	copy_envv(t_list **l_envv, char **envv)
+void	copy_envv(t_list *l_envv, char **envv)
 {
 	t_list *tmp;
 	int i;
 
 	i = 1;
-	(*l_envv)->content = envv[0];
-	(*l_envv)->next = NULL;
-	while (envv[i])
+	if (envv)
 	{
-		tmp = ft_lstnew(envv[i]);
-		ft_lstadd_back(l_envv, tmp);
-		i++;
+		(l_envv)->content = envv[0];
+		(l_envv)->next = NULL;
+		while (envv[i])
+		{
+			tmp = ft_lstnew(envv[i]);
+			ft_lstadd_back(&l_envv, tmp);
+			i++;
+		}
 	}
 }
