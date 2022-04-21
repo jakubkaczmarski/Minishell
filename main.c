@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 09:40:12 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 11:27:01 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int input_error()
 
 void print_envv(t_list *envv)
 {
+	if (!envv)
+		return ;
 	printf("==> %p\n", envv);
 	while (envv->next != NULL)
 	{
