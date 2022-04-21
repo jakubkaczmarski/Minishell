@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 12:07:54 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 12:08:28 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ char *modify_input(char *input, char *value, int var_len)
 	i = 0;
 	new_input = ft_calloc(sizeof(char *), ft_strlen(input) + ft_strlen(value) + 1);
 	if (!new_input)
-	{
-		printf("allocation failed\n");
 		return (input);
-	}
 	while (input[i] != '$')
 		i++;
 	i = ft_copy(new_input, input, i + 1); 
