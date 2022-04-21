@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 08:17:34 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 09:12:22 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char *modify_input(char *input, char *value, int var_len)
 	char *new_input;
 
 	i = 0;
-	new_input = malloc(ft_strlen(input) + ft_strlen(value) + 1);
+	new_input = ft_calloc(sizeof(char *), ft_strlen(input) + ft_strlen(value) + 1);
 	if (!new_input)
 	{
 		printf("allocation failed\n");
