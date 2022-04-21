@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 12:00:28 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 12:07:54 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,16 @@ char *return_envv_val(char **envv, char *str)
 	char *value;
 
 	i = 0;
-	counter = 0;
-	value = malloc(sizeof(char *));
-	if (!value)
-		return (NULL);
+	counter = 1;
+	value = NULL;
 	while (envv[i])
 	{
 		if (!ft_strncmp(envv[i], str, ft_strlen(str)))
 		{
 			while (envv[i][counter] != '=')
 				counter++;
-			ft_copy(value, &(envv[i][counter + 1]), 0);
+			value = ft_substr(envv[i], counter, ft_strlen(&envv[i][counter]));
+			printf("VALUE: %s\n", value);
 			return (value);
 		}
 		i++;
