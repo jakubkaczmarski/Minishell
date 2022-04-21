@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/20 10:07:24 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 07:50:54 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ typedef struct s_data {
 //			parse
 //input.c
 void	copy_envv(t_list **l_envv, char **envv);
-char	*handle_input(t_data *info, char *input, int counter);
-char	*check_input(t_data *info, char *input);
+char	*handle_input(t_data *info, char *input, int counter, char **envv);
+char	*check_input(char *input, char **envv);
 char	*get_value(char *var, int *counter);
-char	*return_envv_val(t_list *l_envv, char *str);
+char	*return_envv_val(char **envv, char *str);
 char	*modify_input(char *input, char *value, int var_len);
 int		ft_copy(char *dst, char *src, int len);
 void print_envv(t_list *envv); //for testing

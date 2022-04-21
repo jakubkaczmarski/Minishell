@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/20 10:48:52 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 07:50:59 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,9 @@ char *modify_input(char *input, char *value, int var_len)
 /*
 returns the value of the variable that is given in str. If none is found NULL gets returned
 */
-char *return_envv_val(t_list *l_envv, char *str)
+char *return_envv_val(char **envv, char *str) 
 {
 	int i;
-	int x;
 	int counter;
 	char *value;
 
@@ -80,20 +79,15 @@ char *return_envv_val(t_list *l_envv, char *str)
 	value = malloc(sizeof(char *));
 	if (!value)
 		return (NULL);
-	while (l_envv->next != NULL)
+	while (envv[i])
 	{
-		x = ft_strncmp(l_envv->content, str, ft_strlen(str));
-		printf("%d\n", x);
-		printf("compare: %s with %s\n", l_envv->content, str);
-		if (!x) //SEGFAULTs
+		if (!ft_strncmp(envv[i], str, ft_strlen(str))) //SEGFAULTs
 		{
-			//value = ft_split(tmp->content, '=');
-			while (l_envv->content[counter] != '=')
+			while (envv[i][counter] != '=')
 				counter++;
-			ft_copy(value, &(l_envv->content[counter + 1]), 0);
+			ft_copy(value, &(envv[i][counter + 1]), 0);
 			return (value);
 		}
-		l_envv = l_envv->next;
 		i++;
 	}
 	printf("returned NULL");
@@ -118,7 +112,7 @@ char *get_value(char *var, int *counter)
 		{
 			value = ft_memcpy(value, var, i);
 			*counter = i;
-			break ;
+			return (value);
 		}
 		i++;					
 		*counter = i;
@@ -129,7 +123,7 @@ char *get_value(char *var, int *counter)
 /*
 is checking the input for $-sign and replaces the variable by the value
 */
-char *check_input(t_data *info, char *input)
+char *check_input(char *input, char **envv)
 {
 	char *var;
 	char *value;
@@ -138,7 +132,7 @@ char *check_input(t_data *info, char *input)
 	var = get_value(ft_strchr(input, '$'), &var_len);
 	if (var)
 	{
-		value = return_envv_val(info->envv, var + 1); //SEGFAULT
+		value = return_envv_val(envv, var + 1); //SEGFAULT
 		input = modify_input(input, value, var_len);
 		free(value);
 		free(var);
@@ -154,10 +148,10 @@ char *check_input(t_data *info, char *input)
 /*
 put envv in a struct and replace them with the actual values
 */
-char *handle_input(t_data *info, char *input, int counter)
+char *handle_input(t_data *info, char *input, int counter, char **envv)
 {
 	//while (ft_strchr(input, '$'))
-	input = check_input(info, input); //realloc input so no segfault can happen | flag for the while loop to protect
+	input = check_input(input, envv); // flag for the while loop to protect
 	info->cmd_table[counter] = malloc(sizeof(input + 1));
 	ft_copy(info->cmd_table[counter], input, 0);
 	printf("[%d]%s\n", counter, info->cmd_table[counter]);
@@ -181,5 +175,4 @@ void	copy_envv(t_list **l_envv, char **envv)
 		ft_lstadd_back(l_envv, tmp);
 		i++;
 	}
-	//*l_envv = (*l_envv)->next;
 }

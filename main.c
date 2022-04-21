@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/20 10:49:04 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/21 07:49:44 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int main(int argc, char **argv, char **envv)
 	if (argc != 1)
 		return (input_error());
 	info->envv = malloc(sizeof(t_list *));
-	if (!info->envv)
+	if (!(info->envv))
 		return (1);
 	copy_envv((&info->envv), envv);
 	printf("%s", argv[0]); //for testing
@@ -55,13 +55,14 @@ int main(int argc, char **argv, char **envv)
 			break ;
 		add_history(input);
 		//print_envv(info->envv);
-		input = handle_input(info, input, counter);
+		input = handle_input(info, input, counter, envv);
 		free(input);
-		printf("FREE_INPUT: %p\n", input); //should be NULL ?!
 		printf("-------------------------------------------------\n");
 		counter++;
 	}
-	free(info->cmd_table);
+	counter = 0;
+	while (info->cmd_table[counter])
+		free(info->cmd_table[counter++]);
 	free(info->envv);
 	free(info);
 	return (0);
