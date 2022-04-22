@@ -3,6 +3,10 @@ NAME = minishell
 SRCS =	main.c \
 		Libft/*.c \
 		parse/input.c \
+		parse/input_utils.c \
+		parse/envv.c \
+		builtins/handler.c \
+		builtins/echo.c \
 
 
 all: minishell

@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/22 09:05:11 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/22 13:58:22 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ char	*get_value(char *var, int *counter);
 char	*return_envv_val(char **envv, char *str);
 char	*modify_input(char *input, char *value, int var_len);
 int		ft_copy(char *dst, char *src, int len);
-void print_envv(t_list *envv); //for testing
+void print_envv(char **envv); //for testing
+
+//quotes.c
+char	*handle_quotes(char *input);
+
+//builtins
+//handler.c
+void builtin_handler(t_data *info);
+
 
 #endif
