@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/21 08:17:46 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/22 09:05:11 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_data {
 void	copy_envv(t_list *l_envv, char **envv);
 char	*handle_input(t_data *info, char *input, int counter, char **envv);
 char	*check_input(char *input, char **envv);
+char	*ft_crop_brackets(char *var);
 char	*get_value(char *var, int *counter);
 char	*return_envv_val(char **envv, char *str);
 char	*modify_input(char *input, char *value, int var_len);
