@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 12:08:28 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/22 08:57:34 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,11 @@ char *return_envv_val(char **envv, char *str)
 		{
 			while (envv[i][counter] != '=')
 				counter++;
-			value = ft_substr(envv[i], counter, ft_strlen(&envv[i][counter]));
-			printf("VALUE: %s\n", value);
+			value = ft_substr(envv[i], counter + 1, ft_strlen(&envv[i][counter]));
 			return (value);
 		}
 		i++;
 	}
-	printf("returned NULL");
 	return (NULL);
 }
 
@@ -115,13 +113,13 @@ char *get_value(char *var, int *counter)
 	int i;
 	char *variable;
 
-	i = 0;
+	i = 1;
 	variable = NULL;
 	if (!var)
 		return (NULL);
 	while (var[i])
 	{
-		if (var[i] == ' ') //every non alphnumeric character
+		if (!ft_isalnum(var[i]))
 		{
 			variable = ft_substr(var, 0, i);
 			*counter = i;
@@ -129,7 +127,7 @@ char *get_value(char *var, int *counter)
 				variable = ft_crop_brackets(variable);
 			return (variable);
 		}
-		i++;					
+		i++;			
 		*counter = i;
 	}
 	return (variable);
@@ -145,6 +143,7 @@ char *check_input(char *input, char **envv)
 	int var_len;
 
 	var = get_value(ft_strchr(input, '$'), &var_len);
+	printf("VAR: %s\n", var);
 	if (var)
 	{
 		value = return_envv_val(envv, var + 1);
@@ -169,10 +168,7 @@ char *handle_input(t_data *info, char *input, int counter, char **envv)
 		if (input[i++] == '$')
 			amount_dollars++;
 	while (amount_dollars-- > 0)
-	{
-		input = check_input(input, envv); // flag for the while loop to protect
-		printf("input: %s\n", input);
-	}
+		input = check_input(input, envv);
 	info->cmd_table[counter] = ft_calloc(sizeof(char *), ft_strlen(input) + 1);
 	ft_copy(info->cmd_table[counter], input, 0);
 	printf("[%d]%s\n", counter, info->cmd_table[counter]);
