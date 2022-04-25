@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:07:23 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/25 07:50:59 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/25 14:41:31 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,31 @@ char	*modify_input(char *input, char *value, int var_len)
 {
 	int		i;
 	int		j;
+	int		flag;
 	char	*new_input;
 
 	i = 0;
+	flag = 0;
 	new_input = ft_calloc(sizeof(char *),
 			(ft_strlen(input) + ft_strlen(value) + 1));
 	if (!new_input)
 		return (input);
-	while (input[i] != '$')
+	// while (input[i] != '$')
+	// 	i++;
+	// while (input[i] != '$' && !flag)
+	// {
+	// 	i++;
+	// 	flag = 0;
+	// 	if (input[i - 1] == '\'')
+	// 		flag = 1;
+	// }
+	while (input[i])
+	{
+		if (input[i] == '$' && ((input[i - 1] != '\'') \
+			|| (input[i - 1] == '\'' && input[i - 2] == '"')))
+			break ;
 		i++;
+	}
 	i = ft_copy(new_input, input, i + 1);
 	j = ft_copy(&new_input[i], value, 0);
 	if (&input[i + var_len])
