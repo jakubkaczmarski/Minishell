@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/22 16:05:26 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/25 12:31:24 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,35 @@ char	*check_input(char *input, char **envv)
 counts how many dollar signs are in the input 
 but keeps track on the quoations
 */
-int count_dollars(char *input)
+char *quote_handler(char *input, char **envv)
 {
 	int i;
-	int amount_dollars;
 
 	i = 0;
-	amount_dollars = 0;
 	while (input[i])
 	{
 		//printf("%c => %d\n", input[i], (int) input[i]);
 		if ((int) input[i] == 39 && input[i - 1] == 34) //first double then single quote
-			input = cut_off_douq(&input[i - 1]);
-		if (input[i] == '$')
-			amount_dollars++;
+		{	
+			input = cut_off_douq(input);
+			input = check_input(input, envv);
+		}
 		i++;
 	}
-	printf("NEW_INPUT: %s\n", input);
-	return (amount_dollars);
+	return (input);
+}
+
+int count_dollars(char *input)
+{
+	int i;
+	int amount;
+
+	i = 0;
+	amount = 0;
+	while (input[i])
+		if (input[i++] == '$')
+			amount++;
+	return (amount);
 }
 
 /*
@@ -68,7 +79,10 @@ char	*handle_input(t_data *info, char *input, int counter, char **envv)
 	int	amount_dollars;
 
 	//i = 0;
+	amount_dollars = 0;
+	input = quote_handler(input, envv);
 	amount_dollars = count_dollars(input);
+	printf("recieved: %d\n", amount_dollars);
 	//while (input[i])
 	//	if (input[i++] == '$')
 	//		amount_dollars++;
