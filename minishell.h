@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/25 11:31:14 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/25 13:46:17 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ typedef struct s_cmd {
 //main-struct
 typedef struct s_data {
 	char	**cmd_table;
-	char	*input;
 	t_list	*envv;
 	t_cmd	*cmd;
+	char	*sq_flag;
 }				t_data;
 
 
