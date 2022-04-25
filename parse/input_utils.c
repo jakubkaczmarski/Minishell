@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:07:23 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/22 15:27:54 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/25 07:50:59 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
