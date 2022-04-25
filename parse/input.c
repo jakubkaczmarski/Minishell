@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/25 14:06:35 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/25 15:38:54 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char *quote_handler(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == 39 && input[i - 1] == 34) //first double then single quote	
+		if (input[i] == 34) // && input[i - 1] == 34
 			input = cut_off_douq(input);
 		i++;
 	}

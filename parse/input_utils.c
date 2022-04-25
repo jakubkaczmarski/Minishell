@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:07:23 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/25 14:41:31 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/25 15:34:18 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,9 @@ char	*get_value(char *var, int *counter)
 		i++;
 		*counter = i;
 	}
+	variable = ft_substr(var, 0, i);
+	*counter = i;
+	if (ft_strchr(variable, '{'))
+		variable = ft_crop_brackets(variable);
 	return (variable);
 }

@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:57:02 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/25 12:09:30 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/25 15:36:20 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char *cut_off_douq(char *input)
     i = 1;
     j = 1;
     index = 0;
+    printf("Doublequote_function got triggert\n");
     new_input = ft_calloc(sizeof(char *), ft_strlen(input) - 2);
     while (input[i] != 34)
         i++;
