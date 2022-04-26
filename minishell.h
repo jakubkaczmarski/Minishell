@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/25 13:46:17 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/26 06:11:59 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,27 @@ typedef struct s_data {
 
 //			parse
 //input.c
-void	copy_envv(t_list *l_envv, char **envv);
 char	*handle_input(t_data *info, char *input, int counter, char **envv);
 char	*check_input(char *input, char **envv);
-char	*ft_crop_brackets(char *var);
-char	*get_value(char *var, int *counter);
-char	*return_envv_val(char **envv, char *str);
-char	*modify_input(char *input, char *value, int var_len);
-int		ft_copy(char *dst, char *src, int len);
+char	*find_dollar(char *input);
+int		count_dollars(char *input);
 void print_envv(char **envv); //for testing
 
+//input_utils.c
+int		ft_copy(char *dst, char *src, int len);
+char	*modify_input(char *input, char *value, int var_len);
+char	*return_envv_val(char **envv, char *str);
+char	*ft_crop_brackets(char *var);
+char	*get_value(char *var, int *counter);
+
 //quotes.c
-char	*handle_quotes(char *input);
+char *quote_handler(char *input);
 char *cut_off_douq(char *input);
 
+//envv
+void	copy_envv(t_list *l_envv, char **envv);
 
-//builtins
+//			builtins
 //handler.c
 void builtin_handler(t_data *info);
 

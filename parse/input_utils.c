@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:07:23 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/25 15:34:18 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/26 06:10:53 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,6 @@ char	*modify_input(char *input, char *value, int var_len)
 			(ft_strlen(input) + ft_strlen(value) + 1));
 	if (!new_input)
 		return (input);
-	// while (input[i] != '$')
-	// 	i++;
-	// while (input[i] != '$' && !flag)
-	// {
-	// 	i++;
-	// 	flag = 0;
-	// 	if (input[i - 1] == '\'')
-	// 		flag = 1;
-	// }
 	while (input[i])
 	{
 		if (input[i] == '$' && ((input[i - 1] != '\'') \

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/25 15:38:54 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/26 06:09:32 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *find_dollar(char *input)
+char	*find_dollar(char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[i])
@@ -50,35 +50,14 @@ char	*check_input(char *input, char **envv)
 }
 
 /*
-@param 34 double quote
-@param 39 single quote
-
-counts how many dollar signs are in the input 
-but keeps track on the quoations
-*/
-char *quote_handler(char *input)
-{
-	int i;
-
-	i = 0;
-	while (input[i])
-	{
-		if (input[i] == 34) // && input[i - 1] == 34
-			input = cut_off_douq(input);
-		i++;
-	}
-	return (input);
-}
-
-/*
 counts how many dollar signgs are in the input so 
 he function in the handler know how many variables
 have to get replaced.
 */
-int count_dollars(char *input)
+int	count_dollars(char *input)
 {
-	int i;
-	int amount;
+	int		i;
+	int		amount;
 
 	i = 0;
 	amount = 0;
@@ -97,13 +76,9 @@ put envv in a struct and replace them with the actual values
 */
 char	*handle_input(t_data *info, char *input, int counter, char **envv)
 {
-	//int	i;
 	int	amount_dollars;
 
-	//i = 0;
-	amount_dollars = 0;
 	amount_dollars = count_dollars(input);
-	printf("recieved: %d\n", amount_dollars);
 	while (amount_dollars-- > 0)
 		input = check_input(input, envv);
 	input = quote_handler(input);
