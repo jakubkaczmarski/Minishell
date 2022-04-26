@@ -6,6 +6,7 @@ SRCS =	main.c \
 		parse/input_utils.c \
 		parse/envv.c \
 		parse/quotes.c \
+		parse/cmd_table.c \
 		builtins/handler.c \
 		builtins/echo.c \
 

@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:07:23 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/26 06:10:53 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/26 08:17:28 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,9 @@ char	*modify_input(char *input, char *value, int var_len)
 {
 	int		i;
 	int		j;
-	int		flag;
 	char	*new_input;
 
 	i = 0;
-	flag = 0;
 	new_input = ft_calloc(sizeof(char *),
 			(ft_strlen(input) + ft_strlen(value) + 1));
 	if (!new_input)

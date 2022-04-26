@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/26 06:11:59 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/26 08:13:48 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,15 @@ char	*get_value(char *var, int *counter);
 char *quote_handler(char *input);
 char *cut_off_douq(char *input);
 
-//envv
+//envv.c
 void	copy_envv(t_list *l_envv, char **envv);
+
+//cmd_table.c
+void cmd_table_handler(t_data *info, char *input);
+
 
 //			builtins
 //handler.c
 void builtin_handler(t_data *info);
-
 
 #endif

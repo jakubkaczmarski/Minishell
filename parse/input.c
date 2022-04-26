@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/26 06:09:32 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/26 08:19:14 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ char	*handle_input(t_data *info, char *input, int counter, char **envv)
 	while (amount_dollars-- > 0)
 		input = check_input(input, envv);
 	input = quote_handler(input);
-	info->cmd_table[counter] = ft_calloc(sizeof(char *), ft_strlen(input) + 1);
-	ft_copy(info->cmd_table[counter], input, 0);
-	printf("[%d]%s\n", counter, info->cmd_table[counter]);
+	cmd_table_handler(info, input);
+	//printf("[%d]%s\n", counter, info->cmd_table[counter]);
 	return (input);
 }
