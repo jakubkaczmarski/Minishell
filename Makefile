@@ -1,14 +1,19 @@
 NAME = minishell
 
 SRCS =	main.c \
+		Libft/*.c \
 		parse/input.c \
-		libft/*.c \
+		parse/input_utils.c \
+		parse/envv.c \
+		parse/quotes.c \
+		builtins/handler.c \
+		builtins/echo.c \
 
 
 all: minishell
 
 $(NAME):
-	gcc -Wall -Wextra -Werror -lreadline -o $(NAME) $(SRCS)
+	gcc -Wall -Wextra -Werror -lreadline -ggdb3 -o $(NAME) $(SRCS)
 clean:
 	@rm -f minishell
 fclean:

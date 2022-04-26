@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:17:52 by jtomala           #+#    #+#             */
-/*   Updated: 2021/11/29 13:23:42 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/25 14:02:33 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ char	*ft_strchr(const char *s, int c)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if (s[i] == c && ((s[i - 1] != '\'') \
+			|| (s[i - 1] == '\'' && s[i - 2] == '"')))
 			return (&((char *)s)[i]);
 		i++;
 	}

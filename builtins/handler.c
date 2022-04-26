@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 12:14:07 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/15 08:32:12 by jtomala          ###   ########.fr       */
+/*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
+/*   Updated: 2022/04/22 15:37:34 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+/*
+handles all the builtins. Goes through the command table
+and if he found a command he calls the right function
+*/
+void builtin_handler(t_data *info)
 {
-	size_t	i;
-	char	*str;
+	int y;
 
-	i = 0;
-	str = (char *)malloc(sizeof(char) * len + 1);
-	if (str == NULL)
-		return (NULL);
-	while (i < len && start <= (unsigned int) ft_strlen(s))
+	y = 0;
+	while (info->cmd_table[y])
 	{
-		str[i] = s[start + i];
-		i++;
+		//printf("%s\n", info->cmd_table[y]);
+		if (!ft_strncmp(info->cmd_table[y], "echo", 4))
+		{
+			printf("'echo' detected\n");
+		}
+		y++;
 	}
-	str[i] = '\0';
-	return (str);
 }

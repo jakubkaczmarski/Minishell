@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   envv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 11:31:02 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 11:21:51 by jtomala          ###   ########.fr       */
+/*   Created: 2022/04/22 09:08:41 by jtomala           #+#    #+#             */
+/*   Updated: 2022/04/22 09:10:10 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include "libft.h"
+#include "../minishell.h"
 
-char	*ft_strdup(const char *s1)
+/*
+handles the input given by the user and puts it into a struct
+*/
+void	copy_envv(t_list *l_envv, char **envv)
 {
-	char	*str;
-	size_t	size;
+	t_list	*tmp;
+	int		i;
 
-	size = ft_strlen(s1) + 1;
-	str = malloc(size);
-	if (str == NULL)
-		return (NULL);
-	if (str)
-		ft_memcpy(str, s1, size);
-	return (str);
+	i = 1;
+	if (envv)
+	{
+		(l_envv)->content = envv[0];
+		(l_envv)->next = NULL;
+		while (envv[i])
+		{
+			tmp = ft_lstnew(envv[i]);
+			ft_lstadd_back(&l_envv, tmp);
+			i++;
+		}
+	}
 }
