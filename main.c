@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/27 16:10:59 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/04/27 17:19:13 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int main(int argc, char **argv, char **envv)
 		add_history(input);
 		//print_envv(envv);
 		input = handle_input(info, input, counter, envv);
-		//builtin_handler(info);
+		builtin_handler(info);
 		free(input);
 		printf("-------------------------------------------------\n");
 		counter++;
