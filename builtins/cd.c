@@ -6,13 +6,14 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:07:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/27 16:09:53 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/04/27 16:22:56 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//CD build in first check if there is an argument to the cd command
+//CD 
+//first check if there is an argument to the cd command
 //If there isn't find HOME variable and cd into it
 void	cd(t_data *info)
 {

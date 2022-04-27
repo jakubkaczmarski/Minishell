@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/27 16:05:20 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/04/27 16:20:48 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*get_value(char *var, int *counter);
 char	*return_envv_val(char **envv, char *str);
 char	*modify_input(char *input, char *value, int var_len);
 int		ft_copy(char *dst, char *src, int len);
-void print_envv(char **envv); //for testing
+void	print_envv(char **envv); //for testing
 
 //quotes.c
 char	*handle_quotes(char *input);
@@ -58,5 +58,6 @@ char *cut_off_douq(char *input);
 //handler.c
 void	builtin_handler(t_data *info);
 void	cd(t_data *info);
+void	exit_clean(t_data *info);
 
 #endif
