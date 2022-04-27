@@ -8,6 +8,7 @@ SRCS =	main.c \
 		parse/quotes.c \
 		builtins/handler.c \
 		builtins/echo.c \
+		builtins/cd.c \
 
 
 all: minishell
