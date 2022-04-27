@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/26 08:13:48 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/27 10:09:31 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_data {
 
 //			parse
 //input.c
-char	*handle_input(t_data *info, char *input, int counter, char **envv);
+char	*handle_input(t_data *info, char *input, char **envv);
 char	*check_input(char *input, char **envv);
 char	*find_dollar(char *input);
 int		count_dollars(char *input);

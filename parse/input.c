@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/26 08:19:14 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/27 10:08:25 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	count_dollars(char *input)
 /*
 put envv in a struct and replace them with the actual values
 */
-char	*handle_input(t_data *info, char *input, int counter, char **envv)
+char	*handle_input(t_data *info, char *input, char **envv)
 {
 	int	amount_dollars;
 

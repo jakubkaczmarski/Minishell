@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/26 08:19:51 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/27 10:21:16 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,14 @@ int main(int argc, char **argv, char **envv)
 			break ;
 		add_history(input);
 		//print_envv(envv);
-		input = handle_input(info, input, counter, envv);
+		input = handle_input(info, input, envv);
 		//builtin_handler(info);
 		free(input);
+		while (info->cmd_table[counter])
+			free(info->cmd_table[counter++]);
+		counter = 0;
 		printf("-------------------------------------------------\n");
-		counter++;
 	}
-	counter = 0;
-	while (info->cmd_table[counter])
-		free(info->cmd_table[counter++]);
 	free(info->envv);
 	free(info);
 	return (0);
