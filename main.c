@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/28 10:42:03 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/28 13:09:30 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,9 @@ int main(int argc, char **argv, char **envv)
 		counter = 0;
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);
+		free(info->cmd_table);
 	}
 	//ft_lstclear(&info->envv, free);
-	counter = 0;
-	free(info->cmd);
 	free(info);
-	exit(0);
 	return (0);
 }

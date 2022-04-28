@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/28 10:34:45 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/28 13:10:43 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ char	*check_input(char *input, char **envv)
 	{
 		value = return_envv_val(envv, var + 1);
 		input = modify_input(input, value, var_len);
+		// printf("var: %p\n", var);
+		// printf("value: %p\n", value);
+		// printf("input: %p\n", input);
+		free(value);
 	}
 	free(var);
 	return (input);
@@ -79,9 +83,10 @@ char	*handle_input(t_data *info, char *input, char **envv)
 
 	amount_dollars = count_dollars(input);
 	while (amount_dollars-- > 0)
+	{
 		input = check_input(input, envv);
-	input = quote_handler(input);
+		input = quote_handler(input);
+	}
 	cmd_table_handler(info, input);
-	//printf("[%d]%s\n", counter, info->cmd_table[counter]);
 	return (input);
 }

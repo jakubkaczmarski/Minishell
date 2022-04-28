@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:07:23 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/26 08:17:28 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/28 12:40:41 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ char	*modify_input(char *input, char *value, int var_len)
 	}
 	i = ft_copy(new_input, input, i + 1);
 	j = ft_copy(&new_input[i], value, 0);
-	if (&input[i + var_len])
-		ft_copy(&new_input[i + j], &input[i + var_len], 0);
+	ft_copy(&new_input[i + j], &input[i + var_len], 0);
 	free(input);
 	return (new_input);
 }
@@ -141,6 +140,7 @@ char	*get_value(char *var, int *counter)
 		*counter = i;
 	}
 	variable = ft_substr(var, 0, i);
+	printf("variable: %p\n", variable);
 	*counter = i;
 	if (ft_strchr(variable, '{'))
 		variable = ft_crop_brackets(variable);

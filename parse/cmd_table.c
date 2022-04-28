@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 08:09:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/28 10:52:56 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/28 12:43:59 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ and then splits the input by pipe.
 void cmd_table_handler(t_data *info, char *input)
 {
     info->cmd_table = ft_split(input, '|');
-    info->cmd_table = remove_spaces(info->cmd_table);
+    //info->cmd_table = remove_spaces(info->cmd_table);
     print_cmd_table(info->cmd_table);
 }
