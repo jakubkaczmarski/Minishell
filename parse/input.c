@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/27 10:08:25 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/28 10:34:45 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ char	*check_input(char *input, char **envv)
 		value = return_envv_val(envv, var + 1);
 		input = modify_input(input, value, var_len);
 	}
-	if (var)
-		free(var);
+	free(var);
 	return (input);
 }
 

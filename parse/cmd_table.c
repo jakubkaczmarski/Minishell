@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 08:09:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/27 13:32:41 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/28 10:52:56 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ char **remove_spaces(char **cmd_table)
                 //  copy the pipe into the string
                 //  copy at (x + 1) until the rest -> 0
             }
-            j++;
+            x++;
         }
-        j = 0;
-        i++;
+        x = 0;
+        y++;
     }
     return (cmd_table);
 }
@@ -43,7 +43,9 @@ char **remove_spaces(char **cmd_table)
 */
 void print_cmd_table(char **cmd_table)
 {
-    int i = 0;
+    int i;
+
+    i = 0;
     while (cmd_table[i])
     {
         printf("[%d] %s\n", i, cmd_table[i]);
@@ -58,7 +60,7 @@ and then splits the input by pipe.
 */
 void cmd_table_handler(t_data *info, char *input)
 {
-    info->cmd_table = remove_spaces(info->cmd_table);
     info->cmd_table = ft_split(input, '|');
+    info->cmd_table = remove_spaces(info->cmd_table);
     print_cmd_table(info->cmd_table);
 }

@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/27 10:21:16 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/28 10:42:03 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,13 @@ int main(int argc, char **argv, char **envv)
 	char *input;
 	int counter;
 
-	info = malloc(sizeof(t_data *));
-	info->cmd_table = malloc(sizeof(char **)); //protect against alloc-fail
-	counter = 0;
 	if (argc != 1)
 		return (input_error());
-	info->envv = malloc(sizeof(char **));
-	if (!(info->envv))
+	info = malloc(sizeof(t_data *));
+	if (!info)
 		return (1);
-	copy_envv((info->envv), envv);
+	// if (copy_envv((info->envv), envv))
+	// 	return (1);
 	printf("%s", argv[0]); //for testing
 	while (1)
 	{
@@ -71,14 +69,19 @@ int main(int argc, char **argv, char **envv)
 		add_history(input);
 		//print_envv(envv);
 		input = handle_input(info, input, envv);
+		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
+			break ;
 		//builtin_handler(info);
+		printf("-------------------------------------------------\n");
 		free(input);
+		counter = 0;
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);
-		counter = 0;
-		printf("-------------------------------------------------\n");
 	}
-	free(info->envv);
+	//ft_lstclear(&info->envv, free);
+	counter = 0;
+	free(info->cmd);
 	free(info);
+	exit(0);
 	return (0);
 }

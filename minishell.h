@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/27 10:09:31 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/28 10:04:39 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_data {
 	char	**cmd_table;
 	t_list	*envv;
 	t_cmd	*cmd;
-	char	*sq_flag;
 }				t_data;
 
 
@@ -57,7 +56,7 @@ char *quote_handler(char *input);
 char *cut_off_douq(char *input);
 
 //envv.c
-void	copy_envv(t_list *l_envv, char **envv);
+int	copy_envv(t_list *l_envv, char **envv);
 
 //cmd_table.c
 void cmd_table_handler(t_data *info, char *input);
