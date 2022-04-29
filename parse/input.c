@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/28 13:10:43 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/29 14:53:55 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,6 @@ char	*handle_input(t_data *info, char *input, char **envv)
 		input = check_input(input, envv);
 		input = quote_handler(input);
 	}
-	cmd_table_handler(info, input);
+	input = cmd_table_handler(info, input);
 	return (input);
 }

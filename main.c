@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/29 09:46:06 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/29 14:28:05 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int main(int argc, char **argv, char **envv)
 		if (!input)
 			break ;
 		add_history(input);
-		print_envv(envv);
+		//print_envv(envv);
 		input = handle_input(info, input, envv);
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
 			break ;
