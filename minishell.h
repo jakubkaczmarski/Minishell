@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/29 14:54:45 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/30 08:12:27 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	copy_envv(t_list *l_envv, char **envv);
 
 //cmd_table.c
 char *cmd_table_handler(t_data *info, char *input);
+int count_pipes(char *input);
+char *remove_spaces_at_pipes(char *input);
 
 
 //			builtins

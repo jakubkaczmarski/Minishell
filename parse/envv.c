@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:08:41 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/29 09:45:55 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/30 08:25:15 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	copy_envv(t_list *l_envv, char **envv)
 			free(tmp);
 			i++;
 		}
+		return (0);
 	}
-	return (0);
+	return (1);
 }

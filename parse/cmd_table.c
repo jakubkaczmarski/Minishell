@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_table.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 08:09:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/29 15:23:01 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/30 08:26:18 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /*
-removes the spaces aroung the pipe and if somewhere is
-more then one space in a row remove all additional
+removes the spaces around the pipe
 */
-char *remove_spaces_at_pipes(char *input)
+char    *remove_spaces_at_pipes(char *input)
 {
     int x;
     int i;
@@ -81,6 +80,37 @@ void print_cmd_table(char **cmd_table)
 }
 
 /*
+if somewhere is more then one space in a row
+remove all additional
+*/
+char *remove_multi_spaces(char *input)
+{
+    int i;
+    int j;
+    int counter;
+    char *new_input;
+
+    i = 0;
+    j = 0;
+    counter = 0;
+    while (input[i])
+    {
+        if (input[i] == ' ' && input[i + 1] == ' ')
+        {
+            while (input[i + counter] == ' ')
+                counter++;
+            new_input = ft_calloc(sizeof(char *), ft_strlen(input));
+            j = ft_copy(new_input, input, i + 1);
+            ft_copy(&new_input[j], &input[i + counter], 0);
+            counter = 0;
+        }
+        i++;
+    }
+    return (new_input);
+}
+
+
+/*
 takes the input in puts it into the cmd_table. 
 before that, it removes the spaces around the pipe
 and then splits the input by pipe.
@@ -92,6 +122,7 @@ char *cmd_table_handler(t_data *info, char *input)
     amount_pipes = count_pipes(input);
     while (amount_pipes-- > 0)
         input = remove_spaces_at_pipes(input);
+    input = remove_multi_spaces(input);
     info->cmd_table = ft_split(input, '|');
     print_cmd_table(info->cmd_table);
     return (input);

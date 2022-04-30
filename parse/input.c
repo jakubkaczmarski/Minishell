@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/29 14:53:55 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/04/30 08:25:58 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ char	*check_input(char *input, char **envv)
 	{
 		value = return_envv_val(envv, var + 1);
 		input = modify_input(input, value, var_len);
-		// printf("var: %p\n", var);
-		// printf("value: %p\n", value);
-		// printf("input: %p\n", input);
 		free(value);
 	}
 	free(var);
