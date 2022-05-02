@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 08:09:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/30 08:26:18 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/02 09:15:31 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,50 @@ char *remove_multi_spaces(char *input)
     i = 0;
     j = 0;
     counter = 0;
+    new_input = ft_calloc(sizeof(char *), ft_strlen(input) + 1);
+    if (!new_input)
+        return (input);
     while (input[i])
     {
         if (input[i] == ' ' && input[i + 1] == ' ')
         {
             while (input[i + counter] == ' ')
                 counter++;
-            new_input = ft_calloc(sizeof(char *), ft_strlen(input));
-            j = ft_copy(new_input, input, i + 1);
+            j = ft_copy(new_input, input, i + 2);
             ft_copy(&new_input[j], &input[i + counter], 0);
+            i += counter;
             counter = 0;
         }
         i++;
     }
+    if (j == 0)
+        return (input);
+    free(input);
     return (new_input);
 }
 
+/*
+counts how many multi spaces are in the string
+*/
+int count_multis(char *input)
+{
+    int counter;
+    int i;
+
+    counter = 0;
+    i = 0;
+    while (input[i])
+    {
+        if (input[i] == ' ' && input[i + 1] == ' ')
+        {
+            while (input[i] == ' ')
+                i++;
+            counter++;
+        }
+        i++;
+    }
+    return (counter);
+}
 
 /*
 takes the input in puts it into the cmd_table. 
@@ -118,11 +146,14 @@ and then splits the input by pipe.
 char *cmd_table_handler(t_data *info, char *input)
 {
     int amount_pipes;
+    int amount_multis;
 
     amount_pipes = count_pipes(input);
+    amount_multis = count_multis(input);
     while (amount_pipes-- > 0)
         input = remove_spaces_at_pipes(input);
-    input = remove_multi_spaces(input);
+    while (amount_multis-- > 0)
+        input = remove_multi_spaces(input);
     info->cmd_table = ft_split(input, '|');
     print_cmd_table(info->cmd_table);
     return (input);
