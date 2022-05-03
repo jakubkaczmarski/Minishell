@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/25 15:38:54 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/02 21:08:10 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ counts how many dollar signgs are in the input so
 he function in the handler know how many variables
 have to get replaced.
 */
-int count_dollars(char *input)
+int	count_dollars(char *input)
 {
 	int i;
 	int amount;
@@ -108,6 +108,7 @@ char	*handle_input(t_data *info, char *input, int counter, char **envv)
 		input = check_input(input, envv);
 	input = quote_handler(input);
 	info->cmd_table[counter] = ft_calloc(sizeof(char *), ft_strlen(input) + 1);
+
 	ft_copy(info->cmd_table[counter], input, 0);
 	printf("[%d]%s\n", counter, info->cmd_table[counter]);
 	return (input);

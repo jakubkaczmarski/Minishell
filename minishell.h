@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/25 13:46:17 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/03 15:23:41 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_cmd {
 //main-struct
 typedef struct s_data {
 	char	**cmd_table;
+	char	***formated_cmds;
 	t_list	*envv;
 	t_cmd	*cmd;
 	char	*sq_flag;
@@ -49,14 +50,20 @@ char	*modify_input(char *input, char *value, int var_len);
 int		ft_copy(char *dst, char *src, int len);
 void print_envv(char **envv); //for testing
 
+
+//Command_formatting :)
+void	print_lines(t_data *info, int counter);
+void	format_line(t_data *info, int counter);
 //quotes.c
+
 char	*handle_quotes(char *input);
 char *cut_off_douq(char *input);
 
-
 //builtins
+void	pwd(void);
 //handler.c
-void builtin_handler(t_data *info);
+void builtin_handler(t_data *info, int counter);
 
-
+//cleaning_stuff
+void    delete_env_list(t_data *info);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/25 12:15:06 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/03 15:21:19 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ int main(int argc, char **argv, char **envv)
 	char *input;
 	int counter;
 
+	counter = 0;
 	info = malloc(sizeof(t_data *));
 	info->cmd_table = malloc(sizeof(char **)); //protect against alloc-fail
+	info->formated_cmds = malloc(sizeof(char **) * 1000);
 	counter = 0;
 	if (argc != 1)
 		return (input_error());
@@ -63,22 +65,34 @@ int main(int argc, char **argv, char **envv)
 		return (1);
 	copy_envv((info->envv), envv);
 	printf("%s", argv[0]); //for testing
+
 	while (1)
 	{
 		input = readline("minishell>");
-		if (!input)
+		if (!input || ft_strncmp(input, "exit", 4) == 0)
+		{
+			free(input);
 			break ;
+		}
 		add_history(input);
-		//print_envv(envv);
 		input = handle_input(info, input, counter, envv);
-		//builtin_handler(info);
+		format_line(info, counter);
+		builtin_handler(info, counter);
 		free(input);
-		printf("-------------------------------------------------\n");
 		counter++;
 	}
-	counter = 0;
-	while (info->cmd_table[counter])
-		free(info->cmd_table[counter++]);
+	if(counter == -1)
+		return 0;
+	else
+	{
+		print_lines(info, counter);
+		counter = 0;
+		// while (info->cmd_table[counter + 1])
+		// 	free(info->cmd_table[counter++]);
+	}
+	//lowercase user seg_faults
+	//List are not freed
+	delete_env_list(info);
 	free(info->envv);
 	free(info);
 	return (0);
