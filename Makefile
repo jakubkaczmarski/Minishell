@@ -9,7 +9,8 @@ SRCS =	main.c \
 		builtins/handler.c \
 		builtins/echo.c \
 		format/put_command.c\
-		builtins/pwd.c
+		builtins/pwd.c\
+		builtins/cd.c
 
 
 all: minishell

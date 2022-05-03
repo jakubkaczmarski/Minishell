@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/03 15:23:41 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/03 18:19:44 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char *cut_off_douq(char *input);
 
 //builtins
 void	pwd(void);
+void	cd(t_data *info, int counter);
+void	ft_echo(t_data *info, int counter);
 //handler.c
 void builtin_handler(t_data *info, int counter);
 
