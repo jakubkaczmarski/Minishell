@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/30 08:25:23 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/02 14:15:06 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int main(int argc, char **argv, char **envv)
 		input = readline("minishell>");
 		if (!input)
 			break ;
-		//add_history(input);
+		add_history(input);
 		//print_envv(envv);
 		input = handle_input(info, input, envv);
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
