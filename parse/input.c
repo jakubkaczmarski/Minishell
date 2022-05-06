@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/30 08:25:58 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/06 10:25:49 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ char	*check_input(char *input, char **envv)
 
 	pos_dollar = find_dollar(input);
 	var = get_value(pos_dollar, &var_len);
-	if (var)
-	{
-		value = return_envv_val(envv, var + 1);
+	value = return_envv_val(envv, var + 1);
+	if (value)
+	{	
 		input = modify_input(input, value, var_len);
 		free(value);
 	}
