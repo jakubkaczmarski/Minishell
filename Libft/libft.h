@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:53:22 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/20 09:11:53 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/06 10:09:31 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,9 @@ void					ft_lstclear(t_list **lst, void (*del)(void *));
 void					ft_lstiter(t_list *lst, void (*f) (void *));
 
 t_list					*ft_lstmap(t_list *lst, void *(*f) (void *),
-							void (*del) (void *));
+							void (*del) (void *));						
+//include a mod for ft_split
+void					check_quotes(char str, int *flag_s, int *flag_d);
+int						flag_handler(const char *str, int *flag, int i);
 
 #endif

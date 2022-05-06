@@ -6,23 +6,11 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:29:28 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/05 08:28:29 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/06 10:09:19 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void check_quotes(char str, int *flag_s, int *flag_d)
-{
-	if (str == '\'' && *flag_s == 0)
-		*flag_s = 1;
-	else if (str == '\'' && *flag_s == 1)
-		*flag_s = 0;
-	else if (str == '"' && *flag_d == 0)
-		*flag_d = 1;
-	else if (str == '"' && *flag_d == 1)
-		*flag_d = 0;
-}
 
 static size_t	ft_countwords(const char *str, char c)
 {
@@ -53,8 +41,8 @@ static size_t	ft_countwords(const char *str, char c)
 static size_t	ft_wordlen(const char *str, char c)
 {
 	size_t	i;
-	int flag_s;
-	int flag_d;
+	int		flag_s;
+	int		flag_d;
 
 	i = 0;
 	flag_s = 0;
@@ -90,30 +78,22 @@ static char	**ft_fillwords(char **new, const char *str, char c, size_t count)
 {
 	size_t	words;
 	size_t	len;
-	size_t	i;
-	int flag;
+	int		i;
+	int		flag;
 
 	i = 0;
 	words = 0;
 	flag = 0;
 	while (words < count)
 	{
-		while (str[i] == c)	
+		while (str[i] == c)
 			i++;
 		len = ft_wordlen(str + i, c);
 		new[words] = ft_substr(str, i, len);
 		if (!new[words])
 			return (ft_freemem(new, words));
 		while (str[i] && str[i] != c)
-		{
-			check_quotes(str[i], &flag, &flag);
-			i++;
-			while (flag == 1)
-			{
-				check_quotes(str[i], &flag, &flag);
-				i++;
-			}
-		}
+			i = flag_handler(str, &flag, i);
 		words++;
 	}
 	new[words] = NULL;
