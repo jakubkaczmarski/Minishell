@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/04/30 08:12:27 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/06 10:58:21 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*handle_input(t_data *info, char *input, char **envv);
 char	*check_input(char *input, char **envv);
 char	*find_dollar(char *input);
 int		count_dollars(char *input);
-void print_envv(char **envv); //for testing
+void	print_envv(char **envv); //for testing
 
 //input_utils.c
 int		ft_copy(char *dst, char *src, int len);
@@ -52,20 +52,25 @@ char	*ft_crop_brackets(char *var);
 char	*get_value(char *var, int *counter);
 
 //quotes.c
-char *quote_handler(char *input);
-char *cut_off_douq(char *input);
+char	*quote_handler(char *input);
+char	*cut_off_douq(char *input);
 
 //envv.c
-int	copy_envv(t_list *l_envv, char **envv);
+int		copy_envv(t_list *l_envv, char **envv);
 
 //cmd_table.c
-char *cmd_table_handler(t_data *info, char *input);
-int count_pipes(char *input);
-char *remove_spaces_at_pipes(char *input);
+void	print_cmd_table(char **cmd_table); //for testing
+char	*remove_spaces(char *input, int x, int i);
+char	*remove_spaces_at_pipes(char *input);
+char	*remove_multi_spaces(char *input, int i, int j);
+char 	*cmd_table_handler(t_data *info, char *input);
 
+//cmd_table_utils.c
+int		count_pipes(char *input);
+int		count_multis(char *input);
 
 //			builtins
 //handler.c
-void builtin_handler(t_data *info);
+void	builtin_handler(t_data *info);
 
 #endif
