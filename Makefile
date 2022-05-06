@@ -10,6 +10,7 @@ SRCS =	main.c \
 		parse/cmd_table_utils.c \
 		builtins/handler.c \
 		builtins/echo.c \
+		builtins/export.c \
 
 
 all: minishell

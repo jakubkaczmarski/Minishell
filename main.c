@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/06 10:29:35 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/06 14:56:17 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,22 @@ int main(int argc, char **argv, char **envv)
 	info = malloc(sizeof(t_data *));
 	if (!info)
 		return (1);
-	if (copy_envv((info->envv), envv))
-		return (1);
+	//if (copy_envv((info->envv), envv))
+	//	return (1);
+	info->envv = NULL;
+	copy_envv(info->envv, envv);
 	printf("%s", argv[0]); //for testing
 	while (1)
 	{
 		input = readline("minishell>");
 		if (!input)
 			break ;
-		add_history(input);
+		//add_history(input);
 		//print_envv(envv);
 		input = handle_input(info, input, envv);
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
 			break ;
-		//builtin_handler(info);
+		builtin_handler(info);
 		printf("-------------------------------------------------\n");
 		free(input);
 		counter = 0;
