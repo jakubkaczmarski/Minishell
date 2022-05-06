@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_table.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 08:09:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/02 09:15:31 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/06 10:14:58 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,22 @@ removes the spaces around the pipe
 */
 char    *remove_spaces_at_pipes(char *input)
 {
-    int x;
-    int i;
-    char *new_str;
+    int     x;
+    int     i;
+    char    *new_str;
+    int     flag;
 
     x = 0;
     i = 0;
+    flag = 0;
     while (input[x])
     {
-        if (input[x] == '|' && (input[x - 1] == ' ' || input[x + 1] == ' '))
+        if (input[x] == '\'' && flag == 0)
+            flag = 1;
+        else if (input[x] == '\'' && flag == 1)
+            flag = 0;
+        if (input[x] == '|' && (input[x - 1] == ' ' || input[x + 1] == ' ') \
+            && flag == 0)
         {
             new_str = ft_calloc(sizeof(char *), ft_strlen(input));
             if (input[x - 1] == ' ')
