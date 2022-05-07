@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/06 10:29:35 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/07 11:38:52 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int main(int argc, char **argv, char **envv)
 	if (copy_envv((info->envv), envv))
 		return (1);
 	printf("%s", argv[0]); //for testing
+	
 	while (1)
 	{
 		input = readline("minishell>");
@@ -72,6 +73,7 @@ int main(int argc, char **argv, char **envv)
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
 			break ;
 		//builtin_handler(info);
+		// manage_exec(info, envv);
 		printf("-------------------------------------------------\n");
 		free(input);
 		counter = 0;
@@ -79,6 +81,7 @@ int main(int argc, char **argv, char **envv)
 			free(info->cmd_table[counter++]);
 		free(info->cmd_table);
 	}
+	
 	ft_lstclear(&(info->envv), free);
 	free(info);
 	return (0);

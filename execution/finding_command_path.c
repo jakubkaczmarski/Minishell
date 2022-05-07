@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/07 10:47:39 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/07 11:38:47 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,3 +71,68 @@ int split_path_to_exec(char *path, char *command, char **env, char *params)
         return 0;
     }
 }
+
+//Get PATH to check
+char *get_path(char **envv)
+{
+	int i = 0;
+	char *line;
+
+	line = NULL;
+	while(envv[i])
+	{
+		if(ft_strncmp(envv[i], "PATH=", 5) == 0)
+		{
+			line = envv[i];
+			line = ft_strtrim(line, "PATH=");
+		}
+		i++;
+	}
+	return line;
+}
+void manage_exec(t_data *info, char **env)
+{
+
+	// char *path = get_path(env);
+	if(!info && !env)
+	{};
+	// check_for_cmd_in_path(env, )
+	// split_path_to_exec(path, info->cmd_table[0], env, "");
+	// printf("%s\n", info->cmd_table[0]);
+}
+
+
+
+
+
+
+
+// char **get_env_arr(t_data *info, char **env)
+// {
+// 	char **env_arr = NULL;
+// 	// char *line = NULL;
+// 	if(info)
+// 	{}
+// 	// char *temp_line;
+// 	// write(1, "dqwdqwdwq",10);
+// 	print_envv(info->envv);
+// 	ft_putstr_fd(info->envv->content, 1);
+// 	// while(info->envv->next)
+// 	// {
+// 	// 	temp_line = line;
+// 	// 	line = ft_strjoin(temp_line, info->envv->content);
+// 	// 	// line = ft_strjoin(line, "\n");
+// 	// 	free(temp_line);
+// 	// 	info->envv = info->envv->next;
+// 	// }
+// 	// if(info->envv->content)
+// 	// {
+// 	// 	temp_line = line;
+// 	// 	line = ft_strjoin(temp_line, info->envv->content);
+// 	// 	line = ft_strjoin(line, "\n");
+// 	// 	free(temp_line);
+// 	// 	info->envv = info->envv->next;
+// 	// }
+// 	// env_arr = ft_split(line, '\n');
+// 	return env_arr;
+// }

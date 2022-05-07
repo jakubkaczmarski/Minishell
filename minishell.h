@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/06 10:58:21 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/07 11:31:25 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,9 @@ int		count_multis(char *input);
 //			builtins
 //handler.c
 void	builtin_handler(t_data *info);
-
+char	**get_env_arr(t_data *info);
+void	manage_exec(t_data *info, char **env);
+int		split_path_to_exec(char *path, char *command, char **env, char *params);
+char	*check_for_cmd_in_path(char *path, char *command);
+char	*get_path(char **envv);
 #endif
