@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/07 14:49:44 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:32:31 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int		split_path_to_exec(char *path, char **command_and_params, char **env, char 
 char	*check_for_cmd_in_path(char *path, char *command);
 char	*get_path(char **envv);
 char	**command_and_param_from_line(char *line);
+void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env);
 #endif
 
 
