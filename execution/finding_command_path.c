@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/07 14:47:46 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/07 14:49:52 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,6 @@ void manage_exec(t_data *info, char **env)
 		printf("Command %s\n", command_and_param[0]);
 		printf("Parameter %s\n", command_and_param[1]);
 		split_path_to_exec(path, command_and_param, env, command_and_param[1]);
-		printf("Halp\n");
 		if(command_and_param[0] && command_and_param[1])
 		{
 			free(command_and_param[0]);

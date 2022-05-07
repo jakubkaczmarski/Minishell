@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/07 14:46:26 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/07 14:49:44 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	manage_exec(t_data *info, char **env);
 int		split_path_to_exec(char *path, char **command_and_params, char **env, char *params);
 char	*check_for_cmd_in_path(char *path, char *command);
 char	*get_path(char **envv);
+char	**command_and_param_from_line(char *line);
 #endif
 
 
