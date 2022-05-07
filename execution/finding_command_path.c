@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/07 11:38:47 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/07 13:06:54 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,20 @@ int split_path_to_exec(char *path, char *command, char **env, char *params)
 		full_cmd_path = check_for_cmd_in_path(splitted_path[i], command);
 		if(full_cmd_path)
 		{
+			process_1 = fork();
 			printf("Command found in %s\n", splitted_path[i]);
-			if((process_1 = fork()) == -1)
+			if(process_1 == -1)
 				perror("Forking failed\n");
 			else if(process_1 == 0)
 			{
-				execve(full_cmd_path, &params, env);
+				execve(full_cmd_path, &params, env);	
+				sleep(5);
 				wait(&process_1);
 			}			
 			break;
 		}
 		free(full_cmd_path);
-		printf("%s\n", splitted_path[i]);
+		// printf("%s\n", splitted_path[i]);
 		i++;
 	}
 	if(!full_cmd_path)
@@ -90,12 +92,62 @@ char *get_path(char **envv)
 	}
 	return line;
 }
+
+char **command_and_param_from_line(char *line)
+{
+	char **command_and_param;
+	int i = 0;
+	// int size = 0;
+	line = ft_strtrim(line, " ");
+	command_and_param = ft_split(line, ' ');
+	while(command_and_param[i])
+	{
+		if(i > 1)
+		{
+			command_and_param[1] = ft_strjoin(command_and_param[1], command_and_param[i]);
+			free(command_and_param[i]);
+		}
+		i++;
+	}
+	free(line);
+	return command_and_param;
+	// command_and_param = ft_split(line, ' ');
+}
+void free_all(char **command_and_param)
+{
+	int i = 0;
+	while(command_and_param[i])
+	{
+		free(command_and_param);
+		i++;
+	}
+}
 void manage_exec(t_data *info, char **env)
 {
-
-	// char *path = get_path(env);
+	char	*path = get_path(env);
+	char	**command_and_param;
 	if(!info && !env)
 	{};
+	int i = 0;
+
+	command_and_param = malloc(sizeof(char **) * 2);
+	while(info->cmd_table[i])
+	{	
+		if(i > 1)
+		{
+			printf("Pipes detected\n");
+		}
+		command_and_param = command_and_param_from_line(info->cmd_table[i]);
+		printf("Commadn %s\n", command_and_param[0]);
+		printf("Parameter %s\n", command_and_param[1]);
+		split_path_to_exec(path, command_and_param[0], env, command_and_param[1]);
+		free(command_and_param[0]);
+		free(command_and_param[1]);
+		// wait()
+		// free_all(command_and_param);
+		i++;
+	}
+	free(command_and_param);
 	// check_for_cmd_in_path(env, )
 	// split_path_to_exec(path, info->cmd_table[0], env, "");
 	// printf("%s\n", info->cmd_table[0]);
