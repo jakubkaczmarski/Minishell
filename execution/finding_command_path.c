@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/07 13:06:54 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/07 14:27:25 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char *check_for_cmd_in_path(char *path, char *command)
 		return cmd;
 	}
 		
-	free(cmd1);
+	// free(cmd);
 	return NULL;
 }
 //Split path 
@@ -53,22 +53,34 @@ int split_path_to_exec(char *path, char *command, char **env, char *params)
 			else if(process_1 == 0)
 			{
 				execve(full_cmd_path, &params, env);	
-				sleep(5);
-				wait(&process_1);
-			}			
-			break;
+			}else{
+				wait(NULL);
+			}
 		}
 		free(full_cmd_path);
 		// printf("%s\n", splitted_path[i]);
 		i++;
 	}
+	i = 0;
 	if(!full_cmd_path)
 	{
+		// free(params);
+		// free(command);
         printf("Command not found\n");
+		while(splitted_path[i])
+		{
+			free(splitted_path[i]);
+			i++;
+		}
         return -1;
     }
 	else
     {
+		while(splitted_path[i])
+		{
+			free(splitted_path[i]);
+			i++;
+		}
 		free(full_cmd_path);
         return 0;
     }
@@ -138,13 +150,17 @@ void manage_exec(t_data *info, char **env)
 			printf("Pipes detected\n");
 		}
 		command_and_param = command_and_param_from_line(info->cmd_table[i]);
-		printf("Commadn %s\n", command_and_param[0]);
+		printf("Command %s\n", command_and_param[0]);
 		printf("Parameter %s\n", command_and_param[1]);
 		split_path_to_exec(path, command_and_param[0], env, command_and_param[1]);
-		free(command_and_param[0]);
-		free(command_and_param[1]);
 		// wait()
 		// free_all(command_and_param);
+		if(command_and_param[0] && command_and_param[1])
+		{
+			free(command_and_param[0]);
+			free(command_and_param[1]);
+		}
+			
 		i++;
 	}
 	free(command_and_param);

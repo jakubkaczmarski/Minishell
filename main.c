@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/07 13:08:04 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/07 13:32:26 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int main(int argc, char **argv, char **envv)
 			break ;
 		//builtin_handler(info)
 
-		// manage_exec(info, envv);
+		manage_exec(info, envv);
 		printf("-------------------------------------------------\n");
 		free(input);
 		counter = 0;
