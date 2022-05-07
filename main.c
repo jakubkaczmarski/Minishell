@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/07 13:32:26 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/07 15:24:17 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int main(int argc, char **argv, char **envv)
 		//print_envv(envv);
 		input = handle_input(info, input, envv);	
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
+		{
 			break ;
+		}
 		//builtin_handler(info)
 
 		manage_exec(info, envv);
@@ -83,7 +85,7 @@ int main(int argc, char **argv, char **envv)
 			free(info->cmd_table[counter++]);
 		free(info->cmd_table);
 	}
-	
+
 	ft_lstclear(&(info->envv), free);
 	free(info);
 	return (0);

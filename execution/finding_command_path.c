@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/07 14:52:41 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/07 15:24:09 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char *check_for_cmd_in_path(char *path, char *command)
 		free(cmd1);
 		return cmd;
 	}
+	free(cmd1);
+	free(cmd);
 		
 	// free(cmd);
 	return NULL;
@@ -36,7 +38,6 @@ char *check_for_cmd_in_path(char *path, char *command)
 int split_path_to_exec(char *path, char **command_and_params, char **env, char *params)
 {
 	int i = 0;
-
 	char **splitted_path = ft_split(path, ':');
 	char *full_cmd_path;
 	pid_t process_1;
@@ -60,19 +61,19 @@ int split_path_to_exec(char *path, char **command_and_params, char **env, char *
 			}
 			break;
 		}
-		free(full_cmd_path);
-		// printf("%s\n", splitted_path[i]);
 		i++;
 	}
 	i = 0;
 	if(!full_cmd_path)
 	{
         printf("Command not found\n");
+		free(full_cmd_path);
 		while(splitted_path[i])
 		{
 			free(splitted_path[i]);
 			i++;
 		}
+		free(splitted_path);
         return -1;
     }
 	else
@@ -82,6 +83,7 @@ int split_path_to_exec(char *path, char **command_and_params, char **env, char *
 			free(splitted_path[i]);
 			i++;
 		}
+		free(splitted_path);
 		free(full_cmd_path);
         return 0;
     }
@@ -114,15 +116,6 @@ char **command_and_param_from_line(char *line)
 	free(line);
 	return command_and_param;
 }
-void free_all(char **command_and_param)
-{
-	int i = 0;
-	while(command_and_param[i])
-	{
-		free(command_and_param);
-		i++;
-	}
-}
 void manage_exec(t_data *info, char **env)
 {
 	char	*path = get_path(env);
@@ -130,7 +123,7 @@ void manage_exec(t_data *info, char **env)
 	if(!info && !env)
 	{};
 	int i = 0;
-
+	int j = 0;
 	command_and_param = malloc(sizeof(char **) * 2);
 	while(info->cmd_table[i])
 	{	
@@ -142,13 +135,17 @@ void manage_exec(t_data *info, char **env)
 		printf("Command %s\n", command_and_param[0]);
 		printf("Parameter %s\n", command_and_param[1]);
 		split_path_to_exec(path, command_and_param, env, command_and_param[1]);
-		if(command_and_param[0] && command_and_param[1])
+		j = 0;
+		while(command_and_param[j])
 		{
-			free(command_and_param[0]);
-			free(command_and_param[1]);
+			// while()
+			free(command_and_param[j]);
+			// x++;
+			j++;
 		}
-			
 		i++;
 	}
 	free(command_and_param);
+	free(path);
+	
 }
