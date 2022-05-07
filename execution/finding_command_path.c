@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/07 14:49:52 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/07 14:52:41 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,22 +109,10 @@ char *get_path(char **envv)
 char **command_and_param_from_line(char *line)
 {
 	char **command_and_param;
-	// int i = 0;
-	// int size = 0;
 	line = ft_strtrim(line, " ");
 	command_and_param = ft_split(line, ' ');
-	// while(command_and_param[i])
-	// {
-	// 	if(i > 1)
-	// 	{
-	// 		command_and_param[1] = ft_strjoin(command_and_param[1], command_and_param[i]);
-	// 		free(command_and_param[i]);
-	// 	}
-	// 	i++;
-	// }
 	free(line);
 	return command_and_param;
-	// command_and_param = ft_split(line, ' ');
 }
 void free_all(char **command_and_param)
 {
@@ -163,43 +151,4 @@ void manage_exec(t_data *info, char **env)
 		i++;
 	}
 	free(command_and_param);
-	// check_for_cmd_in_path(env, )
-	// split_path_to_exec(path, info->cmd_table[0], env, "");
-	// printf("%s\n", info->cmd_table[0]);
 }
-
-
-
-
-
-
-
-// char **get_env_arr(t_data *info, char **env)
-// {
-// 	char **env_arr = NULL;
-// 	// char *line = NULL;
-// 	if(info)
-// 	{}
-// 	// char *temp_line;
-// 	// write(1, "dqwdqwdwq",10);
-// 	print_envv(info->envv);
-// 	ft_putstr_fd(info->envv->content, 1);
-// 	// while(info->envv->next)
-// 	// {
-// 	// 	temp_line = line;
-// 	// 	line = ft_strjoin(temp_line, info->envv->content);
-// 	// 	// line = ft_strjoin(line, "\n");
-// 	// 	free(temp_line);
-// 	// 	info->envv = info->envv->next;
-// 	// }
-// 	// if(info->envv->content)
-// 	// {
-// 	// 	temp_line = line;
-// 	// 	line = ft_strjoin(temp_line, info->envv->content);
-// 	// 	line = ft_strjoin(line, "\n");
-// 	// 	free(temp_line);
-// 	// 	info->envv = info->envv->next;
-// 	// }
-// 	// env_arr = ft_split(line, '\n');
-// 	return env_arr;
-// }
