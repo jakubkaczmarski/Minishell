@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/08 17:05:33 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/08 19:39:22 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		count_pipes(char *input);
 int		count_multis(char *input);
 
 //			builtins
-//handler.c
+//execution_handler.c
 void	builtin_handler(t_data *info);
 char	**get_env_arr(t_data *info);
 void	manage_exec(t_data *info, char **env);
