@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/08 15:10:02 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/08 17:07:17 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,9 @@ int split_path_to_exec(char *path, char **command_and_params, char **env, char *
 				if(process_1 == -1)
 					perror("Forking failed\n");
 				else if(process_1 == 0)
-				{
 					execve(full_cmd_path, command_and_params, env);
-					perror("Halp\n");
-				}else{
+				else
 					wait(NULL);
-				}
-	
 				break;
 			}
 			
@@ -148,6 +144,14 @@ void	execute_single_command(char **command_and_param, char *path, t_data *info, 
 		j++;
 	}
 }
+int look_for_redirections(t_data *info, int counter)
+{
+	char *cmd = info->cmd_table[counter];
+	if(!cmd)
+	{}
+	return 0;
+	// while(dpdpdw)
+}
 void manage_exec(t_data *info, char **env)
 {
 	char	*path = get_path(env);
@@ -156,6 +160,7 @@ void manage_exec(t_data *info, char **env)
 	{};
 	int i = 0;
 	command_and_param = malloc(sizeof(char **) * 2);
+	// int num_of_red = look_for_redirections();
 	while(info->cmd_table[i])
 	{
 		if(!info->cmd_table[i + 1])
@@ -173,16 +178,13 @@ void manage_exec(t_data *info, char **env)
 	free(path);
 }
 
-
 //Now piping time
 int piping(char **command_and_param, char *path, t_data *info, char **env, int index)
 {
 	int fd[2];
 	int pid2;
 	if ((pipe(fd)) == -1)
-	{
 		return -1;
-	}
 	int pid1 = fork();
 	if(pid1 < 0)
 		return -1;
@@ -210,7 +212,13 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 	return 0;
 }
 
+//Redirections
 //Multiple input redirections
 //You don't care about the first few
 //you only care about the last 
 //you go trhough all go to last 
+
+// void manage_redirections()
+// {
+	
+// }

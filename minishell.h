@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/08 15:14:37 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/08 17:05:33 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*get_path(char **envv);
 char	**command_and_param_from_line(char *line);
 void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env, int index, int forker);
 int		piping(char **command_and_param, char *path, t_data *info, char **env, int index);
-
+int		look_for_redirections(t_data *info, int counter);
 #endif
 
 
