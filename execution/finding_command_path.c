@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/07 16:34:08 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/08 15:04:43 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char *check_for_cmd_in_path(char *path, char *command)
 // $> echo $PATH
 // /bin:/usr/bin:/home/user/.bin
 //into smaller chunks
-int split_path_to_exec(char *path, char **command_and_params, char **env, char *params)
+int split_path_to_exec(char *path, char **command_and_params, char **env, char *params, int forker)
 {
 	int i = 0;
 	char **splitted_path = ft_split(path, ':');
@@ -55,17 +55,26 @@ int split_path_to_exec(char *path, char **command_and_params, char **env, char *
 		full_cmd_path = check_for_cmd_in_path(splitted_path[i], command_and_params[0]);
 		if(full_cmd_path)
 		{
-			process_1 = fork();
-			if(process_1 == -1)
-				perror("Forking failed\n");
-			else if(process_1 == 0)
+			if(forker == 1)
 			{
-				printf("Command found in %s\n", splitted_path[i]);
-				execve(full_cmd_path, command_and_params, env);	
-			}else{
-				wait(NULL);
+				execve(full_cmd_path, command_and_params, env);
+				break;
+			}else
+			{
+				process_1 = fork();
+				if(process_1 == -1)
+					perror("Forking failed\n");
+				else if(process_1 == 0)
+				{
+					execve(full_cmd_path, command_and_params, env);
+					perror("Halp\n");
+				}else{
+					wait(NULL);
+				}
+	
+				break;
 			}
-			break;
+			
 		}
 		i++;
 	}
@@ -122,16 +131,16 @@ char **command_and_param_from_line(char *line)
 	free(line);
 	return command_and_param;
 }
-void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env)
+void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env, int index, int forker)
 {
 	int j;
 
 	j = 0;
 	
-	command_and_param = command_and_param_from_line(info->cmd_table[0]);
-	printf("Command %s\n", command_and_param[0]);
-	printf("Parameter %s\n", command_and_param[1]);
-	split_path_to_exec(path, command_and_param, env, command_and_param[1]);
+	command_and_param = command_and_param_from_line(info->cmd_table[index]);
+	// printf("Command %s\n", command_and_param[0]);
+	// printf("Parameter %s\n", command_and_param[1]);
+	split_path_to_exec(path, command_and_param, env, command_and_param[1], forker);
 	j = 0;
 	while(command_and_param[j])
 	{
@@ -147,16 +156,59 @@ void manage_exec(t_data *info, char **env)
 	{};
 	int i = 0;
 	command_and_param = malloc(sizeof(char **) * 2);
-	if(!info->cmd_table[i + 1])
-		execute_single_command(command_and_param, path, info, env);
-	else{
-		printf("Pipe or redirection detected\n");
+	while(info->cmd_table[i])
+	{
+		if(!info->cmd_table[i + 1])
+		{
+			execute_single_command(command_and_param, path, info, env, 0, 0);
+			break;
+		}
+		else{
+			piping(command_and_param, path, info, env, i);
+			i += 2;
+		}
 	}
 	
 	free(command_and_param);
 	free(path);
-	
 }
 
 
 //Now piping time
+int piping(char **command_and_param, char *path, t_data *info, char **env, int index)
+{
+	int fd[2];
+	int pid2;
+	if ((pipe(fd)) == -1)
+	{
+		return -1;
+	}
+	int pid1 = fork();
+	if(pid1 < 0)
+		return -1;
+	if(pid1 == 0)
+	{
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		execute_single_command(command_and_param, path, info, env, index, 1);
+	}
+	pid2 = fork();
+	if(pid2 < 0)
+		return -1;
+	if(pid2 == 0)
+	{
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		execute_single_command(command_and_param, path, info, env, index + 1, 1);
+	}
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
+	return 0;
+		// execute_single_command(command_and_param_from_line, path, info, env)	// }
+	//exv
+	// pipe
+}

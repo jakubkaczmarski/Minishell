@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/07 16:32:31 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/08 13:42:27 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,12 @@ typedef struct s_data {
 	t_cmd	*cmd;
 }				t_data;
 
-
+typedef struct pipe_thingy{
+	int pipe_arr[2];
+	int pid_t[2];
+	int infile_fd;
+	int outfile_fd;
+}	t_pipe_thingy;
 //			parse
 //input.c
 char	*handle_input(t_data *info, char *input, char **envv);
@@ -74,11 +79,12 @@ int		count_multis(char *input);
 void	builtin_handler(t_data *info);
 char	**get_env_arr(t_data *info);
 void	manage_exec(t_data *info, char **env);
-int		split_path_to_exec(char *path, char **command_and_params, char **env, char *params);
+int		split_path_to_exec(char *path, char **command_and_params, char **env, char *params, int forker);
 char	*check_for_cmd_in_path(char *path, char *command);
 char	*get_path(char **envv);
 char	**command_and_param_from_line(char *line);
-void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env);
+void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env, int index, int forker);
+int		piping(char **command_and_param, char *path, t_data *info, char **env, int index);
 #endif
 
 
