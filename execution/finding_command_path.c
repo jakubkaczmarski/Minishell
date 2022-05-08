@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/08 15:04:43 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/08 15:10:02 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,9 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
 	return 0;
-		// execute_single_command(command_and_param_from_line, path, info, env)	// }
-	//exv
-	// pipe
 }
+
+//Multiple input redirections
+//You don't care about the first few
+//you only care about the last 
+//you go trhough all go to last 
