@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/06 15:13:31 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/09 11:11:26 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_data {
 	t_cmd	*cmd;
 }				t_data;
 
+//main.c
+int	input_error();
 
 //			parse
 //input.c
@@ -42,7 +44,7 @@ char	*handle_input(t_data *info, char *input, char **envv);
 char	*check_input(char *input, char **envv);
 char	*find_dollar(char *input);
 int		count_dollars(char *input);
-void	print_envv(char **envv); //for testing
+void	print_envv(t_list *envv); //for testing
 
 //input_utils.c
 int		ft_copy(char *dst, char *src, int len);
@@ -56,7 +58,7 @@ char	*quote_handler(char *input);
 char	*cut_off_douq(char *input);
 
 //envv.c
-int		copy_envv(t_list *l_envv, char **envv);
+int		copy_envv(t_list **l_envv, char **envv);
 
 //cmd_table.c
 void	print_cmd_table(char **cmd_table); //for testing
@@ -74,6 +76,8 @@ int		count_multis(char *input);
 void	builtin_handler(t_data *info);
 
 //export.c
-void export_handler(t_data *info, int index);
+void	export_handler(t_data *info, int index);
+void	export_in_envv(t_list **envv, char *var_val);
+int		ft_strint(char *str, char c);
 
 #endif
