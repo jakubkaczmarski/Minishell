@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/08 17:07:17 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/09 17:51:02 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,43 @@ int look_for_redirections(t_data *info, int counter)
 	return 0;
 	// while(dpdpdw)
 }
+int check_for_redirections(char *str)
+{
+	int i = 0;
+	char **arr_str = NULL;
+	char *ptr;
+	while(ft_strnstr(str, "<", ft_strlen(str)) || ft_strnstr(str, ">", ft_strlen(str)))
+	{
+		if((ptr = ft_strnstr(str, "<", ft_strlen(str))) != NULL)
+		{
+			*ptr = ' ';
+			arr_str = ft_split(str,'<');
+		}else if((ptr = ft_strnstr(str, ">", ft_strlen(str))) != NULL )
+		{
+			*ptr = ' ';
+			arr_str = ft_split(str,'>');
+		}
+	}	
+	if(!arr_str)
+	{
+		return 0;
+	}
+	else{
+		while(arr_str[i])
+		{
+			printf("%s", arr_str[i]);
+			i++;
+		}
+	}
+	return 1;
+	//We need to iterate through string and find << or  <
+	//I have to find if there are << or >> or < or > between two commands
+	//the easiest solution would be to run ft_split for all of those
+	// while(info->cmd_table[i])
+	// {
+	// 	info->cmd_table[i] != 
+	// }
+}
 void manage_exec(t_data *info, char **env)
 {
 	char	*path = get_path(env);
@@ -163,6 +200,8 @@ void manage_exec(t_data *info, char **env)
 	// int num_of_red = look_for_redirections();
 	while(info->cmd_table[i])
 	{
+		// info->cmd_table[i] 
+		check_for_redirections(info->cmd_table[i]);
 		if(!info->cmd_table[i + 1])
 		{
 			execute_single_command(command_and_param, path, info, env, 0, 0);
@@ -221,4 +260,3 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 // void manage_redirections()
 // {
 	
-// }
