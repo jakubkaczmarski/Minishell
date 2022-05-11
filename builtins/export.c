@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/10 07:42:08 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/11 08:18:07 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,18 @@ so after that comes the value, store it as well
 void	export_handler(t_data *info, int index)
 {
 	int		i;
+	int		flag;
 	char	*var_val;
 	char	**variables;
 
 	i = 0;
+	flag = 0;
 	variables = ft_split(info->cmd_table[index], ' ');
 	free(variables[0]);
 	index = 1;
 	while (variables[index])
 	{
+		flag = 1;
 		while (variables[index][i] != '\0')
 			i++;
 		var_val = ft_substr(variables[index], 0, i);
@@ -110,6 +113,7 @@ void	export_handler(t_data *info, int index)
 		i = 0;
 		index++;
 	}
+	if (flag == 0)
+		print_envv(info->envv);
 	free(variables);
-	//print_envv(info->envv);
 }
