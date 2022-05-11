@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/10 07:31:50 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/11 09:30:03 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void builtin_handler(t_data *info)
 		else if (!ft_strncmp(info->cmd_table[y], "export", 6))
 			export_handler(info, y);
 		else if (!ft_strncmp(info->cmd_table[y], "unset", 5))
-			unset(info, index);
+			unset_handler(info, y);
+		else if (!ft_strncmp(info->cmd_table[y], "env", 3))
+			print_envv(info->envv, 0);
 		y++;
 	}
 }

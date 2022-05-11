@@ -11,6 +11,7 @@ SRCS =	main.c \
 		builtins/handler.c \
 		builtins/echo.c \
 		builtins/export.c \
+		builtins/unset.c \
 
 
 all: minishell

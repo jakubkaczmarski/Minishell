@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/09 12:03:19 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/11 09:30:34 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,19 @@ int input_error()
 	return (1);
 }
 
-void print_envv(t_list *envv)
+void print_envv(t_list *envv, int flag)
 {
 	if (!envv)
-	{
-		printf("leeeeeer?\n");
 		return ;
-	}
 	while (envv != NULL)
 	{
-		printf("=> %s\n", envv->content);
+		if (flag == 1)
+			printf("delcare -x %s\n", envv->content);
+		else
+			printf("%s\n", envv->content);
 		envv = envv->next;
 	}
 }
-
-// void print_envv(char **envv)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	if (!envv)
-// 		return ;
-// 	while (envv[i])
-// 		printf("=> %s\n", envv[i++]);
-// }
 
 /*
 @param argc amount of arguments
@@ -69,7 +58,6 @@ int main(int argc, char **argv, char **envv)
 		if (!input)
 			break ;
 		add_history(input);
-		//print_envv(info->envv);
 		input = handle_input(info, input, envv);
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
 			break ;

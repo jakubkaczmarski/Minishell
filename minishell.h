@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/09 11:11:26 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/11 09:28:56 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_data {
 
 //main.c
 int	input_error();
+void print_envv(t_list *envv, int flag);
 
 //			parse
 //input.c
@@ -44,7 +45,6 @@ char	*handle_input(t_data *info, char *input, char **envv);
 char	*check_input(char *input, char **envv);
 char	*find_dollar(char *input);
 int		count_dollars(char *input);
-void	print_envv(t_list *envv); //for testing
 
 //input_utils.c
 int		ft_copy(char *dst, char *src, int len);
@@ -79,5 +79,10 @@ void	builtin_handler(t_data *info);
 void	export_handler(t_data *info, int index);
 void	export_in_envv(t_list **envv, char *var_val);
 int		ft_strint(char *str, char c);
+int		ft_isvalid(char *str);
+
+//unset.c
+void	unset_handler(t_data *info, int index);
+void	remove_in_envv(t_list **envv, char *var);
 
 #endif

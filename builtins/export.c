@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/11 08:18:07 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/11 09:28:19 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 checks if the input is alphanum and _ . ,
 */
-int ft_isvalid(char *str)
+int	ft_isvalid(char *str)
 {
 	int i;
 	int flag;
@@ -114,6 +114,6 @@ void	export_handler(t_data *info, int index)
 		index++;
 	}
 	if (flag == 0)
-		print_envv(info->envv);
+		print_envv(info->envv, 1);
 	free(variables);
 }

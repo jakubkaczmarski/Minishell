@@ -3,29 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 07:29:01 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/10 07:47:11 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/11 08:56:30 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void remove_in_envv(t_list **envv, char *var)
+void	remove_in_envv(t_list **envv, char *var)
 {
 	t_list *curr;
+	char **var_val;
 	t_list *tmp;
 	
 	curr = *envv;
-	while (curr != NULL)
+	while (curr->next != NULL)
 	{
-		if (ft_strncmp(curr->content, var, ft_strlen(var)));
+		var_val = ft_split(curr->next->content, '=');
+		//printf("compare: %s with %s\n", var_val[0], var);
+		if (!ft_strncmp(var_val[0], var, ft_strlen(var)))
 		{
-			//safe the element in a var
-			//set the pointer to the next element
-			//free the var
+			printf("element found!\n");
+			tmp = curr;
+			curr->next = curr->next->next;
+			//free(tmp);
+			free(var_val);
+			return ;
 		}
+		free(var_val);
 		curr = curr->next;
 	}
 }
@@ -34,7 +41,7 @@ void remove_in_envv(t_list **envv, char *var)
 takes the variables that are given and removes them 
 one by one from the list envv
 */
-void unset_handler(t_data *info, int index)
+void	unset_handler(t_data *info, int index)
 {
 	int		i;
 	char	**variables;
@@ -49,8 +56,9 @@ void unset_handler(t_data *info, int index)
 		while (variables[index][i] != '\0')
 			i++;
 		var = ft_substr(variables[index], 0, i);
-		if (ft_isvalid(var))
-			return ;
+		// if (ft_isvalid(var))
+		// 	return ;
+		printf("Detected: %s\n", var);
 		remove_in_envv(&(info->envv), var);
 		free(variables[index]);
 		i = 0;
