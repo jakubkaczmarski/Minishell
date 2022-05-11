@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 07:29:01 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/11 08:56:30 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/11 13:39:48 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,25 @@ void	remove_in_envv(t_list **envv, char *var)
 	t_list *curr;
 	char **var_val;
 	t_list *tmp;
+	int flag;
 	
 	curr = *envv;
+	flag = 0;
 	while (curr->next != NULL)
 	{
 		var_val = ft_split(curr->next->content, '=');
-		//printf("compare: %s with %s\n", var_val[0], var);
-		if (!ft_strncmp(var_val[0], var, ft_strlen(var)))
+		if (!ft_strncmp(var_val[0], var, ft_strlen(var)) \
+			&& !var_val[0][ft_strlen(var)])
 		{
-			printf("element found!\n");
-			tmp = curr;
+			tmp = curr->next;
 			curr->next = curr->next->next;
-			//free(tmp);
-			free(var_val);
-			return ;
+			flag = 1;
 		}
+		free(var_val[0]);
+		free(var_val[1]);
 		free(var_val);
+		if (flag == 1)
+			return ;
 		curr = curr->next;
 	}
 }
@@ -56,11 +59,9 @@ void	unset_handler(t_data *info, int index)
 		while (variables[index][i] != '\0')
 			i++;
 		var = ft_substr(variables[index], 0, i);
-		// if (ft_isvalid(var))
-		// 	return ;
-		printf("Detected: %s\n", var);
 		remove_in_envv(&(info->envv), var);
 		free(variables[index]);
+		free(var);
 		i = 0;
 		index++;
 	}
