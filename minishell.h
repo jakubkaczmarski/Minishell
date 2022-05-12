@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/11 09:28:56 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/12 10:24:24 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,9 @@ int		ft_isvalid(char *str);
 //unset.c
 void	unset_handler(t_data *info, int index);
 void	remove_in_envv(t_list **envv, char *var);
+int		replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr);
+
+//echo.c
+void ft_echo(char *input);
 
 #endif

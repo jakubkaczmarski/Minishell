@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/12 08:59:50 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/12 10:04:35 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ checks if the input is alphanum and _ . ,
 */
 int	ft_isvalid(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -27,7 +27,7 @@ int	ft_isvalid(char *str)
 		else if ((str[i] >= 48 && str[i] <= 57) || str[i] == 123 \
 			|| str[i] == 125)
 			i++;
-		else if (str[i] == 95 || str[i] == 46 || str[i] == 44  || str[i] == 61)
+		else if (str[i] == 95 || str[i] == 46 || str[i] == 44 || str[i] == 61)
 			i++;
 		else
 		{
@@ -59,22 +59,22 @@ void	export_in_envv(t_list **envv, char *var_val)
 {
 	t_list	*tmp;
 	t_list	*element;
-	
+
 	tmp = *envv;
 	element = ft_lstnew(var_val);
 	if (!element)
 		return ;
 	while (tmp != NULL)
 	{
-		if (!ft_strncmp(tmp->content, element->content \
-			, ft_strint(element->content, '=')))
-			{
-				free(tmp->content);
-				tmp->content = element->content;
-				free(element);
-				return ;
-			}
-		tmp = tmp->next;	
+		if (!ft_strncmp(tmp->content, element->content, \
+			ft_strint(element->content, '=')))
+		{
+			free(tmp->content);
+			tmp->content = element->content;
+			free(element);
+			return ;
+		}
+		tmp = tmp->next;
 	}
 	ft_lstadd_back(envv, element);
 }
@@ -87,18 +87,15 @@ so after that comes the value, store it as well
 void	export_handler(t_data *info, int index)
 {
 	int		i;
-	int		flag;
 	char	*var_val;
 	char	**variables;
 
 	i = 0;
-	flag = 0;
 	variables = ft_split(info->cmd_table[index], ' ');
 	free(variables[0]);
 	index = 1;
 	while (variables[index])
 	{
-		flag = 1;
 		while (variables[index][i] != '\0')
 			i++;
 		var_val = ft_substr(variables[index], 0, i);
@@ -109,7 +106,7 @@ void	export_handler(t_data *info, int index)
 		i = 0;
 		index++;
 	}
-	if (flag == 0)
+	if (index == 1)
 		print_envv(info->envv, 1);
 	free(variables);
 }

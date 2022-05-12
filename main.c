@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/11 09:30:34 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/12 10:26:06 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int main(int argc, char **argv, char **envv)
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
 			break ;
 		builtin_handler(info);
-		printf("-------------------------------------------------\n");
+		//printf("-------------------------------------------------\n");
 		free(input);
 		counter = 0;
 		while (info->cmd_table[counter])

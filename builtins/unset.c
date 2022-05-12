@@ -6,33 +6,40 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 07:29:01 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/12 08:41:49 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/12 10:11:17 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int	replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr)
+{
+	if (!ft_strncmp(var_val[0], var, ft_strlen(var)) \
+		&& !var_val[0][ft_strlen(var)])
+	{
+		tmp = curr->next;
+		free(tmp->content);
+		free(tmp);
+		curr->next = curr->next->next;
+		return (1);
+	}
+	return (0);
+}
+
 void	remove_in_envv(t_list **envv, char *var)
 {
-	t_list *curr;
-	t_list *tmp;
-	char **var_val;
-	int flag;
-	
+	t_list	*curr;
+	t_list	*tmp;
+	char	**var_val;
+	int		flag;
+
 	curr = *envv;
+	tmp = NULL;
 	flag = 0;
 	while (curr->next != NULL)
 	{
 		var_val = ft_split(curr->next->content, '=');
-		if (!ft_strncmp(var_val[0], var, ft_strlen(var)) \
-			&& !var_val[0][ft_strlen(var)])
-		{
-			tmp = curr->next;
-			free(tmp->content);
-			free(tmp);
-			curr->next = curr->next->next;
-			flag = 1;
-		}
+		flag = replace_value_in_env(var_val, var, tmp, curr);
 		free(var_val[0]);
 		free(var_val[1]);
 		free(var_val);
