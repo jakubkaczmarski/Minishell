@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/08 20:04:48 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/12 22:35:28 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # include <stdlib.h>
 
 
-
-//for each command
+//for each command with redirections
 typedef struct s_cmd {
-	char	*name;
-	int amount_of_args;
+	char	**out_command_name;
+	char	**in_command_name;
+	char	*command;
 }				t_cmd;
 
 
@@ -35,7 +35,15 @@ typedef struct s_data {
 	t_cmd	*cmd;
 }				t_data;
 
-
+typedef struct s_count_el
+{
+	int red_num_in;
+	int	red_num_out;
+	int n_cmd_flags;
+	int	ida_red_in;
+	int	ida_red_out;
+	int	ida_cmd_flags;
+} t_el_counter;
 //			parse
 //input.c
 char	*handle_input(t_data *info, char *input, char **envv);
@@ -81,6 +89,9 @@ char	**command_and_param_from_line(char *line);
 void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env, int index, int forker);
 int		piping(char **command_and_param, char *path, t_data *info, char **env, int index);
 int		look_for_redirections(t_data *info, int counter);
+int		run_redictions(t_data *info, int index);
+int		find_len_first_command(t_data *info, int index);
+int		run_redictions(t_data *info, int index);
 #endif
 
 

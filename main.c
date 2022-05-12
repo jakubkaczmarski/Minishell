@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/08 15:21:11 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/12 22:33:48 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int main(int argc, char **argv, char **envv)
 	if (copy_envv((info->envv), envv))
 		return (1);
 	printf("%s", argv[0]); //for testing
-	
+
 	while (1)
 	{
 		input = readline("minishell>");
@@ -74,8 +74,10 @@ int main(int argc, char **argv, char **envv)
 		{
 			break ;
 		}
-		//builtin_handler(info)
+		// builtin_handler(info)
+		
 		manage_exec(info, envv);
+		
 		// printf("-------------------------------------------------\n");
 		free(input);
 		counter = 0;

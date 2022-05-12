@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/09 17:51:02 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/12 22:35:19 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,18 +201,20 @@ void manage_exec(t_data *info, char **env)
 	while(info->cmd_table[i])
 	{
 		// info->cmd_table[i] 
-		check_for_redirections(info->cmd_table[i]);
+	
 		if(!info->cmd_table[i + 1])
 		{
+			run_redictions(info, i);
 			execute_single_command(command_and_param, path, info, env, 0, 0);
 			break;
 		}
 		else{
+			run_redictions(info, i);
+			run_redictions(info, i + 1);
 			piping(command_and_param, path, info, env, i);
 			i += 2;
 		}
 	}
-	
 	free(command_and_param);
 	free(path);
 }
@@ -250,13 +252,56 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 	waitpid(pid2, NULL, 0);
 	return 0;
 }
-
-//Redirections
-//Multiple input redirections
-//You don't care about the first few
-//you only care about the last 
-//you go trhough all go to last 
-
-// void manage_redirections()
+// int	format_in_redir(t_data *info, int counter)
 // {
 	
+// }
+int find_len_first_command(t_data *info, int index)
+{
+	int x = 0;
+	while(info->cmd_table[index][x])
+	{
+		if(info->cmd_table[index][x] == '<' || info->cmd_table[index][x] == '>')
+		{
+			return x;
+			if(info->cmd_table[index][x + 1] == '<' || info->cmd_table[index][x + 1] == '>')
+				return x + 1;
+		}
+		x++;
+	}
+
+	return 0;
+}
+
+void	get_num_to_alloc(t_el_counter *el_count, char **info)
+{
+	int counter;
+
+	ft_bzero(el_count, sizeof(el_count));
+	counter = 0;
+	while(info[counter])
+	{
+		if(ft_strncmp(">>", info[counter], 2) == 0 || '>' == info[counter][0])
+			el_count->ida_red_in++;
+		else if(ft_strncmp("<<", info[counter], 2) == 0 || '<' == info[counter][0])
+			el_count->ida_red_out++;
+		else
+			el_count->n_cmd_flags++;
+		counter++;
+	}
+}
+
+int		run_redictions(t_data *info, int index)
+{
+	t_el_counter el_count;
+	char **splitted_thingy = ft_split(info->cmd_table[index],' ');
+	if(!(ft_strchr(info->cmd_table[index], '<') || ft_strchr(info->cmd_table[index], '>')))
+	{
+		// printf("Redirections are not in the string 🦖\n");
+		return 0;
+	}
+	get_num_to_alloc(&el_count, splitted_thingy);
+	// printf("Flags : %d\n", el_count.n_cmd_flags);
+	// fT_split("<");
+	return 1;
+}
