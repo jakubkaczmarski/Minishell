@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 07:29:01 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/11 13:39:48 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/12 08:41:49 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	remove_in_envv(t_list **envv, char *var)
 {
 	t_list *curr;
-	char **var_val;
 	t_list *tmp;
+	char **var_val;
 	int flag;
 	
 	curr = *envv;
@@ -28,6 +28,8 @@ void	remove_in_envv(t_list **envv, char *var)
 			&& !var_val[0][ft_strlen(var)])
 		{
 			tmp = curr->next;
+			free(tmp->content);
+			free(tmp);
 			curr->next = curr->next->next;
 			flag = 1;
 		}

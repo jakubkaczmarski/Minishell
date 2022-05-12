@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/11 09:28:19 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/12 08:59:50 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,10 @@ checks if the input is alphanum and _ . ,
 int	ft_isvalid(char *str)
 {
 	int i;
-	int flag;
 
 	i = 0;
-	flag = 0;
 	while (str[i])
 	{
-		if (str[i] == 61)
-			flag = 1;
 		if ((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122))
 			i++;
 		else if ((str[i] >= 48 && str[i] <= 57) || str[i] == 123 \
@@ -39,8 +35,6 @@ int	ft_isvalid(char *str)
 			return (1);
 		}
 	}
-	if (flag == 0)
-		return (1);
 	return (0);
 }
 
@@ -52,7 +46,7 @@ int	ft_strint(char *str, char c)
 	int	i;
 
 	i = 0;
-	while (str[i] != c)
+	while (str[i] != c && str[i] != '\0')
 		i++;
 	return (i);
 }
@@ -75,7 +69,9 @@ void	export_in_envv(t_list **envv, char *var_val)
 		if (!ft_strncmp(tmp->content, element->content \
 			, ft_strint(element->content, '=')))
 			{
+				free(tmp->content);
 				tmp->content = element->content;
+				free(element);
 				return ;
 			}
 		tmp = tmp->next;	
