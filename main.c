@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/12 10:26:06 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/12 15:32:16 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void print_envv(t_list *envv, int flag)
 /*
 @param argc amount of arguments
 @param argv arguments as array
-@param envv enviromental variables as array
+@param envv enviromental variables as array \
 */
 int main(int argc, char **argv, char **envv)
 {

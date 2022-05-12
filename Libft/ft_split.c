@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:29:28 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/12 09:57:01 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/12 15:03:03 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static size_t	ft_wordlen(const char *str, char c)
 		i++;
 		while ((flag_s == 1 || flag_d == 1) && str[i] != '\0')
 		{
-			printf("str: %s\n", str);
 			check_quotes(str[i], &flag_s, &flag_d);
 			i++;
 		}
