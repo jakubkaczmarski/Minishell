@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 12:05:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/13 18:50:47 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/13 19:38:09 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,14 @@ int alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index)
 				el_count->redirect_arr[num_of_words] = ft_substr(info->cmd_table[index], 0, len_of_wrd);
 				first = -1;
 			}else
-				el_count->redirect_arr[num_of_words] = ft_substr(info->cmd_table[index], i - len_of_wrd, len_of_wrd);
-			// printf("Word %s\n", el_count->redirect_arr[num_of_words]);
+			{
+				if(i - len_of_wrd == -1)
+					el_count->redirect_arr[num_of_words] = ft_substr(info->cmd_table[index], i - len_of_wrd, len_of_wrd);
+				else
+					el_count->redirect_arr[num_of_words] = ft_substr(info->cmd_table[index], i - len_of_wrd - 1, len_of_wrd);
+				
+			}
+			printf("Word %s\n", el_count->redirect_arr[num_of_words]);
 			len_of_wrd = 0;
 			num_of_words++;
 		}
@@ -114,17 +120,52 @@ int alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index)
 				first = -1;
 			}else
 				el_count->redirect_arr[num_of_words] = ft_substr(info->cmd_table[index], i - len_of_wrd, len_of_wrd + 2);
-			// printf("Word %s\n", el_count->redirect_arr[num_of_words]);
+			printf("Word %s\n", el_count->redirect_arr[num_of_words]);
 		}
 
 		i++;
 	}
 	return 1;
 }
-// ints	redirection_exec(&el_count)
-// {
-// 	//
-// }
+int	redirection_exec(t_el_counter *el_count)
+{
+	int i = 0;
+	// int j;
+	while(i < el_count->num_of_wrds)
+	{
+		// el_count->redirect_arr[i] = ft_strtrim(el_count->redirect_arr[i], " ");
+		// j = 0;
+		// if(el_count->redirect_arr[i][j])
+		// {
+		// 	if(el_count->redirect_arr[i][j] == '>')
+		// 	{
+		// 		if(el_count->redirect_arr[i][j + 1] && el_count->redirect_arr[i][j + 1] == '>')
+		// 		{
+		// 			printf("Output redirection : >> \n");	
+		// 		}
+		// 		printf("Output redirection : > \n");
+		// 	}
+		// 	if(el_count->redirect_arr[i][j] == '<')
+		// 	{
+		// 		if(el_count->redirect_arr[i][j + 1] && el_count->redirect_arr[i][j + 1] == '<')
+		// 		{
+		// 			printf("Input redirection : << \n");	
+		// 		}
+		// 		printf("Input redirection : < \n");
+		// 	}
+			// j++;
+		if(el_count->redirect_arr[i])
+		{
+			el_count->redirect_arr[i] = ft_strtrim(el_count->redirect_arr[i], " ");
+			// printf("Priviet Num of words %d %s\n", el_count->num_of_wrds ,el_count->redirect_arr[i]);
+			free(el_count->redirect_arr[i]);
+
+		}
+		i++;
+	}
+	free(el_count->redirect_arr);
+	return 0;
+}
 int		run_redictions(t_data *info, int index)
 {
 	t_el_counter el_count;
@@ -136,8 +177,10 @@ int		run_redictions(t_data *info, int index)
 	
 	if(get_num_to_alloc(&el_count, info, index) == 1)
 	{
-		alloc_mem_for_words(&el_count, info, index);
+		if(alloc_mem_for_words(&el_count, info, index) == -1)
+			return 0;
 		// redirection_exec(&el_count);
+		// el_count.num_of_wrds = 0;
 			// printf("What the shell\n");
 	}else{
 		return 0;
