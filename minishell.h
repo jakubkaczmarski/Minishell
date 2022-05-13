@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/13 16:58:08 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/13 21:12:46 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
-
+# include <fcntl.h>
 
 //for each command with redirections
 typedef struct s_cmd {
@@ -96,4 +96,5 @@ int		find_len_first_command(t_data *info, int index);
 int		run_redictions(t_data *info, int index);
 int	get_num_to_alloc(t_el_counter *el_count, t_data *info, int index);
 int	alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index);
+void	manage_input_red(char *line);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 12:05:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/13 19:38:09 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/13 22:04:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,36 +127,49 @@ int alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index)
 	}
 	return 1;
 }
+void	manage_input_red(char *line)
+{
+	// int i = 0;
+	printf("Manage input red %s\n", line);
+	int file = open(line, O_CREAT, 0777);
+	// printf("File fd %d\n", file);
+	dup2(file, STDOUT_FILENO);
+	// printf("Test");
+	// printf("Siemanko\n");
+	write(file, "Siemanko", 9);
+	close(file);
+}
+
+void manage_input_red_long(char *line)
+{
+	printf("Manage input red long %s\n", line);
+}
 int	redirection_exec(t_el_counter *el_count)
 {
 	int i = 0;
-	// int j;
+	int j;
 	while(i < el_count->num_of_wrds)
 	{
-		// el_count->redirect_arr[i] = ft_strtrim(el_count->redirect_arr[i], " ");
-		// j = 0;
-		// if(el_count->redirect_arr[i][j])
-		// {
-		// 	if(el_count->redirect_arr[i][j] == '>')
-		// 	{
-		// 		if(el_count->redirect_arr[i][j + 1] && el_count->redirect_arr[i][j + 1] == '>')
-		// 		{
-		// 			printf("Output redirection : >> \n");	
-		// 		}
-		// 		printf("Output redirection : > \n");
-		// 	}
-		// 	if(el_count->redirect_arr[i][j] == '<')
-		// 	{
-		// 		if(el_count->redirect_arr[i][j + 1] && el_count->redirect_arr[i][j + 1] == '<')
-		// 		{
-		// 			printf("Input redirection : << \n");	
-		// 		}
-		// 		printf("Input redirection : < \n");
-		// 	}
-			// j++;
 		if(el_count->redirect_arr[i])
 		{
 			el_count->redirect_arr[i] = ft_strtrim(el_count->redirect_arr[i], " ");
+			j = 0;
+			while(el_count->redirect_arr[i][j])
+			{
+			
+				if(el_count->redirect_arr[i][j] == '>')
+				{
+					manage_input_red(&el_count->redirect_arr[i][j + 1]);
+					j++;
+					if(el_count->redirect_arr[i][j + 1] == '>')
+					{
+						manage_input_red_long(&el_count->redirect_arr[i][j + 2]);
+						j++;
+					}
+				}
+				j++;
+			}
+			
 			// printf("Priviet Num of words %d %s\n", el_count->num_of_wrds ,el_count->redirect_arr[i]);
 			free(el_count->redirect_arr[i]);
 
@@ -179,7 +192,7 @@ int		run_redictions(t_data *info, int index)
 	{
 		if(alloc_mem_for_words(&el_count, info, index) == -1)
 			return 0;
-		// redirection_exec(&el_count);
+		redirection_exec(&el_count);
 		// el_count.num_of_wrds = 0;
 			// printf("What the shell\n");
 	}else{

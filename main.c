@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/12 22:33:48 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/13 22:02:49 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int main(int argc, char **argv, char **envv)
 
 	while (1)
 	{
-		input = readline("minishell>");
+		input = readline("minishell>🦖");
 		if (!input)
 			break ;
 		add_history(input);
