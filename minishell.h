@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/13 12:57:36 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/13 16:58:08 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,3 @@ int		run_redictions(t_data *info, int index);
 int	get_num_to_alloc(t_el_counter *el_count, t_data *info, int index);
 int	alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index);
 #endif
-
-
-//
