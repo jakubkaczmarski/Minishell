@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/13 12:34:19 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/13 12:57:36 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ typedef struct s_data {
 
 typedef struct s_count_el
 {
+	char **redirect_arr;
 	int red_num_in;
 	int	red_num_out;
 	int n_cmd_flags;
+	int	num_of_wrds;
 	int	ida_red_in;
 	int	ida_red_out;
 	int	ida_cmd_flags;
@@ -92,7 +94,8 @@ int		look_for_redirections(t_data *info, int counter);
 int		run_redictions(t_data *info, int index);
 int		find_len_first_command(t_data *info, int index);
 int		run_redictions(t_data *info, int index);
-void	get_num_to_alloc(t_el_counter *el_count, t_data *info, int index);
+int	get_num_to_alloc(t_el_counter *el_count, t_data *info, int index);
+int	alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index);
 #endif
 
 
