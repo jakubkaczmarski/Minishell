@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/12 22:35:19 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/13 12:05:57 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,12 @@ char *check_for_cmd_in_path(char *path, char *command)
 	cmd = ft_strjoin(cmd1, command);
 	// printf("%s, %d\n",cmd,);
 	if(access(cmd, F_OK) == 0)
-	{   
+	{
 		free(cmd1);
 		return cmd;
 	}
 	free(cmd1);
 	free(cmd);
-		
-	// free(cmd);
 	return NULL;
 }
 //Split path 
@@ -256,52 +254,3 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 // {
 	
 // }
-int find_len_first_command(t_data *info, int index)
-{
-	int x = 0;
-	while(info->cmd_table[index][x])
-	{
-		if(info->cmd_table[index][x] == '<' || info->cmd_table[index][x] == '>')
-		{
-			return x;
-			if(info->cmd_table[index][x + 1] == '<' || info->cmd_table[index][x + 1] == '>')
-				return x + 1;
-		}
-		x++;
-	}
-
-	return 0;
-}
-
-void	get_num_to_alloc(t_el_counter *el_count, char **info)
-{
-	int counter;
-
-	ft_bzero(el_count, sizeof(el_count));
-	counter = 0;
-	while(info[counter])
-	{
-		if(ft_strncmp(">>", info[counter], 2) == 0 || '>' == info[counter][0])
-			el_count->ida_red_in++;
-		else if(ft_strncmp("<<", info[counter], 2) == 0 || '<' == info[counter][0])
-			el_count->ida_red_out++;
-		else
-			el_count->n_cmd_flags++;
-		counter++;
-	}
-}
-
-int		run_redictions(t_data *info, int index)
-{
-	t_el_counter el_count;
-	char **splitted_thingy = ft_split(info->cmd_table[index],' ');
-	if(!(ft_strchr(info->cmd_table[index], '<') || ft_strchr(info->cmd_table[index], '>')))
-	{
-		// printf("Redirections are not in the string 🦖\n");
-		return 0;
-	}
-	get_num_to_alloc(&el_count, splitted_thingy);
-	// printf("Flags : %d\n", el_count.n_cmd_flags);
-	// fT_split("<");
-	return 1;
-}

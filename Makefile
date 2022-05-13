@@ -11,6 +11,7 @@ SRCS =	main.c \
 		builtins/handler.c \
 		builtins/echo.c \
 		execution/finding_command_path.c\
+		execution/redirection.c\
 
 all: minishell
 
