@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/12 15:32:16 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/13 12:15:33 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void print_envv(t_list *envv, int flag)
 		if (flag == 1)
 			printf("delcare -x %s\n", envv->content);
 		else
-			printf("%s\n", envv->content);
+			printf("%s => %p\n", envv->content, envv->next);
 		envv = envv->next;
 	}
 }

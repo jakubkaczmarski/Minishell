@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 10:54:48 by jtomala           #+#    #+#             */
-/*   Updated: 2022/04/21 12:09:22 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/13 11:57:49 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_list	*ft_lstnew(char *content)
 	if (lst == NULL)
 		return (NULL);
 	lst->content = content;
+	lst->index = 0;
 	lst->next = NULL;
 	return (lst);
 }

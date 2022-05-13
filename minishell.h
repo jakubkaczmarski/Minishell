@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/12 14:58:30 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/13 12:20:01 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
-
-
-typedef struct s_search
-{
-	char			*content;
-	struct s_list	*next;
-	int				index;
-}				t_search;
 
 //for each command
 typedef struct s_cmd {
@@ -87,7 +79,7 @@ int		ft_strint(char *str, char c);
 int		ft_isvalid(char *str);
 
 //export_utils.c
-void sort_list(t_list *envv);
+void	sort_list(t_list **envv);
 
 //unset.c
 void	unset_handler(t_data *info, int index);
