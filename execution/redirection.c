@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 12:05:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/13 17:01:07 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/13 18:50:47 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,24 @@ int alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index)
 	int i = 0;
 	int len_of_wrd = 0;
 	int num_of_words = -1;
+	int first = -1;
 	num_of_words++;
 	while(info->cmd_table[index][i])
 	{
-		if(info->cmd_table[index][i] == '<' || info->cmd_table[index][i] == '>')
+		if(first == -1)
+		{
+			if(info->cmd_table[index][i] == '<' ||info->cmd_table[index][i] == '>')
+			{
+				i++;
+				if(info->cmd_table[index][i] == '<' ||info->cmd_table[index][i + 1] == '>')
+				{
+					i++;
+				}
+				
+				first = 0;
+			}else if(isalpha(info->cmd_table[index][i]))
+				first = -2;
+		}else if(info->cmd_table[index][i] == '<' || info->cmd_table[index][i] == '>')
 		{
 			// printf("Len of word %d \n", len_of_wrd);
 			
@@ -81,7 +95,12 @@ int alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index)
 					return -1;
 				}
 			}
-			el_count->redirect_arr[num_of_words] = ft_substr(info->cmd_table[index], i - len_of_wrd, len_of_wrd);
+			if(first == 0)
+			{
+				el_count->redirect_arr[num_of_words] = ft_substr(info->cmd_table[index], 0, len_of_wrd);
+				first = -1;
+			}else
+				el_count->redirect_arr[num_of_words] = ft_substr(info->cmd_table[index], i - len_of_wrd, len_of_wrd);
 			// printf("Word %s\n", el_count->redirect_arr[num_of_words]);
 			len_of_wrd = 0;
 			num_of_words++;
@@ -89,7 +108,12 @@ int alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index)
 		len_of_wrd++;
 		if(!info->cmd_table[index][i + 1])
 		{
-			el_count->redirect_arr[num_of_words] = ft_substr(info->cmd_table[index], i - len_of_wrd, len_of_wrd + 2);
+			if(first == 0)
+			{
+				el_count->redirect_arr[num_of_words] = ft_substr(info->cmd_table[index], 0, len_of_wrd);
+				first = -1;
+			}else
+				el_count->redirect_arr[num_of_words] = ft_substr(info->cmd_table[index], i - len_of_wrd, len_of_wrd + 2);
 			// printf("Word %s\n", el_count->redirect_arr[num_of_words]);
 		}
 
