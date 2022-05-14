@@ -73,13 +73,25 @@ int Kurwa(t_el_counter *kurwa, char *line)
 }
 int		exec_input_redirection(char *line)
 {
-	if(line){}
-		return 1;
+	// printf("Siemanko %s \n", line);
+	int original_input_thingy = dup(STDOUT_FILENO);
+	int file = open(line, O_CREAT | O_RDONLY, 0777);
+
+	dup2(file, STDOUT_FILENO);
+	printf("Siemanko");
+	write(file, "Siemanko", 10);
+	close(file);
+
+	dup2(original_input_thingy, STDOUT_FILENO);
+	close(original_input_thingy);
+	return 1;
 }
 int		exec_double_input_redirection(char *line)
 {
 	if(line){}
 		return 1;
+	
+
 }
 
 int		loop_through_redir(t_el_counter *el_counter)
@@ -92,9 +104,9 @@ int		loop_through_redir(t_el_counter *el_counter)
 			
 			if(el_counter->redirect_arr[i][1] == '<')
 			{
-
+				exec_double_input_redirection(&el_counter->redirect_arr[i][2]);
 			}else
-				exec_input_redirection(el_counter->redirect_arr[i]);
+				exec_input_redirection(&el_counter->redirect_arr[i][1]);
 		}
 		i++;
 	}
