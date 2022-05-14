@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/13 21:12:46 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/14 16:08:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,5 @@ int		run_redictions(t_data *info, int index);
 int	get_num_to_alloc(t_el_counter *el_count, t_data *info, int index);
 int	alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index);
 void	manage_input_red(char *line);
+int		Kurwa(t_el_counter *kurwa, char *line);
 #endif

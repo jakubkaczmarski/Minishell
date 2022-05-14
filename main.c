@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/13 22:02:49 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/14 18:32:33 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int input_error()
 
 void print_envv(char **envv)
 {
-	int i;
+	// int i;
 
-	i = 0;
+	// i = 0;
 	if (!envv)
 		return ;
-	while (envv[i])
-		printf("=> %s\n", envv[i++]);
+	// while (envv[i])
+		// printf("=> %s\n", envv[i++]);
 }
 
 /*
