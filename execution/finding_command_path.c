@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/15 16:24:27 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/15 19:47:44 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ int split_path_to_exec(char *path, char **command_and_params, char **env, char *
 				if(process_1 == -1)
 					perror("Forking failed\n");
 				else if(process_1 == 0)
+				{
+					if(forker != 0)
+						dup2(forker,  STDOUT_FILENO);
 					execve(full_cmd_path, command_and_params, env);
+				}
 				else
 					wait(NULL);
 				break;
@@ -202,17 +206,16 @@ void manage_exec(t_data *info, char **env)
 	
 		if(!info->cmd_table[i + 1])
 		{
-			if(run_redictions(info, i) != 0)
+			if(run_redictions(info, i,env) != 0)
 			{
-				break;
 			}else
 				execute_single_command(command_and_param, path, info, env, 0, 0);
-			break;
+			i++;
 		}
 		else{
-			if(run_redictions(info, i) != 0)
+			if(run_redictions(info, i, env) != 0)
 			{
-				run_redictions(info, i + 1);
+				run_redictions(info, i + 1, env);
 			}else
 				piping(command_and_param, path, info, env, i);
 			i += 2;

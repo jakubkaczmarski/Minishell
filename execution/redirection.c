@@ -144,29 +144,31 @@ int	exec_input_red(t_el_counter *el_counter)
 {
 	int i = 0;
 	int in_num = el_counter->red_num_in;
+	int fd;
 	while(i < el_counter->num_of_wrds - 1)
 	{
 		if(el_counter->cmd_arr[i].flag[1] == '<')
 		{
 			if(access(el_counter->cmd_arr[i].command,W_OK) == -1)
 			{
-				open(el_counter->cmd_arr[i].command, O_APPEND | O_WRONLY, 0777);
+				open(el_counter->cmd_arr[i].command, O_APPEND | O_RDWR, 0777);
 			}else
 			{
 				printf("Running double redirection\n");
-				open(el_counter->cmd_arr[i].command, O_CREAT | O_WRONLY, 0777);
+				fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDWR, 0777);
 			}
 			in_num--;
 			if(in_num == 0)
 			{
 				printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
+				return fd;
 			}
 		}
 		else if(el_counter->cmd_arr[i].flag[0] == '<' && el_counter->red_num_in++)
 		{
 			printf("Running single redirection\n");
 			
-			int fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_WRONLY, 0777);
+			fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDWR, 0777);
 			
 			printf("Num %d\n", in_num);
 			in_num--;
@@ -186,30 +188,32 @@ int	exec_input_red(t_el_counter *el_counter)
 int	exec_output_red(t_el_counter *el_counter)
 {
 	int i = 0;
+	int	fd;
 	int out_num = el_counter->red_num_out;
 	while(i < el_counter->num_of_wrds - 1)
 	{
-		if(el_counter->cmd_arr[i].flag[1] == '<')
+		if(el_counter->cmd_arr[i].flag[1] == '>')
 		{
 			if(access(el_counter->cmd_arr[i].command,W_OK) == -1)
 			{
-				open(el_counter->cmd_arr[i].command, O_RDONLY , 0777);
+				open(el_counter->cmd_arr[i].command, O_RDWR , 0777);
 			}else
 			{
 				printf("Running double redirection\n");
-				open(el_counter->cmd_arr[i].command, O_CREAT | O_WRONLY, 0777);
+				fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDWR, 0777);
 			}
 			out_num--;
 			if(out_num == 0)
 			{
 				printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
+				return fd;
 			}
 		}
-		else if(el_counter->cmd_arr[i].flag[0] == '<' && el_counter->red_num_in++)
+		else if(el_counter->cmd_arr[i].flag[0] == '>' && el_counter->red_num_out++)
 		{
 			printf("Running single redirection\n");
 			
-			int fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDONLY, 0777);
+			fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDWR, 0777);
 			
 			printf("Num %d\n", out_num);
 			out_num--;
@@ -225,9 +229,53 @@ int	exec_output_red(t_el_counter *el_counter)
 	}
 	return -1;
 }
-int		run_redictions(t_data *info, int index)
+char *get_cmd(t_el_counter *counter)
+{
+	int i = 0;
+	while(counter->cmd_arr[i].command)
+	{
+		if(counter->cmd_arr[i].flag[0] == 'N')
+		{
+			return counter->cmd_arr[i].command;
+		}
+		i++;
+	}
+	return NULL;
+}
+int		exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env)
+{
+	char **command_and_param = ft_split(get_cmd(el_counter), ' ');
+	char	*path = get_path(env);
+	t_data info;
+	info.cmd_table = malloc(sizeof(char **) * 1);
+	info.cmd_table[0] = get_cmd(el_counter);
+	if(!command_and_param)
+	{
+		printf("There is no command to exec\n");
+		close(el_counter->fd_input);
+		close(el_counter->fd_output);
+		return -1;
+	}
+	if(el_counter->fd_input != -1)
+	{
+	execute_single_command(command_and_param, path, &info , env, 0,el_counter->fd_input);
+	close(el_counter->fd_input);
+	waitpid(el_counter->fd_input, NULL, 0);
+	// dup2(STDOUT_FILENO, original_process);
+	// wait(&finish);
+	// wait(&finish2);
+	}
+	
+	
+	if(el_counter){}
+	return 0;
+}
+
+int		run_redictions(t_data *info, int index, char **env)
 {
 	t_el_counter el_counter;
+	el_counter.red_num_in = 0;
+	el_counter.red_num_out = 0;
 	if(!(ft_strchr(info->cmd_table[index], '<') || ft_strchr(info->cmd_table[index], '>')))
 	{
 		printf("Redirections are not in the string 🦖\n");
@@ -244,6 +292,11 @@ int		run_redictions(t_data *info, int index)
 	{
 		printf("No output redirections found\n");
 	}
+	if(el_counter.fd_output == -1 && el_counter.fd_input == -1)
+		return 1;
+	if(env)
+	{}
+	exec_cmd_and_close_fds(&el_counter, env);
 	int i = 0;
 	while(i < el_counter.num_of_wrds - 1 )
 	{
