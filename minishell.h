@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/15 18:34:59 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/15 22:28:01 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ int		count_multis(char *input);
 void	builtin_handler(t_data *info);
 char	**get_env_arr(t_data *info);
 void	manage_exec(t_data *info, char **env);
-int		split_path_to_exec(char *path, char **command_and_params, char **env, char *params, int forker);
+int		split_path_to_exec(char *path, char **command_and_params, char **env, char *params, int forker, int i);
 char	*check_for_cmd_in_path(char *path, char *command);
 char	*get_path(char **envv);
 char	**command_and_param_from_line(char *line);
-void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env, int index, int forker);
+void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env, int index, int forker, int i);
 int		piping(char **command_and_param, char *path, t_data *info, char **env, int index);
 int		look_for_redirections(t_data *info, int counter);
 int		find_len_first_command(t_data *info, int index);

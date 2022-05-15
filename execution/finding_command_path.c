@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/15 19:47:44 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/15 22:30:11 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char *check_for_cmd_in_path(char *path, char *command)
 // $> echo $PATH
 // /bin:/usr/bin:/home/user/.bin
 //into smaller chunks
-int split_path_to_exec(char *path, char **command_and_params, char **env, char *params, int forker)
+int split_path_to_exec(char *path, char **command_and_params, char **env, char *params, int forker, int index)
 {
 	int i = 0;
 	char **splitted_path = ft_split(path, ':');
@@ -64,7 +64,12 @@ int split_path_to_exec(char *path, char **command_and_params, char **env, char *
 					perror("Forking failed\n");
 				else if(process_1 == 0)
 				{
-					if(forker != 0)
+					if(forker != 0 && index == 1)
+					{
+						printf("Siemanko\n");
+						dup2(forker, STDIN_FILENO);
+					}
+					else if(forker != 0)
 						dup2(forker,  STDOUT_FILENO);
 					execve(full_cmd_path, command_and_params, env);
 				}
@@ -129,7 +134,7 @@ char **command_and_param_from_line(char *line)
 	free(line);
 	return command_and_param;
 }
-void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env, int index, int forker)
+void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env, int index, int forker, int i)
 {
 	int j;
 
@@ -138,7 +143,7 @@ void	execute_single_command(char **command_and_param, char *path, t_data *info, 
 	command_and_param = command_and_param_from_line(info->cmd_table[index]);
 	// printf("Command %s\n", command_and_param[0]);
 	// printf("Parameter %s\n", command_and_param[1]);
-	split_path_to_exec(path, command_and_param, env, command_and_param[1], forker);
+	split_path_to_exec(path, command_and_param, env, command_and_param[1], forker, i);
 	j = 0;
 	while(command_and_param[j])
 	{
@@ -209,7 +214,7 @@ void manage_exec(t_data *info, char **env)
 			if(run_redictions(info, i,env) != 0)
 			{
 			}else
-				execute_single_command(command_and_param, path, info, env, 0, 0);
+				execute_single_command(command_and_param, path, info, env, 0, 0, -1);
 			i++;
 		}
 		else{
@@ -240,7 +245,7 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execute_single_command(command_and_param, path, info, env, index, 1);
+		execute_single_command(command_and_param, path, info, env, index, 1, -1);
 	}
 	pid2 = fork();
 	if(pid2 < 0)
@@ -250,7 +255,7 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execute_single_command(command_and_param, path, info, env, index + 1, 1);
+		execute_single_command(command_and_param, path, info, env, index + 1, 1, -1);
 	}
 	close(fd[0]);
 	close(fd[1]);

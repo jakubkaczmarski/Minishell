@@ -258,15 +258,16 @@ int		exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env)
 	}
 	if(el_counter->fd_input != -1)
 	{
-	execute_single_command(command_and_param, path, &info , env, 0,el_counter->fd_input);
-	close(el_counter->fd_input);
-	waitpid(el_counter->fd_input, NULL, 0);
-	// dup2(STDOUT_FILENO, original_process);
-	// wait(&finish);
-	// wait(&finish2);
+		execute_single_command(command_and_param, path, &info , env, 0,el_counter->fd_input, 0);
+		close(el_counter->fd_input);
+		waitpid(el_counter->fd_input, NULL, 0);
 	}
-	
-	
+	if(el_counter->fd_output != -1)
+	{
+		execute_single_command(command_and_param, path, &info, env, 0, el_counter->fd_output, 1);
+		close(el_counter->fd_output);
+		waitpid(el_counter->fd_output, NULL, 0);
+	}
 	if(el_counter){}
 	return 0;
 }
