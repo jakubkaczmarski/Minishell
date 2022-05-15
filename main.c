@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/15 09:05:59 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/15 19:05:06 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int main(int argc, char **argv, char **envv)
 	if (copy_envv(&(info->envv), envv))
 		return (1);
 	printf("start %s...\n", argv[0]); //for testing
+	handle_sigs_interactive(); //signals
 	while (1)
 	{
 		input = readline("minishell>");

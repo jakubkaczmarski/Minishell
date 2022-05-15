@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/15 18:56:16 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/15 19:05:52 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,8 @@ int		replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr);
 
 //echo.c
 void ft_echo(char *input);
+
+//signals.c
+void	handle_sigs_interactive(void);
 
 #endif
