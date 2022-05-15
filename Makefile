@@ -13,6 +13,7 @@ SRCS =	main.c \
 		builtins/export.c \
 		builtins/export_utils.c \
 		builtins/unset.c \
+		builtins/signals.c \
 
 
 all: minishell

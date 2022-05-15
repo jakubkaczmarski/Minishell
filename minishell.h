@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/13 12:20:01 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/15 18:56:16 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,14 @@ int		count_multis(char *input);
 void	builtin_handler(t_data *info);
 
 //export.c
-void	export_handler(t_data *info, int index);
-void	export_in_envv(t_list **envv, char *var_val);
-int		ft_strint(char *str, char c);
 int		ft_isvalid(char *str);
+int		ft_strint(char *str, char c);
+void	export_in_envv(t_list **envv, char *var_val);
+void	export_handler(t_data *info, int index);
 
 //export_utils.c
+void	split_and_print(char *smallest);
+void	indexing(t_list *curr);
 void	sort_list(t_list **envv);
 
 //unset.c
