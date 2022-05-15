@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:07:25 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/13 15:31:13 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/15 10:24:01 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,27 @@ sorts or prints out the envv list in alphabetical order
 // 	}
 // }
 
+void split_and_print(char *smallest)
+{
+	int		i;
+	char	**var_val;
+
+	i = 2;
+	var_val = ft_split(smallest, '=');
+	printf("declare -x %s=\"", var_val[0]);
+	printf("%s", var_val[1]);
+	free(var_val[0]);
+	free(var_val[1]);
+	while (var_val[i])
+	{
+		printf("=%s", var_val[i]);
+		free(var_val[i]);
+		i++;
+	}
+	printf("\"\n");
+	free(var_val);
+}
+
 void indexing(t_list *curr)
 {
 	while (curr->next != NULL)
@@ -47,7 +68,6 @@ void indexing(t_list *curr)
 
 void sort_list(t_list **envv)
 {
-	//initialize index == 0
 	t_list *curr;
 	t_list *smallest;
 	int i;
@@ -57,26 +77,31 @@ void sort_list(t_list **envv)
 	i = 1;
 	amount_elements = ft_lstsize(*envv);
 	curr = *envv;
-	printf("amount: %d\n", amount_elements);
+	//printf("amount: %d\n", amount_elements);
 	while (i < amount_elements)
 	{
-		printf("Round: %d\n", i);
+		//printf("Round: %d\n", i);
 		while (curr->next != NULL)
 		{
-			printf("compare %s[%d] with %s\n", curr->content, curr->index, smallest->content);
+			//printf("compare %s[%d] with %s\n", curr->content, curr->index, smallest->content);
 			if (ft_strncmp(curr->content, smallest->content, \
-				ft_strlen(smallest->content)) < 0 && curr->index != -1 && curr->content)
+				ft_strlen(smallest->content)) < 0 && curr->index != -1)
 			{
-				printf("triggert\n");
+				//printf("triggert\n");
 				smallest = curr;
 			}
 			curr = curr->next;
+			while (curr->index == -1)
+				curr = curr->next;
 		}
-		printf("after-while-crocodikehdhd\n");
+		//printf("after-while-crocodikehdhd\n");
 		i++;
 		smallest->index = -1;
-		printf("-----------\nRESULT: %s\n------------\n", smallest->content);
+		split_and_print(smallest->content);
+		//printf("declare -x %s\n", smallest->content);
 		smallest = *envv;
+		while (smallest->index == -1)
+			smallest = smallest->next;
 		curr = *envv;
 	}
 }

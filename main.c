@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/13 12:15:33 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/15 09:05:59 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void print_envv(t_list *envv, int flag)
 		if (flag == 1)
 			printf("delcare -x %s\n", envv->content);
 		else
-			printf("%s => %p\n", envv->content, envv->next);
+			printf("%s\n", envv->content);
 		envv = envv->next;
 	}
 }
@@ -51,13 +51,13 @@ int main(int argc, char **argv, char **envv)
 	info->envv = malloc(sizeof(t_list **));
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-	printf("%s", argv[0]); //for testing
+	printf("start %s...\n", argv[0]); //for testing
 	while (1)
 	{
 		input = readline("minishell>");
 		if (!input)
 			break ;
-		add_history(input);
+		//add_history(input);
 		input = handle_input(info, input, envv);
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
 			break ;
