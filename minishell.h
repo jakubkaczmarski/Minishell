@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/14 16:08:39 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/15 13:12:16 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@
 
 //for each command with redirections
 typedef struct s_cmd {
-	char	**out_command_name;
-	char	**in_command_name;
 	char	*command;
+	char	*flag;
 }				t_cmd;
 
 
@@ -38,6 +37,7 @@ typedef struct s_data {
 typedef struct s_count_el
 {
 	char **redirect_arr;
+	t_cmd *cmd_arr;
 	int red_num_in;
 	int	red_num_out;
 	int n_cmd_flags;
