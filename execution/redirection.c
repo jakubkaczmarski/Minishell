@@ -107,11 +107,13 @@ int		loop_through_redir(t_el_counter *el_counter)
 				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
 				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
 				el_counter->cmd_arr[i].flag = ">>";
+				el_counter->red_num_out++;
 			}else
 			{
 				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][1];
 				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
 				el_counter->cmd_arr[i].flag = ">";
+				el_counter->red_num_out++;
 			}
 		}else if(el_counter->redirect_arr[i][0] == '<')
 		{
@@ -120,31 +122,31 @@ int		loop_through_redir(t_el_counter *el_counter)
 				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
 				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
 				el_counter->cmd_arr[i].flag = "<<";
+				el_counter->red_num_in++;
 			}else
 			{
 				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][1];
 				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
 				el_counter->cmd_arr[i].flag = "<";
+				el_counter->red_num_in++;
 			}
 		}else{
 			el_counter->cmd_arr[i].command = el_counter->redirect_arr[i];
 			el_counter->cmd_arr[i].flag = calloc(sizeof(char), 2);
 			el_counter->cmd_arr[i].flag[0] = 'N';
+			el_counter->num_of_cmds++;
 		}
 		i++;
 	}
 	return 0;
 }
-void exec_input_red(t_el_counter *el_counter)
+int	exec_input_red(t_el_counter *el_counter)
 {
 	int i = 0;
+	int in_num = el_counter->red_num_in;
 	while(i < el_counter->num_of_wrds - 1)
 	{
-		if(el_counter->cmd_arr[i].flag[0] == 'N')
-		{
-			printf("Null\n");
-		}
-		else if(el_counter->cmd_arr[i].flag[1] == '<')
+		if(el_counter->cmd_arr[i].flag[1] == '<')
 		{
 			if(access(el_counter->cmd_arr[i].command,W_OK) == -1)
 			{
@@ -154,15 +156,74 @@ void exec_input_red(t_el_counter *el_counter)
 				printf("Running double redirection\n");
 				open(el_counter->cmd_arr[i].command, O_CREAT | O_WRONLY, 0777);
 			}
+			in_num--;
+			if(in_num == 0)
+			{
+				printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
+			}
 		}
-		else if(el_counter->cmd_arr[i].flag[0] == '<')
+		else if(el_counter->cmd_arr[i].flag[0] == '<' && el_counter->red_num_in++)
 		{
 			printf("Running single redirection\n");
-			open(el_counter->cmd_arr[i].command, O_CREAT | O_WRONLY, 0777);
+			
+			int fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_WRONLY, 0777);
+			
+			printf("Num %d\n", in_num);
+			in_num--;
+			if(in_num == 0)
+			{
+				printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
+				return fd;
+			}else{
+				close(fd);
+			}
 		}
 		
 		i++;
 	}
+	return -1;
+}
+int	exec_output_red(t_el_counter *el_counter)
+{
+	int i = 0;
+	int out_num = el_counter->red_num_out;
+	while(i < el_counter->num_of_wrds - 1)
+	{
+		if(el_counter->cmd_arr[i].flag[1] == '<')
+		{
+			if(access(el_counter->cmd_arr[i].command,W_OK) == -1)
+			{
+				open(el_counter->cmd_arr[i].command, O_RDONLY , 0777);
+			}else
+			{
+				printf("Running double redirection\n");
+				open(el_counter->cmd_arr[i].command, O_CREAT | O_WRONLY, 0777);
+			}
+			out_num--;
+			if(out_num == 0)
+			{
+				printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
+			}
+		}
+		else if(el_counter->cmd_arr[i].flag[0] == '<' && el_counter->red_num_in++)
+		{
+			printf("Running single redirection\n");
+			
+			int fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDONLY, 0777);
+			
+			printf("Num %d\n", out_num);
+			out_num--;
+			if(out_num == 0)
+			{
+				printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
+				return fd;
+			}else{
+				close(fd);
+			}
+		}
+		i++;
+	}
+	return -1;
 }
 int		run_redictions(t_data *info, int index)
 {
@@ -175,7 +236,14 @@ int		run_redictions(t_data *info, int index)
 	Kurwa(&el_counter, info->cmd_table[index]);
 	loop_through_redir(&el_counter);
 	//Now i have an array of cmds that consists of cmd and flag
-	exec_input_red(&el_counter);
+	if((el_counter.fd_input = exec_input_red(&el_counter)) == -1)
+	{
+		printf("No input redirections found\n");
+	};
+	if((el_counter.fd_output = exec_output_red(&el_counter)) == -1)
+	{
+		printf("No output redirections found\n");
+	}
 	int i = 0;
 	while(i < el_counter.num_of_wrds - 1 )
 	{

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/15 13:12:16 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/15 15:48:59 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ typedef struct s_count_el
 	int	red_num_out;
 	int n_cmd_flags;
 	int	num_of_wrds;
-	int	ida_red_in;
-	int	ida_red_out;
+	int	num_of_cmds;
 	int	ida_cmd_flags;
+	int fd_input;
+	int fd_output;
 } t_el_counter;
 //			parse
 //input.c

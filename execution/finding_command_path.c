@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finding_command_path.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/14 16:09:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/15 16:24:27 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,14 +202,19 @@ void manage_exec(t_data *info, char **env)
 	
 		if(!info->cmd_table[i + 1])
 		{
-			run_redictions(info, i);
-			execute_single_command(command_and_param, path, info, env, 0, 0);
+			if(run_redictions(info, i) != 0)
+			{
+				break;
+			}else
+				execute_single_command(command_and_param, path, info, env, 0, 0);
 			break;
 		}
 		else{
-			run_redictions(info, i);
-			run_redictions(info, i + 1);
-			piping(command_and_param, path, info, env, i);
+			if(run_redictions(info, i) != 0)
+			{
+				run_redictions(info, i + 1);
+			}else
+				piping(command_and_param, path, info, env, i);
 			i += 2;
 		}
 	}
