@@ -105,10 +105,12 @@ int		loop_through_redir(t_el_counter *el_counter)
 			if(el_counter->redirect_arr[i][1] == '>')
 			{
 				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
+				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
 				el_counter->cmd_arr[i].flag = ">>";
 			}else
 			{
 				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][1];
+				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
 				el_counter->cmd_arr[i].flag = ">";
 			}
 		}else if(el_counter->redirect_arr[i][0] == '<')
@@ -116,48 +118,52 @@ int		loop_through_redir(t_el_counter *el_counter)
 			if(el_counter->redirect_arr[i][1] == '<')
 			{
 				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
+				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
 				el_counter->cmd_arr[i].flag = "<<";
 			}else
 			{
 				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][1];
+				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
 				el_counter->cmd_arr[i].flag = "<";
 			}
 		}else{
 			el_counter->cmd_arr[i].command = el_counter->redirect_arr[i];
-			el_counter->cmd_arr[i].flag = calloc(sizeof(char), 1);
+			el_counter->cmd_arr[i].flag = calloc(sizeof(char), 2);
+			el_counter->cmd_arr[i].flag[0] = 'N';
 		}
 		i++;
 	}
 	return 0;
 }
-// void exec_input_red(t_el_counter *el_counter)
-// {
-// 	int i = 0;
-// 	// printf("kqwdokpdqwkopqwdkpoqdwkopqdwkqpdow");
-// 	// while(el_counter->cmd_arr[i].command)
-// 	// {
-// 	// 	if(!el_counter->cmd_arr[i].flag)
-// 	// 	{
-// 	// 		printf("kqwdokpdqwkopqwdkpoqdwkopqdwkqpdow %s", el_counter->cmd_arr[i].command);
-// 	// 	}
-// 	// 	else if(ft_strncmp("<<",el_counter->cmd_arr[i].flag, 2) == 0)
-// 	// 	{
-// 	// 		printf("Siemanko %s", el_counter->cmd_arr[i].command);
-// 	// 		printf("Flag %s", el_counter->cmd_arr[i].flag);
-// 	// 		open(el_counter->cmd_arr[i].command, O_CREAT | O_WRONLY, 0777);
-// 	// 	}
-// 	// 	else if(ft_strncmp("<", el_counter->cmd_arr[i].flag, 1) == 0)
-// 	// 	{
-// 	// 		if(access(el_counter->cmd_arr[i].command,W_OK) == -1)
-// 	// 		{
-// 	// 			open(el_counter->cmd_arr[i].command, O_APPEND | O_WRONLY, 0777);
-// 	// 		}else
-// 	// 			open(el_counter->cmd_arr[i].command, O_CREAT | O_WRONLY, 0777);
-// 	// 	}
+void exec_input_red(t_el_counter *el_counter)
+{
+	int i = 0;
+	while(i < el_counter->num_of_wrds - 1)
+	{
+		if(el_counter->cmd_arr[i].flag[0] == 'N')
+		{
+			printf("Null\n");
+		}
+		else if(el_counter->cmd_arr[i].flag[1] == '<')
+		{
+			if(access(el_counter->cmd_arr[i].command,W_OK) == -1)
+			{
+				open(el_counter->cmd_arr[i].command, O_APPEND | O_WRONLY, 0777);
+			}else
+			{
+				printf("Running double redirection\n");
+				open(el_counter->cmd_arr[i].command, O_CREAT | O_WRONLY, 0777);
+			}
+		}
+		else if(el_counter->cmd_arr[i].flag[0] == '<')
+		{
+			printf("Running single redirection\n");
+			open(el_counter->cmd_arr[i].command, O_CREAT | O_WRONLY, 0777);
+		}
 		
-// 	// 	i++;
-// 	// }
-// }
+		i++;
+	}
+}
 int		run_redictions(t_data *info, int index)
 {
 	t_el_counter el_counter;
@@ -169,12 +175,12 @@ int		run_redictions(t_data *info, int index)
 	Kurwa(&el_counter, info->cmd_table[index]);
 	loop_through_redir(&el_counter);
 	//Now i have an array of cmds that consists of cmd and flag
-	// exec_input_red(&el_counter);
+	exec_input_red(&el_counter);
 	int i = 0;
 	while(i < el_counter.num_of_wrds - 1 )
 	{
 		// printf("Output %s\n", el_counter.redirect_arr[i]);
-		// printf("Flag : %s \t Command %s \n", el_counter.cmd_arr[i].flag, el_counter.cmd_arr[i].command);
+		printf("Flag : %s \t Command %s \n", el_counter.cmd_arr[i].flag, el_counter.cmd_arr[i].command);
 		free(el_counter.redirect_arr[i]);
 		i++;
 	}
