@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/16 15:47:49 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:06:04 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,24 @@ int main(int argc, char **argv, char **envv)
 	handle_sigs_interactive(); //signals
 	while (1)
 	{
-		input = readline("minishell>");
+		input = readline("minishell>🦖");
 		if (!input)
 			break ;
-		//add_history(input);
-		input = handle_input(info, input, envv);
+		add_history(input);
+		input = handle_input(info, input, envv);	
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
 			break ;
 		builtin_handler(info);
-		//printf("-------------------------------------------------\n");
+		manage_exec(info, envv);
+		
 		free(input);
 		counter = 0;
+		
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);
 		free(info->cmd_table);
 	}
+
 	ft_lstclear(&(info->envv), free);
 	free(info);
 	return (0);
