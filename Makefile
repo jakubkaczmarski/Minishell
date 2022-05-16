@@ -12,6 +12,7 @@ SRCS =	main.c \
 		builtins/echo.c \
 		execution/finding_command_path.c\
 		execution/redirection.c\
+		execution/allocating_for_cmd.c\
 
 all: minishell
 

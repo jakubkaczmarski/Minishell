@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/15 22:28:01 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/16 15:08:46 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_count_el
 	int	ida_cmd_flags;
 	int fd_input;
 	int fd_output;
+	int here_doc_thingy;
+	char *magic_here_doc_word;
 } t_el_counter;
 //			parse
 //input.c
@@ -94,8 +96,14 @@ int		piping(char **command_and_param, char *path, t_data *info, char **env, int 
 int		look_for_redirections(t_data *info, int counter);
 int		find_len_first_command(t_data *info, int index);
 int		run_redictions(t_data *info, int index, char ** env);
-int	get_num_to_alloc(t_el_counter *el_count, t_data *info, int index);
-int	alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index);
+int		get_num_to_alloc(t_el_counter *el_count, t_data *info, int index);
+int		alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index);
 void	manage_input_red(char *line);
 int		Kurwa(t_el_counter *kurwa, char *line);
+int		exec_input_red(t_el_counter *el_counter);
+int		exec_output_red(t_el_counter *el_counter);
+int		loop_through_redir(t_el_counter *el_counter);
+int		check_for_buildins(char *line, char **env);
+int		get_here_doc(t_el_counter *el_counter);
+int		manage_here_doc(t_el_counter *el_counter, int index);
 #endif

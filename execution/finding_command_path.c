@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/16 13:17:04 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/16 14:58:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,28 @@ int check_for_redirections(char *str)
 	// 	info->cmd_table[i] != 
 	// }
 }
+int	check_for_buildins(char *line, char **env)
+{
+	if(*line | **env)
+	{}
+	if(ft_strncmp(line, "cd", 2) == 0)
+	{
+		return 1;
+	}else if(ft_strncmp(line, "echo", 2) == 0)
+	{
+		return 1;
+	}else if(ft_strncmp(line, "pwd", 2) == 0)
+	{
+		return 1;
+	}else if(ft_strncmp(line, "export", 2) == 0)
+	{
+		return 1;
+	}else if(ft_strncmp(line, "unset", 2) == 0)
+	{
+		return 1;
+	}
+	return 0;
+}
 void manage_exec(t_data *info, char **env)
 {
 	char	*path = get_path(env);
@@ -207,8 +229,11 @@ void manage_exec(t_data *info, char **env)
 	// int num_of_red = look_for_redirections();
 	while(info->cmd_table[i])
 	{
-		// info->cmd_table[i] 
-	
+		if(check_for_buildins(info->cmd_table[i], env) == 1)
+		{
+			printf("Build-ins detected\n");
+		}
+		// info->cmd_table[i]
 		if(!info->cmd_table[i + 1])
 		{
 			if(run_redictions(info, i,env) != 0)

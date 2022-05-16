@@ -1,202 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
+/*   Updated: 2022/05/16 15:24:32 by jkaczmar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-char	*get_wrd(char *trimmed_line, int *i)
-{
-	if(trimmed_line[*i])
-	{
-		if(trimmed_line[*i] == '<' || trimmed_line[*i] == '>')
-		{
-			*i = *i + 1;
-			if((trimmed_line[*i] == '<' && trimmed_line[*i + 1] == '<') || (trimmed_line[*i + 1] == '>' && trimmed_line[*i] == '>'))
-			{
-				*i = *i + 1;
-			}
-			
-		}
-	}
-	while(trimmed_line[*i])
-	{
-		if(trimmed_line[*i + 1] == '<' || trimmed_line[*i + 1] == '>' || !trimmed_line[*i + 1])
-		{
-			*i = *i + 1;
-			return ft_substr(trimmed_line, 0,*i);
-		}
-		*i = *i + 1;
-	}
-	return NULL;
-}
-int Kurwa(t_el_counter *kurwa, char *line)
-{
-	int i = 0;
-	char *trimmed_line;
-	trimmed_line = ft_strtrim(line, " ");
-	int index = 0;
-	char *wrd = get_wrd(trimmed_line, &index);
-	i++;
-	char *temp;
-	if(kurwa){}
-	while(wrd)
-	{
-		free(wrd);
-		temp = trimmed_line;
-		trimmed_line = ft_substr(trimmed_line, index, ft_strlen(trimmed_line) - index);
-		index = 0;
-		free(temp);
-		wrd = get_wrd(trimmed_line, &index);
-		i++;
-	}
-	if(wrd)
-	{}
-	if(i == 0)
-		return 0;
-	kurwa->redirect_arr = malloc(sizeof(char**) * (i));
-	kurwa->num_of_wrds = i;
-	i = 0;
-	index = 0;
-	trimmed_line = ft_strtrim(line, " ");
-
-	kurwa->redirect_arr[i] = get_wrd(trimmed_line, &index);
-	i++;
-
-	while(i < kurwa->num_of_wrds  )
-	{
-		temp = trimmed_line;
-		trimmed_line = ft_substr(trimmed_line, index, ft_strlen(trimmed_line) - index);
-		index = 0;
-		free(temp);
-		kurwa->redirect_arr[i] = get_wrd(trimmed_line, &index);
-		i++;
-	}
-	return 0;
-}
-
-int		loop_through_redir(t_el_counter *el_counter)
-{
-	int i = 0;
-	el_counter->cmd_arr = malloc(sizeof(t_cmd) * el_counter->num_of_wrds);
-	while(el_counter->redirect_arr[i])
-	{
-		if(el_counter->redirect_arr[i][0] == '<')
-		{
-			if(el_counter->redirect_arr[i][1] == '<')
-			{
-				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
-				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
-				el_counter->cmd_arr[i].flag = "<<";
-				el_counter->red_num_out++;
-			}else
-			{
-				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][1];
-				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
-				el_counter->cmd_arr[i].flag = "<";
-				el_counter->red_num_out++;
-			}
-		}else if(el_counter->redirect_arr[i][0] == '>')
-		{
-			if(el_counter->redirect_arr[i][1] == '>')
-			{
-				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
-				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
-				el_counter->cmd_arr[i].flag = ">>";
-				el_counter->red_num_in++;
-			}else
-			{
-				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][1];
-				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
-				el_counter->cmd_arr[i].flag = ">";
-				el_counter->red_num_in++;
-			}
-		}else{
-			el_counter->cmd_arr[i].command = el_counter->redirect_arr[i];
-			el_counter->cmd_arr[i].flag = calloc(sizeof(char), 2);
-			el_counter->cmd_arr[i].flag[0] = 'N';
-			el_counter->num_of_cmds++;
-		}
-		i++;
-	}
-	return 0;
-}
-int	exec_input_red(t_el_counter *el_counter)
-{
-	int i = 0;
-	int in_num = el_counter->red_num_in;
-	int fd;
-	while(i < el_counter->num_of_wrds - 1)
-	{
-		if(el_counter->cmd_arr[i].flag[1] == '>')
-		{
-			if(access(el_counter->cmd_arr[i].command,W_OK) == 0)
-			{
-				fd = open(el_counter->cmd_arr[i].command, O_APPEND | O_RDWR, 0777);
-			}else
-			{
-				fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDWR, 0777);
-			}
-			in_num--;
-			if(in_num == 0)
-			{
-				return fd;
-			}
-		}
-		else if(el_counter->cmd_arr[i].flag[0] == '>' && el_counter->red_num_in++)
-		{
-			fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDWR, 0777);
-			in_num--;
-			if(in_num == 0)
-			{
-				return fd;
-			}else{
-				close(fd);
-			}
-		}
-		
-		i++;
-	}
-	return -1;
-}
-int	exec_output_red(t_el_counter *el_counter)
-{
-	int i = 0;
-	int	fd;
-	int out_num = el_counter->red_num_out;
-	while(i < el_counter->num_of_wrds - 1)
-	{
-		if(el_counter->cmd_arr[i].flag[1] == '<')
-		{
-			if(access(el_counter->cmd_arr[i].command,W_OK) == 0)
-			{
-				fd = open(el_counter->cmd_arr[i].command, O_RDWR , 0777);
-			}else
-			{
-				return -1;
-			}
-			out_num--;
-			if(out_num == 0)
-			{
-				return fd;
-			}
-		}
-		else if(el_counter->cmd_arr[i].flag[0] == '<' && el_counter->red_num_out++)
-		{	
-			if(access(el_counter->cmd_arr[i].command,W_OK) == 0)
-			{
-				fd = open(el_counter->cmd_arr[i].command, O_RDWR , 0777);
-			}else{
-				return -1;
-			}
-			out_num--;
-			if(out_num == 0)
-			{
-				// printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
-				return fd;
-			}else{
-				close(fd);
-			}
-		}
-		i++;
-	}
-	return 0;
-}
 char *get_cmd(t_el_counter *counter)
 {
 	int i = 0;
@@ -233,7 +48,7 @@ int		exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env)
 	if(el_counter->fd_output != 0)
 	{
 		if(el_counter->fd_output != -1)
-		{
+		{	
 			execute_single_command(command_and_param, path, &info, env, 0, el_counter->fd_output, 1);
 			close(el_counter->fd_output);
 			waitpid(el_counter->fd_output, NULL, 0);
@@ -257,7 +72,7 @@ int		run_redictions(t_data *info, int index, char **env)
 	loop_through_redir(&el_counter);
 	if((el_counter.fd_input = exec_input_red(&el_counter)) == -1)
 	{
-		printf("No input redirections found\n");
+		// printf("No input redirections found\n");
 	};
 	if((el_counter.fd_output = exec_output_red(&el_counter)) == -1)
 	{
@@ -277,4 +92,49 @@ int		run_redictions(t_data *info, int index, char **env)
 
 	return 1;
 }
-
+//First get the case when i need to run heredoc
+//Then get the word that ends the heredoc save it into the t_el_counter structure
+//Then i can run this command thingy
+//And i can just run it before executing the command in the output in the if statement
+//
+int get_here_doc(t_el_counter *el_counter)
+{
+	int		here_fd;
+	char	*inp;
+	if(el_counter)
+	{}
+	if(access("czary_mary_dzikie_weze", F_OK))
+	{
+		here_fd = open("czary_mary_dzikie_weze", O_CREAT | O_RDWR, 0666);
+	}else
+		here_fd = open("czary_mary_dzikie_weze", O_WRONLY | O_TRUNC, 0666);
+	if(here_fd == -1)
+	{
+		close(here_fd);
+		perror("Here_doc not created\n");
+		return (-1);
+	}
+	while(1)
+	{
+		inp = readline(">");
+		if(!inp)
+		{
+			printf("Here document delimited by end of file (we need this delimiter)\n");
+			return -1;
+		}
+		
+		if(ft_memcmp(el_counter->magic_here_doc_word, inp, ft_strlen(el_counter->magic_here_doc_word) + 1))
+		{
+			int i = 0;
+			i = ft_strlen(inp);
+			write(here_fd, inp, i);
+			write(here_fd, "\n", i);
+		}else{
+			close(here_fd);
+			return 0;
+		}
+		// ft_memcmp(
+	}
+	
+	return -1;
+}
