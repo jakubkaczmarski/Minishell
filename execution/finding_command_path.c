@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/16 14:58:39 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/16 20:01:48 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,19 @@ int	check_for_buildins(char *line, char **env)
 	}
 	return 0;
 }
+int	check_if_only_red(char *cmd)
+{
+	int	i = 0;
+	while(cmd[i])
+	{
+		if(cmd[i] != '<' && cmd[i] != '>')
+		{
+			return 0;
+		}
+		i++;
+	}
+	return 1;
+}
 void manage_exec(t_data *info, char **env)
 {
 	char	*path = get_path(env);
@@ -229,6 +242,8 @@ void manage_exec(t_data *info, char **env)
 	// int num_of_red = look_for_redirections();
 	while(info->cmd_table[i])
 	{
+		if(check_if_only_red(info->cmd_table[i]) == 1)
+			return ;
 		if(check_for_buildins(info->cmd_table[i], env) == 1)
 		{
 			printf("Build-ins detected\n");

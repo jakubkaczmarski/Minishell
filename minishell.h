@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/16 17:04:55 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/16 20:02:28 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,4 +134,5 @@ int		loop_through_redir(t_el_counter *el_counter);
 int		check_for_buildins(char *line, char **env);
 int		get_here_doc(t_el_counter *el_counter);
 int		manage_here_doc(t_el_counter *el_counter, int index);
+int		check_if_only_red(char *cmd);
 #endif
