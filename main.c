@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/16 17:11:18 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:14:28 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,10 @@ int main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);	
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
 			break ;
-		//builtin_handler(info);
-		//manage_exec(info, envv);
-		
+		builtin_handler(info);
+		manage_exec(info, envv);
 		free(input);
 		counter = 0;
-		
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);
 		free(info->cmd_table);
