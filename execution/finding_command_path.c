@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/15 22:36:42 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/16 12:49:10 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int split_path_to_exec(char *path, char **command_and_params, char **env, char *
 				{
 					if(forker != 0 && index == 1)
 					{
-						printf("Siemanko\n");
 						dup2(forker, STDIN_FILENO);
 					}
 					else if(forker != 0)
@@ -203,6 +202,7 @@ void manage_exec(t_data *info, char **env)
 	if(!info && !env)
 	{};
 	int i = 0;
+	int err;
 	command_and_param = malloc(sizeof(char **) * 2);
 	// int num_of_red = look_for_redirections();
 	while(info->cmd_table[i])
@@ -218,11 +218,13 @@ void manage_exec(t_data *info, char **env)
 			i++;
 		}
 		else{
-			if(run_redictions(info, i, env) != 0)
+			if((err = run_redictions(info, i, env)) != 0)
 			{
 				run_redictions(info, i + 1, env);
-			}else
+			}else if(err == 1)
+			{
 				piping(command_and_param, path, info, env, i);
+			}
 			i += 2;
 		}
 	}

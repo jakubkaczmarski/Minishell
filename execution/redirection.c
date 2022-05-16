@@ -130,27 +130,20 @@ int	exec_input_red(t_el_counter *el_counter)
 				open(el_counter->cmd_arr[i].command, O_APPEND | O_RDWR, 0777);
 			}else
 			{
-				printf("Running double redirection\n");
 				fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDWR, 0777);
 			}
 			in_num--;
 			if(in_num == 0)
 			{
-				printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
 				return fd;
 			}
 		}
 		else if(el_counter->cmd_arr[i].flag[0] == '>' && el_counter->red_num_in++)
 		{
-			printf("Running single redirection\n");
-			
 			fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDWR, 0777);
-			
-			printf("Num %d\n", in_num);
 			in_num--;
 			if(in_num == 0)
 			{
-				printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
 				return fd;
 			}else{
 				close(fd);
@@ -175,12 +168,11 @@ int	exec_output_red(t_el_counter *el_counter)
 				fd = open(el_counter->cmd_arr[i].command, O_RDWR , 0777);
 			}else
 			{
-				// perror("No such file in directory\n");
+				return -1;
 			}
 			out_num--;
 			if(out_num == 0)
 			{
-				printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
 				return fd;
 			}
 		}
@@ -189,17 +181,13 @@ int	exec_output_red(t_el_counter *el_counter)
 			if(access(el_counter->cmd_arr[i].command,W_OK) == 0)
 			{
 				fd = open(el_counter->cmd_arr[i].command, O_RDWR , 0777);
-				perror("Opened thingy");
 			}else{
-				perror("No such file What the shell in directory\n");
 				return -1;
 			}
-			
-			printf("Num %d\n", out_num);
 			out_num--;
 			if(out_num == 0)
 			{
-				printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
+				// printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
 				return fd;
 			}else{
 				close(fd);
@@ -207,7 +195,7 @@ int	exec_output_red(t_el_counter *el_counter)
 		}
 		i++;
 	}
-	return -1;
+	return 0;
 }
 char *get_cmd(t_el_counter *counter)
 {
@@ -242,11 +230,14 @@ int		exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env)
 		close(el_counter->fd_output);
 		waitpid(el_counter->fd_output, NULL, 0);
 	}
-	if(el_counter->fd_output != -1)
+	if(el_counter->fd_output != 0)
 	{
-		execute_single_command(command_and_param, path, &info, env, 0, el_counter->fd_output, 1);
-		close(el_counter->fd_input);
-		waitpid(el_counter->fd_input, NULL, 0);
+		if(el_counter->fd_output != -1)
+		{
+			execute_single_command(command_and_param, path, &info, env, 0, el_counter->fd_output, 1);
+			close(el_counter->fd_input);
+			waitpid(el_counter->fd_input, NULL, 0);
+		}
 	}
 	if(el_counter){}
 	return 0;
@@ -271,17 +262,17 @@ int		run_redictions(t_data *info, int index, char **env)
 	};
 	if((el_counter.fd_output = exec_output_red(&el_counter)) == -1)
 	{
-		printf("No output redirections found\n");
+		printf("No file found in directory\n");
 	}
-	if(el_counter.fd_output == -1 && el_counter.fd_input == -1)
-		return 1;
+	// if(el_counter.fd_output == -1 && el_counter.fd_input == -1)
+		// return 1;
 	if(env)
 	{}
 	exec_cmd_and_close_fds(&el_counter, env);
 	int i = 0;
 	while(i < el_counter.num_of_wrds - 1 )
 	{
-		printf("Flag : %s \t Command %s \n", el_counter.cmd_arr[i].flag, el_counter.cmd_arr[i].command);
+		// printf("Flag : %s \t Command %s \n", el_counter.cmd_arr[i].flag, el_counter.cmd_arr[i].command);
 		free(el_counter.redirect_arr[i]);
 		i++;
 	}
