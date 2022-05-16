@@ -19,7 +19,7 @@ SRCS =	main.c \
 all: minishell
 
 $(NAME):
-	gcc -Wall -Wextra -Werror -lreadline -ggdb3 -o $(NAME) $(SRCS)
+	gcc -Wall -Wextra -Werror -ggdb3 -o $(NAME) $(SRCS) -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
 clean:
 	@rm -f minishell
 fclean:

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 18:52:30 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/15 19:14:30 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/16 09:37:58 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <signal.h> //put into the header-file
+#include <string.h> //needed???
 
 
 static void	sigint_handler(int signal)
