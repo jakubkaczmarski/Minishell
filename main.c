@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/16 17:06:04 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:11:18 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void print_envv(t_list *envv, int flag)
 		if (flag == 1)
 			printf("delcare -x %s\n", envv->content);
 		else
-			printf("%s[%d]\n", envv->content, envv->index);
+			printf("%s\n", envv->content);
 		envv = envv->next;
 	}
 }
@@ -49,8 +49,8 @@ int main(int argc, char **argv, char **envv)
 	if (!info)
 		return (1);
 	info->envv = malloc(sizeof(t_list **));
-	if (copy_envv(&(info->envv), envv))
-		return (1);
+	//if (copy_envv(&(info->envv), envv))
+	//	return (1);
 	printf("start %s...\n", argv[0]); //for testing
 	//print_envv(info->envv, 0);
 	handle_sigs_interactive(); //signals
@@ -63,8 +63,8 @@ int main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);	
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
 			break ;
-		builtin_handler(info);
-		manage_exec(info, envv);
+		//builtin_handler(info);
+		//manage_exec(info, envv);
 		
 		free(input);
 		counter = 0;

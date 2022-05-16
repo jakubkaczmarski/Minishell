@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:08:41 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/16 15:49:25 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:08:16 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	copy_envv(t_list **l_envv, char **envv)
 	if (envv)
 	{
 		(*l_envv)->content = envv[0];
-		(*l_envv)->index = 0;
 		(*l_envv)->next = NULL;
 		while (envv[i])
 		{
