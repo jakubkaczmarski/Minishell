@@ -255,7 +255,6 @@ int		run_redictions(t_data *info, int index, char **env)
 	}
 	Kurwa(&el_counter, info->cmd_table[index]);
 	loop_through_redir(&el_counter);
-	//Now i have an array of cmds that consists of cmd and flag
 	if((el_counter.fd_input = exec_input_red(&el_counter)) == -1)
 	{
 		printf("No input redirections found\n");
@@ -264,8 +263,6 @@ int		run_redictions(t_data *info, int index, char **env)
 	{
 		printf("No file found in directory\n");
 	}
-	// if(el_counter.fd_output == -1 && el_counter.fd_input == -1)
-		// return 1;
 	if(env)
 	{}
 	exec_cmd_and_close_fds(&el_counter, env);
