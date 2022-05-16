@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/15 19:05:06 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/16 15:47:49 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void print_envv(t_list *envv, int flag)
 		if (flag == 1)
 			printf("delcare -x %s\n", envv->content);
 		else
-			printf("%s\n", envv->content);
+			printf("%s[%d]\n", envv->content, envv->index);
 		envv = envv->next;
 	}
 }
@@ -52,6 +52,7 @@ int main(int argc, char **argv, char **envv)
 	if (copy_envv(&(info->envv), envv))
 		return (1);
 	printf("start %s...\n", argv[0]); //for testing
+	//print_envv(info->envv, 0);
 	handle_sigs_interactive(); //signals
 	while (1)
 	{

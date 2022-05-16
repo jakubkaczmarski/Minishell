@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/16 09:17:43 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/16 15:37:23 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	export_handler(t_data *info, int index);
 
 //export_utils.c
 void	split_and_print(char *smallest);
-void	indexing(t_list *curr);
+void	indexing(t_list **curr);
 void	sort_list(t_list **envv);
 
 //unset.c

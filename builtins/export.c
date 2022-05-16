@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/13 12:19:42 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/16 16:58:44 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ void	export_handler(t_data *info, int index)
 		index++;
 	}
 	if (index == 1)
-		sort_list(&(info->envv));
+		//sort_list(&(info->envv));
 	free(variables);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:07:25 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/15 18:59:34 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/16 15:44:22 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,15 @@ void	split_and_print(char *smallest)
 /*
 goes trough the list and sets the index to 0
 */
-void	indexing(t_list *curr)
+void	indexing(t_list **curr)
 {
-	while (curr->next != NULL)
+	t_list *tmp;
+
+	tmp = *curr;
+	while (tmp->next != NULL)
 	{
-		curr->index = 0;
-		curr = curr->next;
+		tmp->index = 0;
+		tmp = tmp->next;
 	}
 }
 
@@ -60,10 +63,15 @@ void	sort_list(t_list **envv)
 	int		i;
 	int		amount_elements;
 
-	curr = *envv;
+	// smallest = malloc(sizeof(t_list *));
+	// curr = malloc(sizeof(t_list *));
+	// if (!smallest || !curr)
+	// 	return ;
+	indexing(envv);
 	smallest = *envv;
+	curr = *envv;
 	i = 1;
-	indexing(curr);
+	print_envv(*envv, 0);
 	amount_elements = ft_lstsize(*envv);
 	while (i < amount_elements)
 	{
