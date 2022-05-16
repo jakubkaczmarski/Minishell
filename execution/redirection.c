@@ -125,9 +125,9 @@ int	exec_input_red(t_el_counter *el_counter)
 	{
 		if(el_counter->cmd_arr[i].flag[1] == '>')
 		{
-			if(access(el_counter->cmd_arr[i].command,W_OK) == -1)
+			if(access(el_counter->cmd_arr[i].command,W_OK) == 0)
 			{
-				open(el_counter->cmd_arr[i].command, O_APPEND | O_RDWR, 0777);
+				fd = open(el_counter->cmd_arr[i].command, O_APPEND | O_RDWR, 0777);
 			}else
 			{
 				fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDWR, 0777);
@@ -227,16 +227,16 @@ int		exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env)
 	if(el_counter->fd_input != -1)
 	{
 		execute_single_command(command_and_param, path, &info , env, 0,el_counter->fd_input, 0);
-		close(el_counter->fd_output);
-		waitpid(el_counter->fd_output, NULL, 0);
+		close(el_counter->fd_input);
+		waitpid(el_counter->fd_input, NULL, 0);
 	}
 	if(el_counter->fd_output != 0)
 	{
 		if(el_counter->fd_output != -1)
 		{
 			execute_single_command(command_and_param, path, &info, env, 0, el_counter->fd_output, 1);
-			close(el_counter->fd_input);
-			waitpid(el_counter->fd_input, NULL, 0);
+			close(el_counter->fd_output);
+			waitpid(el_counter->fd_output, NULL, 0);
 		}
 	}
 	if(el_counter){}
@@ -274,6 +274,7 @@ int		run_redictions(t_data *info, int index, char **env)
 		i++;
 	}
 	free(el_counter.redirect_arr);
+
 	return 1;
 }
 

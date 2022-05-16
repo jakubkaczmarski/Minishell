@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/16 12:49:10 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/16 13:17:04 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,13 +214,16 @@ void manage_exec(t_data *info, char **env)
 			if(run_redictions(info, i,env) != 0)
 			{
 			}else
+			{
 				execute_single_command(command_and_param, path, info, env, 0, 0, -1);
+			}
 			i++;
 		}
 		else{
 			if((err = run_redictions(info, i, env)) != 0)
 			{
 				run_redictions(info, i + 1, env);
+				
 			}else if(err == 1)
 			{
 				piping(command_and_param, path, info, env, i);

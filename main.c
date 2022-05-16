@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/15 19:47:08 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/16 13:15:31 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ int main(int argc, char **argv, char **envv)
 			break ;
 		}
 		manage_exec(info, envv);
+		
 		free(input);
 		counter = 0;
+		
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);
 		free(info->cmd_table);
