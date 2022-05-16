@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/15 22:30:11 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/15 22:36:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,3 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 	waitpid(pid2, NULL, 0);
 	return 0;
 }
-// int	format_in_redir(t_data *info, int counter)
-// {
-	
-// }

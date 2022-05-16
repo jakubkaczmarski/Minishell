@@ -14,7 +14,6 @@ char	*get_wrd(char *trimmed_line, int *i)
 			
 		}
 	}
-	// printf("index %d", *i);
 	while(trimmed_line[*i])
 	{
 		if(trimmed_line[*i + 1] == '<' || trimmed_line[*i + 1] == '>' || !trimmed_line[*i + 1])
@@ -32,7 +31,6 @@ int Kurwa(t_el_counter *kurwa, char *line)
 	char *trimmed_line;
 	trimmed_line = ft_strtrim(line, " ");
 	int index = 0;
-	// int i_prev_index = 0;
 	char *wrd = get_wrd(trimmed_line, &index);
 	i++;
 	char *temp;
@@ -71,28 +69,6 @@ int Kurwa(t_el_counter *kurwa, char *line)
 	}
 	return 0;
 }
-int		exec_input_redirection(char *line)
-{
-	// printf("Siemanko %s \n", line);
-	int original_input_thingy = dup(STDOUT_FILENO);
-	int file = open(line, O_CREAT | O_RDONLY, 0777);
-
-	dup2(file, STDOUT_FILENO);
-	printf("Siemanko");
-	write(file, "Siemanko", 10);
-	close(file);
-
-	dup2(original_input_thingy, STDOUT_FILENO);
-	close(original_input_thingy);
-	return 1;
-}
-int		exec_double_input_redirection(char *line)
-{
-	if(line){}
-		return 1;
-	
-
-}
 
 int		loop_through_redir(t_el_counter *el_counter)
 {
@@ -100,34 +76,34 @@ int		loop_through_redir(t_el_counter *el_counter)
 	el_counter->cmd_arr = malloc(sizeof(t_cmd) * el_counter->num_of_wrds);
 	while(el_counter->redirect_arr[i])
 	{
-		if(el_counter->redirect_arr[i][0] == '>')
-		{
-			if(el_counter->redirect_arr[i][1] == '>')
-			{
-				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
-				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
-				el_counter->cmd_arr[i].flag = ">>";
-				el_counter->red_num_out++;
-			}else
-			{
-				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][1];
-				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
-				el_counter->cmd_arr[i].flag = ">";
-				el_counter->red_num_out++;
-			}
-		}else if(el_counter->redirect_arr[i][0] == '<')
+		if(el_counter->redirect_arr[i][0] == '<')
 		{
 			if(el_counter->redirect_arr[i][1] == '<')
 			{
 				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
 				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
 				el_counter->cmd_arr[i].flag = "<<";
-				el_counter->red_num_in++;
+				el_counter->red_num_out++;
 			}else
 			{
 				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][1];
 				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
 				el_counter->cmd_arr[i].flag = "<";
+				el_counter->red_num_out++;
+			}
+		}else if(el_counter->redirect_arr[i][0] == '>')
+		{
+			if(el_counter->redirect_arr[i][1] == '>')
+			{
+				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
+				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
+				el_counter->cmd_arr[i].flag = ">>";
+				el_counter->red_num_in++;
+			}else
+			{
+				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][1];
+				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
+				el_counter->cmd_arr[i].flag = ">";
 				el_counter->red_num_in++;
 			}
 		}else{
@@ -147,7 +123,7 @@ int	exec_input_red(t_el_counter *el_counter)
 	int fd;
 	while(i < el_counter->num_of_wrds - 1)
 	{
-		if(el_counter->cmd_arr[i].flag[1] == '<')
+		if(el_counter->cmd_arr[i].flag[1] == '>')
 		{
 			if(access(el_counter->cmd_arr[i].command,W_OK) == -1)
 			{
@@ -164,7 +140,7 @@ int	exec_input_red(t_el_counter *el_counter)
 				return fd;
 			}
 		}
-		else if(el_counter->cmd_arr[i].flag[0] == '<' && el_counter->red_num_in++)
+		else if(el_counter->cmd_arr[i].flag[0] == '>' && el_counter->red_num_in++)
 		{
 			printf("Running single redirection\n");
 			
@@ -192,15 +168,14 @@ int	exec_output_red(t_el_counter *el_counter)
 	int out_num = el_counter->red_num_out;
 	while(i < el_counter->num_of_wrds - 1)
 	{
-		if(el_counter->cmd_arr[i].flag[1] == '>')
+		if(el_counter->cmd_arr[i].flag[1] == '<')
 		{
-			if(access(el_counter->cmd_arr[i].command,W_OK) == -1)
+			if(access(el_counter->cmd_arr[i].command,W_OK) == 0)
 			{
-				open(el_counter->cmd_arr[i].command, O_RDWR , 0777);
+				fd = open(el_counter->cmd_arr[i].command, O_RDWR , 0777);
 			}else
 			{
-				printf("Running double redirection\n");
-				fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDWR, 0777);
+				// perror("No such file in directory\n");
 			}
 			out_num--;
 			if(out_num == 0)
@@ -209,11 +184,16 @@ int	exec_output_red(t_el_counter *el_counter)
 				return fd;
 			}
 		}
-		else if(el_counter->cmd_arr[i].flag[0] == '>' && el_counter->red_num_out++)
-		{
-			printf("Running single redirection\n");
-			
-			fd = open(el_counter->cmd_arr[i].command, O_CREAT | O_RDWR, 0777);
+		else if(el_counter->cmd_arr[i].flag[0] == '<' && el_counter->red_num_out++)
+		{	
+			if(access(el_counter->cmd_arr[i].command,W_OK) == 0)
+			{
+				fd = open(el_counter->cmd_arr[i].command, O_RDWR , 0777);
+				perror("Opened thingy");
+			}else{
+				perror("No such file What the shell in directory\n");
+				return -1;
+			}
 			
 			printf("Num %d\n", out_num);
 			out_num--;
@@ -259,14 +239,14 @@ int		exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env)
 	if(el_counter->fd_input != -1)
 	{
 		execute_single_command(command_and_param, path, &info , env, 0,el_counter->fd_input, 0);
-		close(el_counter->fd_input);
-		waitpid(el_counter->fd_input, NULL, 0);
+		close(el_counter->fd_output);
+		waitpid(el_counter->fd_output, NULL, 0);
 	}
 	if(el_counter->fd_output != -1)
 	{
 		execute_single_command(command_and_param, path, &info, env, 0, el_counter->fd_output, 1);
-		close(el_counter->fd_output);
-		waitpid(el_counter->fd_output, NULL, 0);
+		close(el_counter->fd_input);
+		waitpid(el_counter->fd_input, NULL, 0);
 	}
 	if(el_counter){}
 	return 0;
@@ -301,7 +281,6 @@ int		run_redictions(t_data *info, int index, char **env)
 	int i = 0;
 	while(i < el_counter.num_of_wrds - 1 )
 	{
-		// printf("Output %s\n", el_counter.redirect_arr[i]);
 		printf("Flag : %s \t Command %s \n", el_counter.cmd_arr[i].flag, el_counter.cmd_arr[i].command);
 		free(el_counter.redirect_arr[i]);
 		i++;
