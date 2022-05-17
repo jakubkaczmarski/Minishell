@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:53:22 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/16 15:50:55 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/17 18:18:02 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 typedef struct s_list
 {
 	char			*content;
-	int				index;
 	struct s_list	*next;
+	int index;
 }				t_list;
 
 int						ft_isalpha(int arg);
