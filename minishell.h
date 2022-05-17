@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 00:01:00 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 00:11:25 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_data {
 	char	*path;
 	int			index;
 	int			forker;
+	char	**env;
+	char	**command_and_param;
 }				t_data;
 
 //main.c
@@ -118,12 +120,12 @@ void	handle_sigs_interactive(void);
 //kuba
 char	**get_env_arr(t_data *info);
 void	manage_exec(t_data *info, char **env);
-int		split_path_to_exec(char *path, char **command_and_params, char **env, char *params, int forker, int i);
+int		split_path_to_exec( t_data *info, int forker, int i);
 char	*check_for_cmd_in_path(char *path, char *command);
 char	*get_path(char **envv);
 char	**command_and_param_from_line(char *line);
-void	execute_single_command(char **command_and_param, t_data *info, char **env, int index, int forker, int i);
-int		piping(char **command_and_param, t_data *info, char **env, int index);
+void	execute_single_command(t_data *info, char **env, int index, int forker, int i);
+int		piping(t_data *info, char **env, int index);
 int		look_for_redirections(t_data *info, int counter);
 int		find_len_first_command(t_data *info, int index);
 int		run_redictions(t_data *info, int index, char ** env);
