@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/17 14:39:52 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:09:58 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,13 @@ int main(int argc, char **argv, char **envv)
 		add_history(input);
 		input = handle_input(info, input, envv);	
 		if(!input)
-		{
-			printf("Czary mary dziekie weze\n");
 			break;
-		}
 		builtin_handler(info);
 		manage_exec(info, envv);
 		free(input);
 		counter = 0;
 		while (info->cmd_table[counter])
-			free(info->cmd_table[counter++]);
-		
+			free(info->cmd_table[counter++]);	
 	}
 	if(!input)
 	{
