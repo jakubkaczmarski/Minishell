@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/17 20:02:48 by jtomala          ###   ########.fr       */
+/*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
+/*   Updated: 2022/05/17 20:08:57 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void print_envv(t_list *envv, int flag)
 		if (flag == 1)
 			printf("delcare -x %s\n", envv->content);
 		else
-			printf("%s[%d]\n", envv->content, envv->index);
+			printf("%s\n", envv->content);
 		envv = envv->next;
 	}
 }
@@ -55,23 +55,44 @@ int main(int argc, char **argv, char **envv)
 	handle_sigs_interactive(); //signals
 	while (1)
 	{
-		input = readline("minishell>");
+		input = readline("minishell>🦖");
 		if (!input)
 			break ;
+<<<<<<< HEAD
 		add_history(input);
 		input = handle_input(info, input, envv);
 		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
 			break ;
+=======
+		if(input[0] == '\0')
+			continue;
+		add_history(input);
+		input = handle_input(info, input, envv);	
+		if(!input)
+			break;
+>>>>>>> fbcb582a3fddaa3adeb88c8f1b144cc43fe2d9e7
 		builtin_handler(info);
-		//printf("-------------------------------------------------\n");
+		manage_exec(info, envv);
 		free(input);
 		counter = 0;
 		while (info->cmd_table[counter])
-			free(info->cmd_table[counter++]);
-		free(info->cmd_table);
+			free(info->cmd_table[counter++]);	
 	}
+<<<<<<< HEAD
 	ft_lstclear(&(info->envv), free); //throws an error if you press ctr+d
 	free(&(info->envv));
 	free(info);
+=======
+	if(!input)
+	{
+		free(input);
+		
+	}else{
+		free(info->cmd_table[0]);
+		ft_lstclear(&(info->envv), free);
+		free(info);
+	}
+
+>>>>>>> fbcb582a3fddaa3adeb88c8f1b144cc43fe2d9e7
 	return (0);
 }

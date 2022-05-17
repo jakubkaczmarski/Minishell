@@ -14,7 +14,9 @@ SRCS =	main.c \
 		builtins/export_utils.c \
 		builtins/unset.c \
 		builtins/signals.c \
-
+		execution/finding_command_path.c\
+		execution/redirection.c\
+		execution/allocating_for_cmd.c\
 
 all: minishell
 

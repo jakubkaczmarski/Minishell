@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/06 10:25:49 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/17 14:33:32 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ put envv in a struct and replace them with the actual values
 char	*handle_input(t_data *info, char *input, char **envv)
 {
 	int	amount_dollars;
-
+	if(ft_strncmp(input, "exit", 4) == 0)
+		return NULL;
 	amount_dollars = count_dollars(input);
 	while (amount_dollars-- > 0)
 	{
