@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:07:25 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/17 17:12:26 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/17 19:12:58 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,6 @@ void	sort_list(t_list **envv)
 	int		i;
 	int		amount_elements;
 
-	// smallest = malloc(sizeof(t_list *));
-	// curr = malloc(sizeof(t_list *));
-	// if (!smallest || !curr)
-	// 	return ;
 	//indexing(envv);
 	smallest = *envv;
 	curr = *envv;
