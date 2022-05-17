@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/16 20:01:48 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 00:04:23 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,16 +133,13 @@ char **command_and_param_from_line(char *line)
 	free(line);
 	return command_and_param;
 }
-void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env, int index, int forker, int i)
+void	execute_single_command(char **command_and_param, t_data *info, char **env, int index, int forker, int i)
 {
 	int j;
 
 	j = 0;
-	
 	command_and_param = command_and_param_from_line(info->cmd_table[index]);
-	// printf("Command %s\n", command_and_param[0]);
-	// printf("Parameter %s\n", command_and_param[1]);
-	split_path_to_exec(path, command_and_param, env, command_and_param[1], forker, i);
+	split_path_to_exec(info->path, command_and_param, env, command_and_param[1], forker, i);
 	j = 0;
 	while(command_and_param[j])
 	{
@@ -232,7 +229,7 @@ int	check_if_only_red(char *cmd)
 }
 void manage_exec(t_data *info, char **env)
 {
-	char	*path = get_path(env);
+	info->path = get_path(env);
 	char	**command_and_param;
 	if(!info && !env)
 	{};
@@ -255,7 +252,7 @@ void manage_exec(t_data *info, char **env)
 			{
 			}else
 			{
-				execute_single_command(command_and_param, path, info, env, 0, 0, -1);
+				execute_single_command(command_and_param, info, env, 0, 0, -1);
 			}
 			i++;
 		}
@@ -266,17 +263,17 @@ void manage_exec(t_data *info, char **env)
 				
 			}else if(err == 1)
 			{
-				piping(command_and_param, path, info, env, i);
+				piping(command_and_param, info, env, i);
 			}
 			i += 2;
 		}
 	}
 	free(command_and_param);
-	free(path);
+	free(info->path);
 }
 
 //Now piping time
-int piping(char **command_and_param, char *path, t_data *info, char **env, int index)
+int piping(char **command_and_param, t_data *info, char **env, int index)
 {
 	int fd[2];
 	int pid2;
@@ -290,7 +287,7 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execute_single_command(command_and_param, path, info, env, index, 1, -1);
+		execute_single_command(command_and_param, info, env, index, 1, -1);
 	}
 	pid2 = fork();
 	if(pid2 < 0)
@@ -300,7 +297,7 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execute_single_command(command_and_param, path, info, env, index + 1, 1, -1);
+		execute_single_command(command_and_param, info, env, index + 1, 1, -1);
 	}
 	close(fd[0]);
 	close(fd[1]);
