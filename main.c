@@ -6,7 +6,11 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/05/17 18:20:12 by jtomala          ###   ########.fr       */
+=======
+/*   Updated: 2022/05/17 19:28:46 by jtomala          ###   ########.fr       */
+>>>>>>> jorit
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +52,10 @@ int main(int argc, char **argv, char **envv)
 	info = malloc(sizeof(t_data *));
 	if (!info)
 		return (1);
-	info->envv = malloc(sizeof(t_list **));
-	//if (copy_envv(&(info->envv), envv))
-	//	return (1);
+	info->envv = malloc(sizeof(t_list *));
+	if (copy_envv(&(info->envv), envv))
+		return (1);
 	printf("start %s...\n", argv[0]); //for testing
-	//print_envv(info->envv, 0);
 	handle_sigs_interactive(); //signals
 	while (1)
 	{
