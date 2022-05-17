@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/16 15:40:52 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/17 18:27:55 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int		manage_here_doc(t_el_counter *el_counter, int index)
     if(get_here_doc(el_counter) == 0)
     {
         int here_fd = open("czary_mary_dzikie_weze", O_CREAT | O_RDWR, 0666);
-        unlink("temp_file_frog");
+        unlink("czary_mary_dzikie_weze");
         return here_fd;
     }
     
@@ -213,7 +213,6 @@ int	exec_output_red(t_el_counter *el_counter)
 			out_num--;
 			if(out_num == 0)
 			{
-				// printf("Last in %s Command thingy\n", el_counter->cmd_arr[i].command);
 				return fd;
 			}else{
 				close(fd);
