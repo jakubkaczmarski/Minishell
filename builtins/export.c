@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/17 19:13:11 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 00:40:10 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,27 +86,23 @@ so after that comes the value, store it as well
 */
 void	export_handler(t_data *info, int index)
 {
-	int		i;
 	char	*var_val;
-	char	**variables;
 
-	i = 0;
-	variables = ft_split(info->cmd_table[index], ' ');
-	free(variables[0]);
+	int i  = 0;
+
 	index = 1;
-	while (variables[index])
+	while (info->command_and_param)
 	{
-		while (variables[index][i] != '\0')
+		while (info->command_and_param[index][i] != '\0')
 			i++;
-		var_val = ft_substr(variables[index], 0, i);
+		var_val = ft_substr(info->command_and_param[index], 0, i);
 		if (ft_isvalid(var_val))
 			return ;
-		export_in_envv(&(info->envv), var_val);
-		free(variables[index]);
+		export_in_envv(&(info->envv), info->command_and_param[0]);
+		free(info->command_and_param[index]);
 		i = 0;
 		index++;
 	}
 	if (index == 1)
 		sort_list(&(info->envv));
-	free(variables);
 }

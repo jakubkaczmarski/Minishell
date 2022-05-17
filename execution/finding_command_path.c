@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 00:12:44 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 00:33:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ int split_path_to_exec(t_data *info,  int forker, int index)
 	if(!info->command_and_param[1])
 	{}
 	full_cmd_path = NULL;
+	if(builtin_handler(info) == 1)
+	{
+		return 0;
+	}
 	while(splitted_path[i])
 	{
 		full_cmd_path = check_for_cmd_in_path(splitted_path[i], info->command_and_param[0]);
@@ -133,13 +137,12 @@ char **command_and_param_from_line(char *line)
 	free(line);
 	return command_and_param;
 }
-void	execute_single_command(t_data *info, char **env, int index, int forker, int i)
+void	execute_single_command(t_data *info, int index, int forker, int i)
 {
 	int j;
 
 	j = 0;
 	info->command_and_param = command_and_param_from_line(info->cmd_table[index]);
-	info->env = env;
 	split_path_to_exec(info,forker, i);
 	j = 0;
 	while(info->command_and_param[j])
@@ -241,10 +244,10 @@ void manage_exec(t_data *info, char **env)
 	{
 		if(check_if_only_red(info->cmd_table[i]) == 1)
 			return ;
-		if(check_for_buildins(info->cmd_table[i], env) == 1)
-		{
-			printf("Build-ins detected\n");
-		}
+		// if(check_for_buildins(info->cmd_table[i], env) == 1)
+		// {
+		// 	printf("Build-ins detected\n");
+		// }
 		// info->cmd_table[i]
 		if(!info->cmd_table[i + 1])
 		{
@@ -252,7 +255,7 @@ void manage_exec(t_data *info, char **env)
 			{
 			}else
 			{
-				execute_single_command(info, env, 0, 0, -1);
+				execute_single_command(info, 0, 0, -1);
 			}
 			i++;
 		}
@@ -263,7 +266,7 @@ void manage_exec(t_data *info, char **env)
 				
 			}else if(err == 1)
 			{
-				piping(info, env, i);
+				piping(info, i);
 			}
 			i += 2;
 		}
@@ -273,7 +276,7 @@ void manage_exec(t_data *info, char **env)
 }
 
 //Now piping time
-int piping( t_data *info, char **env, int index)
+int piping( t_data *info, int index)
 {
 	int fd[2];
 	int pid2;
@@ -287,7 +290,7 @@ int piping( t_data *info, char **env, int index)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execute_single_command( info, env, index, 1, -1);
+		execute_single_command( info, index, 1, -1);
 	}
 	pid2 = fork();
 	if(pid2 < 0)
@@ -297,7 +300,7 @@ int piping( t_data *info, char **env, int index)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execute_single_command(info, env, index + 1, 1, -1);
+		execute_single_command(info, index + 1, 1, -1);
 	}
 	close(fd[0]);
 	close(fd[1]);
