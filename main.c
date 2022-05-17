@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/17 20:08:57 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/17 20:09:52 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,12 @@ int main(int argc, char **argv, char **envv)
 		input = readline("minishell>🦖");
 		if (!input)
 			break ;
-<<<<<<< HEAD
-		add_history(input);
-		input = handle_input(info, input, envv);
-		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
-			break ;
-=======
 		if(input[0] == '\0')
 			continue;
 		add_history(input);
 		input = handle_input(info, input, envv);	
 		if(!input)
 			break;
->>>>>>> fbcb582a3fddaa3adeb88c8f1b144cc43fe2d9e7
 		builtin_handler(info);
 		manage_exec(info, envv);
 		free(input);
@@ -78,11 +71,6 @@ int main(int argc, char **argv, char **envv)
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);	
 	}
-<<<<<<< HEAD
-	ft_lstclear(&(info->envv), free); //throws an error if you press ctr+d
-	free(&(info->envv));
-	free(info);
-=======
 	if(!input)
 	{
 		free(input);
@@ -93,6 +81,5 @@ int main(int argc, char **argv, char **envv)
 		free(info);
 	}
 
->>>>>>> fbcb582a3fddaa3adeb88c8f1b144cc43fe2d9e7
 	return (0);
 }
