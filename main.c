@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:12:03 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/16 17:14:28 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/17 14:39:52 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,32 @@ int main(int argc, char **argv, char **envv)
 		input = readline("minishell>🦖");
 		if (!input)
 			break ;
+		if(input[0] == '\0')
+			continue;
 		add_history(input);
 		input = handle_input(info, input, envv);	
-		if (!ft_strncmp(info->cmd_table[0], "exit", 5))
-			break ;
+		if(!input)
+		{
+			printf("Czary mary dziekie weze\n");
+			break;
+		}
 		builtin_handler(info);
 		manage_exec(info, envv);
 		free(input);
 		counter = 0;
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);
-		free(info->cmd_table);
+		
+	}
+	if(!input)
+	{
+		free(input);
+		
+	}else{
+		free(info->cmd_table[0]);
+		ft_lstclear(&(info->envv), free);
+		free(info);
 	}
 
-	ft_lstclear(&(info->envv), free);
-	free(info);
 	return (0);
 }
