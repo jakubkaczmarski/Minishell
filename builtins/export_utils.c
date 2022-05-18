@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:07:25 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 14:24:10 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 19:07:16 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	split_and_print(char *smallest)
 	printf("%s", var_val[1]);
 	free(var_val[0]);
 	free(var_val[1]);
-	while (var_val[i])
-	{
-		printf("=%s", var_val[i]);
-		free(var_val[i]);
-		i++;
-	}
+	// while (var_val[i])
+	// {
+	// 	printf("=%s", var_val[i]);
+	// 	free(var_val[i]);
+	// 	i++;
+	// }
 	printf("\"\n");
 	free(var_val);
 }

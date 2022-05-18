@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 18:54:13 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 19:43:25 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,10 +169,9 @@ void manage_exec(t_data *info, char **env)
 				piping(info, i);
 			i += 2;
 		}
-
 	}
 	free(info->command_and_param);
-	free(info->path);
+	//free(info->path);
 }
 
 int piping( t_data *info, int index)

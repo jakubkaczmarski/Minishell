@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 18:49:35 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 19:18:00 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int main(int argc, char **argv, char **envv)
 	info = malloc(sizeof(t_data *));
 	if (!info)
 		return (1);
+	info->ret_val = 0;
+	printf("%d\n", info->ret_val);
 	printf("Start %s\n", argv[0]);
 	if (copy_envv(&(info->envv), envv))
 		return (1);
