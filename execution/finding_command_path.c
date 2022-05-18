@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finding_command_path.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 13:47:36 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 14:05:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,12 @@ char *check_for_cmd_in_path(char *path, char *command)
 //Split path 
 // $> echo $PATH
 // /bin:/usr/bin:/home/user/.bin
-//into smaller chunks
-int split_path_to_exec(t_data *info,  int forker, int index)
+char	*exec_cmd(t_data *info, int forker, int index, char **splitted_path)
 {
-	int i = 0;
-	char **splitted_path = ft_split(info->path, ':');
 	char *full_cmd_path;
+	int i = 0;
 	pid_t process_1;
-	if(!info->command_and_param[1])
-	{}
-	full_cmd_path = NULL;
-	if(builtin_handler(info) == 1)
-	{
-		return 0;
-	}
+
 	while(splitted_path[i])
 	{
 		full_cmd_path = check_for_cmd_in_path(splitted_path[i], info->command_and_param[0]);
@@ -69,9 +61,7 @@ int split_path_to_exec(t_data *info,  int forker, int index)
 				else if(process_1 == 0)
 				{
 					if(forker != 0 && index == 1)
-					{
 						dup2(forker, STDIN_FILENO);
-					}
 					else if(forker != 0)
 						dup2(forker,  STDOUT_FILENO);
 					execve(full_cmd_path, info->command_and_param, info->env);
@@ -80,32 +70,46 @@ int split_path_to_exec(t_data *info,  int forker, int index)
 					wait(NULL);
 				break;
 			}
-			
 		}
 		i++;
 	}
+	return full_cmd_path;
+}
+int		free_exec(char **splitted_path, char *full_cmd_path)
+{
+	int i;
+
 	i = 0;
-	if(!full_cmd_path)
+	free(full_cmd_path);
+	while(splitted_path[i])
+	{
+		free(splitted_path[i]);
+		i++;
+	}
+	free(splitted_path);
+    return -1;
+}
+//into smaller chunks
+int split_path_to_exec(t_data *info,  int forker, int index)
+{
+	char **splitted_path = ft_split(info->path, ':');
+	char *full_cmd_path;
+
+	if(!info->command_and_param[1])
+	{}
+	if(builtin_handler(info) == 1)
+	{
+		return 0;
+	}
+	if(!(full_cmd_path = exec_cmd(info, forker, index, splitted_path)))
 	{
         printf("Command not found\n");
-		free(full_cmd_path);
-		while(splitted_path[i])
-		{
-			free(splitted_path[i]);
-			i++;
-		}
-		free(splitted_path);
-        return -1;
+		free_exec(splitted_path, full_cmd_path);
+		return -1;
     }
 	else
     {
-		while(splitted_path[i])
-		{
-			free(splitted_path[i]);
-			i++;
-		}
-		free(splitted_path);
-		free(full_cmd_path);
+		free_exec(splitted_path, full_cmd_path);
         return 0;
     }
 }
