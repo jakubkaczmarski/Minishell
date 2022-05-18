@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finding_command_path.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 00:33:39 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 13:47:36 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,28 +196,28 @@ int check_for_redirections(char *str)
 	// 	info->cmd_table[i] != 
 	// }
 }
-int	check_for_buildins(char *line, char **env)
-{
-	if(*line | **env)
-	{}
-	if(ft_strncmp(line, "cd", 2) == 0)
-	{
-		return 1;
-	}else if(ft_strncmp(line, "echo", 2) == 0)
-	{
-		return 1;
-	}else if(ft_strncmp(line, "pwd", 2) == 0)
-	{
-		return 1;
-	}else if(ft_strncmp(line, "export", 2) == 0)
-	{
-		return 1;
-	}else if(ft_strncmp(line, "unset", 2) == 0)
-	{
-		return 1;
-	}
-	return 0;
-}
+// int	check_for_buildins(char *line, char **env)
+// {
+// 	if(*line | **env)
+// 	{}
+// 	if(ft_strncmp(line, "cd", 2) == 0)
+// 	{
+// 		return 1;
+// 	}else if(ft_strncmp(line, "echo", 2) == 0)
+// 	{
+// 		return 1;
+// 	}else if(ft_strncmp(line, "pwd", 2) == 0)
+// 	{
+// 		return 1;
+// 	}else if(ft_strncmp(line, "export", 2) == 0)
+// 	{
+// 		return 1;
+// 	}else if(ft_strncmp(line, "unset", 2) == 0)
+// 	{
+// 		return 1;
+// 	}
+// 	return 0;
+// }
 int	check_if_only_red(char *cmd)
 {
 	int	i = 0;
