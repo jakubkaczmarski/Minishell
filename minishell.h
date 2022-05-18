@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 00:40:52 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 08:58:04 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char 	*cmd_table_handler(t_data *info, char *input);
 //cmd_table_utils.c
 int		count_pipes(char *input);
 int		count_multis(char *input);
+int		flag_check(char *input, int counter);
 
 //			builtins
 //execution_handler.c

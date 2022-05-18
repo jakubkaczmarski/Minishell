@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:55:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/06 10:56:00 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 09:02:05 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	count_multis(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == ' ' && input[i + 1] == ' ')
+		if (input[i] == ' ' && input[i + 1] == ' ' && flag_check(input, 1))
 		{
 			while (input[i] == ' ')
 				i++;
@@ -52,4 +52,33 @@ int	count_multis(char *input)
 		i++;
 	}
 	return (counter);
+}
+
+/*
+check if a quote is opend
+*/
+int	flag_check(char *input, int counter)
+{
+	int	i;
+	int	flag_s;
+	int	flag_d;
+
+	i = 0;
+	flag_d = 0;
+	flag_d = 0;
+	while (i <= counter)
+	{
+		if (input[i] == 39 && flag_s == 0)
+			flag_s = 1;
+		else if (input[i] == 39 && flag_s == 1)
+			flag_s = 0;
+		else if (input[i] == 34 && flag_d == 0)
+			flag_d = 1;
+		else if (input[i] == 34 && flag_d == 1)
+			flag_d = 0;
+		i++;
+	}
+	if (flag_s == 1 || flag_d == 1)
+		return (0);
+	return (1);
 }

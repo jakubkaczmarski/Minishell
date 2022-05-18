@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 08:09:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/06 10:56:20 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 08:57:46 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*remove_multi_spaces(char *input, int i, int j)
 		return (input);
 	while (input[i])
 	{
-		if (input[i] == ' ' && input[i + 1] == ' ')
+		if (input[i] == ' ' && input[i + 1] == ' ' && flag_check(input, i))
 		{
 			while (input[i + counter] == ' ')
 				counter++;
