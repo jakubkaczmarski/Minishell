@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 17:11:07 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:17:10 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,11 @@ int		get_here_doc(t_el_counter *el_counter);
 int		manage_here_doc(t_el_counter *el_counter, int index);
 int		check_if_only_red(char *cmd);
 char	*exec_cmd(t_data *info, int forker, int index, char **splitted_path);
-int		free_exec(char **splitted_path, char *full_cmd_path);
-char	**convert(t_list *envv);
-void		loop_through_red_right(t_el_counter *el_counter, int i);
-void		loop_through_red_left(t_el_counter *el_counter, int i);
-void format_line_to_exec(t_el_counter *el_counter, char *trimmed_line,  int index );
+int					free_exec(char **splitted_path, char *full_cmd_path);
+char				**convert(t_list *envv);
+void				loop_through_red_right(t_el_counter *el_counter, int i);
+void				loop_through_red_left(t_el_counter *el_counter, int i);
+void				format_line_to_exec(t_el_counter *el_counter, char *trimmed_line,  int index );
+int					exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env);
+char			*get_cmd(t_el_counter *counter);
 #endif

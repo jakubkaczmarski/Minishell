@@ -20,6 +20,8 @@ SRCS =	main.c \
 		execution/convert.c \
 		builtins/pwd.c\
 		builtins/cd.c\
+		execution/exec_cmd.c\
+		execution/handling_cmd.c\
 
 all: minishell
 
