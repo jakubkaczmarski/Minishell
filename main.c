@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 07:50:00 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 08:05:31 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ int main(int argc, char **argv, char **envv)
 	info = malloc(sizeof(t_data *));
 	if (!info)
 		return (1);
+	printf("Start %s\n", argv[0]);
 	info->envv = malloc(sizeof(t_list *));
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-	printf("start %s...\n", argv[0]); //for testing
 	handle_sigs_interactive(); //signals
 	while (1)
 	{
