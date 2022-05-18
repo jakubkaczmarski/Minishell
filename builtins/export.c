@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 09:36:07 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 13:44:49 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	export_in_envv(t_list **envv, char *var_val)
 	element = ft_lstnew(var_val);
 	if (!element)
 		return ;
-	while (tmp != NULL)
+	while (tmp->next != NULL)
 	{
 		if (!ft_strncmp(tmp->content, element->content, \
 			ft_strint(element->content, '=')))
@@ -91,18 +91,19 @@ void	export_handler(t_data *info, int index)
 
 	index = 1;
 	i = 0;
-	while (info->command_and_param)
+	while (info->command_and_param[index])
 	{
 		while (info->command_and_param[index][i] != '\0')
 			i++;
 		var_val = ft_substr(info->command_and_param[index], 0, i);
 		if (ft_isvalid(var_val))
 			return ;
-		export_in_envv(&(info->envv), info->command_and_param[0]);
-		free(info->command_and_param[index]);
+		export_in_envv(&(info->envv), var_val);
 		i = 0;
 		index++;
 	}
 	if (index == 1)
 		sort_list(&(info->envv));
 }
+
+

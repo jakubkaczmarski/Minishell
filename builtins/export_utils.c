@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:07:25 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 09:37:35 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 13:46:00 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ void	sort_list(t_list **envv)
 				ft_strlen(smallest->content)) < 0 && curr->index != -1)
 				smallest = curr;
 			curr = curr->next;
-			while (curr->index == -1)
+			while (curr->index == -1 && curr->next != NULL)
 				curr = curr->next;
 		}
 		smallest->index = -1;
 		split_and_print(smallest->content);
 		smallest = *envv;
-		while (smallest->index == -1) //optional | remove?
+		while (smallest->index == -1 && curr->next != NULL) //optional | remove?
 			smallest = smallest->next;
 		curr = *envv;
 	}

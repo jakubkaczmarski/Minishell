@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 08:32:50 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 13:40:09 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void print_envv(t_list *envv, int flag)
 {
 	if (!envv)
 		return ;
-	while (envv->next != NULL)
+	while (envv != NULL)
 	{
 		if (flag == 1)
 			printf("delcare -x %s\n", envv->content);
@@ -63,8 +63,8 @@ int main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);	
 		if(!input)
 			break;
-		builtin_handler(info);
-		//manage_exec(info, envv);
+		//builtin_handler(info);
+		manage_exec(info, envv);
 		free(input);
 		counter = 0;
 		while (info->cmd_table[counter])
