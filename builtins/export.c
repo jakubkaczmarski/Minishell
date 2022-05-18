@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 00:40:10 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 09:36:07 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ so after that comes the value, store it as well
 void	export_handler(t_data *info, int index)
 {
 	char	*var_val;
-
-	int i  = 0;
+	int		i;
 
 	index = 1;
+	i = 0;
 	while (info->command_and_param)
 	{
 		while (info->command_and_param[index][i] != '\0')

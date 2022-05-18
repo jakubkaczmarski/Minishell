@@ -6,14 +6,11 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 18:52:30 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/17 16:38:59 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 09:39:13 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <signal.h> //put into the header-file
-#include <string.h> //needed???
-
 
 static void	sigint_handler(int signal)
 {

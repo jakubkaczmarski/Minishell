@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:07:25 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/17 20:07:49 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 09:37:35 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,6 @@ void	split_and_print(char *smallest)
 }
 
 /*
-goes trough the list and sets the index to 0
-*/
-void	indexing(t_list **curr)
-{
-	t_list *tmp;
-
-	tmp = *curr;
-	while (tmp->next != NULL)
-	{
-		tmp->index = 0;
-		tmp = tmp->next;
-	}
-}
-
-/*
 sorts the list and prints it out in alphabetical order with
 a specific shema
 */
@@ -60,14 +45,12 @@ void	sort_list(t_list **envv)
 {
 	t_list	*curr;
 	t_list	*smallest;
-	int		i;
 	int		amount_elements;
 
 	smallest = *envv;
 	curr = *envv;
-	i = 1;
 	amount_elements = ft_lstsize(curr);
-	while (i < amount_elements)
+	while (amount_elements-- != 0)
 	{
 		while (curr->next != NULL)
 		{
@@ -78,11 +61,10 @@ void	sort_list(t_list **envv)
 			while (curr->index == -1)
 				curr = curr->next;
 		}
-		i++;
 		smallest->index = -1;
 		split_and_print(smallest->content);
 		smallest = *envv;
-		while (smallest->index == -1)
+		while (smallest->index == -1) //optional | remove?
 			smallest = smallest->next;
 		curr = *envv;
 	}

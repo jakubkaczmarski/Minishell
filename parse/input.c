@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 09:28:54 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 09:40:46 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ put envv in a struct and replace them with the actual values
 char	*handle_input(t_data *info, char *input, char **envv)
 {
 	int	amount_dollars;
-	if(ft_strncmp(input, "exit", 4) == 0)
-		return NULL;
+
+	if (ft_strncmp(input, "exit", 4) == 0)
+		return (NULL);
 	amount_dollars = count_dollars(input);
 	while (amount_dollars-- > 0)
 	{

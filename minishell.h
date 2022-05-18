@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 08:58:04 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 09:39:11 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+#include <signal.h>
+#include <string.h>
 
 //for each command with redirections
 typedef struct s_cmd {
@@ -104,7 +106,6 @@ void	export_handler(t_data *info, int index);
 
 //export_utils.c
 void	split_and_print(char *smallest);
-void	indexing(t_list **curr);
 void	sort_list(t_list **envv);
 
 //unset.c
