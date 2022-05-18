@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 13:56:03 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 14:08:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ char	*get_path(char **envv);
 char	**command_and_param_from_line(char *line);
 void	execute_single_command(t_data *info, int index, int forker, int i);
 int		piping(t_data *info,  int index);
-int		look_for_redirections(t_data *info, int counter);
 int		find_len_first_command(t_data *info, int index);
 int		run_redictions(t_data *info, int index, char ** env);
 int		get_num_to_alloc(t_el_counter *el_count, t_data *info, int index);
@@ -142,5 +141,7 @@ int		check_for_buildins(char *line, char **env);
 int		get_here_doc(t_el_counter *el_counter);
 int		manage_here_doc(t_el_counter *el_counter, int index);
 int		check_if_only_red(char *cmd);
+char	*exec_cmd(t_data *info, int forker, int index, char **splitted_path);
+int		free_exec(char **splitted_path, char *full_cmd_path);
 char	**convert(t_list *envv);
 #endif

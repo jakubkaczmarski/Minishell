@@ -6,14 +6,12 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 14:01:06 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 14:12:34 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//Take fragment of path as a parameter append command to it and check if it's there
-//For us to execute :)
 char *check_for_cmd_in_path(char *path, char *command)
 {
 	char *cmd;
@@ -25,7 +23,6 @@ char *check_for_cmd_in_path(char *path, char *command)
 		return cmd;
 	}
 	cmd = ft_strjoin(cmd1, command);
-	// printf("%s, %d\n",cmd,);
 	if(access(cmd, F_OK) == 0)
 	{
 		free(cmd1);
@@ -35,23 +32,13 @@ char *check_for_cmd_in_path(char *path, char *command)
 	free(cmd);
 	return NULL;
 }
-//Split path 
-// $> echo $PATH
-// /bin:/usr/bin:/home/user/.bin
-//into smaller chunks
-int split_path_to_exec(t_data *info,  int forker, int index)
+
+char	*exec_cmd(t_data *info, int forker, int index, char **splitted_path)
 {
-	int i = 0;
-	char **splitted_path = ft_split(info->path, ':');
 	char *full_cmd_path;
+	int i = 0;
 	pid_t process_1;
-	if(!info->command_and_param[1])
-	{}
-	full_cmd_path = NULL;
-	if(builtin_handler(info) == 1)
-	{
-		return 0;
-	}
+
 	while(splitted_path[i])
 	{
 		full_cmd_path = check_for_cmd_in_path(splitted_path[i], info->command_and_param[0]);
@@ -69,9 +56,7 @@ int split_path_to_exec(t_data *info,  int forker, int index)
 				else if(process_1 == 0)
 				{
 					if(forker != 0 && index == 1)
-					{
 						dup2(forker, STDIN_FILENO);
-					}
 					else if(forker != 0)
 						dup2(forker,  STDOUT_FILENO);
 					execve(full_cmd_path, info->command_and_param, info->env);
@@ -80,37 +65,49 @@ int split_path_to_exec(t_data *info,  int forker, int index)
 					wait(NULL);
 				break;
 			}
-			
 		}
 		i++;
 	}
+	return full_cmd_path;
+}
+int		free_exec(char **splitted_path, char *full_cmd_path)
+{
+	int i;
+
 	i = 0;
-	if(!full_cmd_path)
+	free(full_cmd_path);
+	while(splitted_path[i])
+	{
+		free(splitted_path[i]);
+		i++;
+	}
+	free(splitted_path);
+    return -1;
+}
+//into smaller chunks
+int split_path_to_exec(t_data *info,  int forker, int index)
+{
+	char **splitted_path;
+	char *full_cmd_path;
+
+	splitted_path = ft_split(info->path, ':');
+	if(builtin_handler(info) == 1)
+	{
+		return 0;
+	}
+	if(!(full_cmd_path = exec_cmd(info, forker, index, splitted_path)))
 	{
         printf("Command not found\n");
-		free(full_cmd_path);
-		while(splitted_path[i])
-		{
-			free(splitted_path[i]);
-			i++;
-		}
-		free(splitted_path);
-        return -1;
+		free_exec(splitted_path, full_cmd_path);
+		return -1;
     }
 	else
     {
-		while(splitted_path[i])
-		{
-			free(splitted_path[i]);
-			i++;
-		}
-		free(splitted_path);
-		free(full_cmd_path);
+		free_exec(splitted_path, full_cmd_path);
         return 0;
     }
 }
 
-//Get PATH to check
 char *get_path(char **envv)
 {
 	int i = 0;
@@ -151,14 +148,6 @@ void	execute_single_command(t_data *info, int index, int forker, int i)
 		j++;
 	}
 }
-int look_for_redirections(t_data *info, int counter)
-{
-	char *cmd = info->cmd_table[counter];
-	if(!cmd)
-	{}
-	return 0;
-	// while(dpdpdw)
-}
 int check_for_redirections(char *str)
 {
 	int i = 0;
@@ -188,36 +177,8 @@ int check_for_redirections(char *str)
 		}
 	}
 	return 1;
-	//We need to iterate through string and find << or  <
-	//I have to find if there are << or >> or < or > between two commands
-	//the easiest solution would be to run ft_split for all of those
-	// while(info->cmd_table[i])
-	// {
-	// 	info->cmd_table[i] != 
-	// }
 }
-// int	check_for_buildins(char *line, char **env)
-// {
-// 	if(*line | **env)
-// 	{}
-// 	if(ft_strncmp(line, "cd", 2) == 0)
-// 	{
-// 		return 1;
-// 	}else if(ft_strncmp(line, "echo", 2) == 0)
-// 	{
-// 		return 1;
-// 	}else if(ft_strncmp(line, "pwd", 2) == 0)
-// 	{
-// 		return 1;
-// 	}else if(ft_strncmp(line, "export", 2) == 0)
-// 	{
-// 		return 1;
-// 	}else if(ft_strncmp(line, "unset", 2) == 0)
-// 	{
-// 		return 1;
-// 	}
-// 	return 0;
-// }
+
 int	check_if_only_red(char *cmd)
 {
 	int	i = 0;
@@ -231,6 +192,7 @@ int	check_if_only_red(char *cmd)
 	}
 	return 1;
 }
+
 void manage_exec(t_data *info, char **env)
 {
 	info->path = get_path(convert(info->envv));
@@ -239,7 +201,6 @@ void manage_exec(t_data *info, char **env)
 	int i = 0;
 	int err;
 	info->command_and_param = malloc(sizeof(char **) * 2);
-	// int num_of_red = look_for_redirections();
 	while(info->cmd_table[i])
 	{
 		if(check_if_only_red(info->cmd_table[i]) == 1)
@@ -275,7 +236,6 @@ void manage_exec(t_data *info, char **env)
 	free(info->path);
 }
 
-//Now piping time
 int piping( t_data *info, int index)
 {
 	int fd[2];
