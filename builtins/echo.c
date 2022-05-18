@@ -3,38 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 09:38:08 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 16:39:20 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_echo(char *input)
+void	ft_echo(t_data *info)
 {
 	int		flag;
 	int		i;
-	char	**str;
 
 	flag = 0;
 	i = 1;
 	//echo -n -n-n-n-n-n bla bla bla
-	str = ft_split(input, ' ');
-	if (!str[1])
+	if (!info->command_and_param[1])
 	{
 		printf("\n");
 		return ;
 	}
 	//if str[1] == -n set flag to 1
-	if (!ft_strncmp(str[1], "-n", 2))
+	if (!ft_strncmp(info->command_and_param[1], "-n", 2))
 	{
 		flag = 1;
 		i++;
 	}
-	while (str[i])
-		printf("%s ", str[i++]);
+	if (!info->command_and_param[1] && !info->command_and_param[2])
+	{
+		return ;
+	}
+	while (info->command_and_param[i])
+		printf("%s ", info->command_and_param[i++]);
 	if (flag == 0)
 		printf("\n");
 }

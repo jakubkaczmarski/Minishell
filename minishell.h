@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 14:26:42 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:59:22 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	remove_in_envv(t_list **envv, char *var);
 int		replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr);
 
 //echo.c
-void ft_echo(char *input);
+void	ft_echo(t_data *info);
 
 //signals.c
 void	handle_sigs_interactive(void);

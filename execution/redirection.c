@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 00:14:52 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:41:57 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		run_redictions(t_data *info, int index, char **env)
 {
 	t_el_counter el_counter;
 	el_counter.red_num_in = 0;
-	el_counter.red_num_out = 0;
+	el_counter.red_num_out = 0;;
 	if(!(ft_strchr(info->cmd_table[index], '<') || ft_strchr(info->cmd_table[index], '>')))
 	{
 		printf("Redirections are not in the string 🦖\n");

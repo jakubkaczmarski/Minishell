@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 14:59:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:55:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ char	*exec_cmd(t_data *info, int forker, int index, char **splitted_path)
 	char *full_cmd_path;
 	int i = 0;
 	pid_t process_1;
-
 	while(splitted_path[i])
 	{
+
 		full_cmd_path = check_for_cmd_in_path(splitted_path[i], info->command_and_param[0]);
 		if(full_cmd_path)
 		{
@@ -60,7 +60,10 @@ char	*exec_cmd(t_data *info, int forker, int index, char **splitted_path)
 						dup2(forker, STDIN_FILENO);
 					else if(forker != 0)
 						dup2(forker,  STDOUT_FILENO);
-					execve(full_cmd_path, info->command_and_param, info->env);
+					if(builtin_handler(info) == -1)
+					{
+						execve(full_cmd_path, info->command_and_param, info->env);
+					}
 				}
 				else
 					wait(NULL);
@@ -74,7 +77,7 @@ char	*exec_cmd(t_data *info, int forker, int index, char **splitted_path)
 int		free_exec(char **splitted_path, char *full_cmd_path)
 {
 	int i;
-
+	
 	i = 0;
 	free(full_cmd_path);
 	while(splitted_path[i])
@@ -90,10 +93,11 @@ int split_path_to_exec(t_data *info,  int forker, int index)
 {
 	char **splitted_path;
 	char *full_cmd_path;
-
+	// info->path = get_path(info->env);
 	splitted_path = ft_split(info->path, ':');
 	if(builtin_handler(info) == 1)
 	{
+
 		return 0;
 	}
 	if(!(full_cmd_path = exec_cmd(info, forker, index, splitted_path)))
@@ -138,7 +142,6 @@ char **command_and_param_from_line(char *line)
 void	execute_single_command(t_data *info, int index, int forker, int i)
 {
 	int j;
-
 	j = 0;
 	info->command_and_param = command_and_param_from_line(info->cmd_table[index]);
 	split_path_to_exec(info,forker, i);
@@ -196,7 +199,7 @@ int	check_if_only_red(char *cmd)
 
 void manage_exec(t_data *info, char **env)
 {
-	info->path = get_path(convert(info->envv));
+	info->path = get_path(env);
 	if(!info && !env)
 	{};
 	int i = 0;
@@ -210,8 +213,12 @@ void manage_exec(t_data *info, char **env)
 		{
 			if(run_redictions(info, i,env) != 0)
 			{
+
 			}else
+			{
+								
 				execute_single_command(info, 0, 0, -1);
+			}
 			i++;
 		}
 		else{
@@ -223,6 +230,7 @@ void manage_exec(t_data *info, char **env)
 				piping(info, i);
 			i += 2;
 		}
+
 	}
 	free(info->command_and_param);
 	free(info->path);
