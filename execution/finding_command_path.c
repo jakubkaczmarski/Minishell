@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 14:01:06 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 14:18:19 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ int	check_if_only_red(char *cmd)
 }
 void manage_exec(t_data *info, char **env)
 {
-	info->path = get_path(convert(info->envv));
+	info->path = get_path(env);
 	if(!info && !env)
 	{};
 	int i = 0;
