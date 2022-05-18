@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 09:39:11 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 13:56:03 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,4 +142,5 @@ int		check_for_buildins(char *line, char **env);
 int		get_here_doc(t_el_counter *el_counter);
 int		manage_here_doc(t_el_counter *el_counter, int index);
 int		check_if_only_red(char *cmd);
+char	**convert(t_list *envv);
 #endif

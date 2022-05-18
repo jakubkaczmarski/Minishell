@@ -17,6 +17,7 @@ SRCS =	main.c \
 		execution/finding_command_path.c\
 		execution/redirection.c\
 		execution/allocating_for_cmd.c\
+		execution/convert.c \
 
 all: minishell
 
