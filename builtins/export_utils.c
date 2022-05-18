@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:07:25 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 13:46:00 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 14:10:02 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	sort_list(t_list **envv)
 	smallest = *envv;
 	curr = *envv;
 	amount_elements = ft_lstsize(curr);
-	while (amount_elements-- != 0)
+	while (amount_elements-- > 0)
 	{
 		while (curr->next != NULL)
 		{
@@ -64,7 +64,7 @@ void	sort_list(t_list **envv)
 		smallest->index = -1;
 		split_and_print(smallest->content);
 		smallest = *envv;
-		while (smallest->index == -1 && curr->next != NULL) //optional | remove?
+		while (smallest->index == -1 && smallest->next != NULL) //optional | remove?
 			smallest = smallest->next;
 		curr = *envv;
 	}

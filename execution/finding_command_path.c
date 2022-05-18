@@ -6,9 +6,10 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 14:09:59 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:59:30 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../minishell.h"
 
@@ -195,7 +196,7 @@ int	check_if_only_red(char *cmd)
 
 void manage_exec(t_data *info, char **env)
 {
-	info->path = get_path(env);
+	info->path = get_path(convert(info->envv));
 	if(!info && !env)
 	{};
 	int i = 0;
