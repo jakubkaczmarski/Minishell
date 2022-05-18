@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 14:07:36 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:08:36 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,10 @@ int		free_exec(char **splitted_path, char *full_cmd_path)
 //into smaller chunks
 int split_path_to_exec(t_data *info,  int forker, int index)
 {
-	char **splitted_path = ft_split(info->path, ':');
+	char **splitted_path;
 	char *full_cmd_path;
 
-	if(!info->command_and_param[1])
-	{}
+	splitted_path = ft_split(info->path, ':');
 	if(builtin_handler(info) == 1)
 	{
 		return 0;
@@ -109,7 +108,6 @@ int split_path_to_exec(t_data *info,  int forker, int index)
     }
 }
 
-//Get PATH to check
 char *get_path(char **envv)
 {
 	int i = 0;
@@ -149,14 +147,6 @@ void	execute_single_command(t_data *info, int index, int forker, int i)
 		free(info->command_and_param[j]);
 		j++;
 	}
-}
-int look_for_redirections(t_data *info, int counter)
-{
-	char *cmd = info->cmd_table[counter];
-	if(!cmd)
-	{}
-	return 0;
-	// while(dpdpdw)
 }
 int check_for_redirections(char *str)
 {
