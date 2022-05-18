@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 16:58:56 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:11:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_data {
 	int			forker;
 	char	**env;
 	char	**command_and_param;
+	int			ret_val;
 }				t_data;
 
 //main.c
@@ -149,4 +150,5 @@ int		free_exec(char **splitted_path, char *full_cmd_path);
 char	**convert(t_list *envv);
 void		loop_through_red_right(t_el_counter *el_counter, int i);
 void		loop_through_red_left(t_el_counter *el_counter, int i);
+void format_line_to_exec(t_el_counter *el_counter, char *trimmed_line,  int index );
 #endif

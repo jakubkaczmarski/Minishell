@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 15:24:56 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:09:57 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,24 @@ char	*get_wrd(char *trimmed_line, int *i)
 	}
 	return NULL;
 }
+void format_line_to_exec(t_el_counter *el_counter, char *trimmed_line,  int index )
+{
+	char *temp;
+	int i;
+
+	i = 0;
+	el_counter->redirect_arr[i] = get_wrd(trimmed_line, &index);
+	i++;
+	while(i < el_counter->num_of_wrds  )
+	{
+		temp = trimmed_line;
+		trimmed_line = ft_substr(trimmed_line, index, ft_strlen(trimmed_line) - index);
+		index = 0;
+		free(temp);
+		el_counter->redirect_arr[i] = get_wrd(trimmed_line, &index);
+		i++;
+	}
+}
 int Kurwa(t_el_counter *kurwa, char *line)
 {
 	int i = 0;
@@ -57,28 +75,13 @@ int Kurwa(t_el_counter *kurwa, char *line)
 		wrd = get_wrd(trimmed_line, &index);
 		i++;
 	}
-	if(wrd)
-	{}
 	if(i == 0)
 		return 0;
 	kurwa->redirect_arr = malloc(sizeof(char**) * (i));
 	kurwa->num_of_wrds = i;
-	i = 0;
 	index = 0;
 	trimmed_line = ft_strtrim(line, " ");
-
-	kurwa->redirect_arr[i] = get_wrd(trimmed_line, &index);
-	i++;
-
-	while(i < kurwa->num_of_wrds  )
-	{
-		temp = trimmed_line;
-		trimmed_line = ft_substr(trimmed_line, index, ft_strlen(trimmed_line) - index);
-		index = 0;
-		free(temp);
-		kurwa->redirect_arr[i] = get_wrd(trimmed_line, &index);
-		i++;
-	}
+	format_line_to_exec(kurwa, trimmed_line, index);
 	return 0;
 }
 void		loop_through_red_left(t_el_counter *el_counter, int i)
