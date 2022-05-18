@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/12 10:25:10 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/18 00:48:21 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void ft_echo(char *input)
 	i = 1;
 	//echo -n -n-n-n-n-n bla bla bla
 	str = ft_split(input, ' ');
+	if(!str[1])
+	{
+		printf("\n");
+		return ;
+	}
 	//if str[1] == -n set flag to 1
 	if (!ft_strncmp(str[1], "-n", 2))
 	{

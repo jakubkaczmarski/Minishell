@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/16 20:01:48 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 00:33:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,27 @@ char *check_for_cmd_in_path(char *path, char *command)
 // $> echo $PATH
 // /bin:/usr/bin:/home/user/.bin
 //into smaller chunks
-int split_path_to_exec(char *path, char **command_and_params, char **env, char *params, int forker, int index)
+int split_path_to_exec(t_data *info,  int forker, int index)
 {
 	int i = 0;
-	char **splitted_path = ft_split(path, ':');
+	char **splitted_path = ft_split(info->path, ':');
 	char *full_cmd_path;
 	pid_t process_1;
-	if(!params)
+	if(!info->command_and_param[1])
 	{}
 	full_cmd_path = NULL;
+	if(builtin_handler(info) == 1)
+	{
+		return 0;
+	}
 	while(splitted_path[i])
 	{
-		full_cmd_path = check_for_cmd_in_path(splitted_path[i], command_and_params[0]);
+		full_cmd_path = check_for_cmd_in_path(splitted_path[i], info->command_and_param[0]);
 		if(full_cmd_path)
 		{
 			if(forker == 1)
 			{
-				execve(full_cmd_path, command_and_params, env);
+				execve(full_cmd_path, info->command_and_param, info->env);
 				break;
 			}else
 			{
@@ -70,7 +74,7 @@ int split_path_to_exec(char *path, char **command_and_params, char **env, char *
 					}
 					else if(forker != 0)
 						dup2(forker,  STDOUT_FILENO);
-					execve(full_cmd_path, command_and_params, env);
+					execve(full_cmd_path, info->command_and_param, info->env);
 				}
 				else
 					wait(NULL);
@@ -133,20 +137,17 @@ char **command_and_param_from_line(char *line)
 	free(line);
 	return command_and_param;
 }
-void	execute_single_command(char **command_and_param, char *path, t_data *info, char **env, int index, int forker, int i)
+void	execute_single_command(t_data *info, int index, int forker, int i)
 {
 	int j;
 
 	j = 0;
-	
-	command_and_param = command_and_param_from_line(info->cmd_table[index]);
-	// printf("Command %s\n", command_and_param[0]);
-	// printf("Parameter %s\n", command_and_param[1]);
-	split_path_to_exec(path, command_and_param, env, command_and_param[1], forker, i);
+	info->command_and_param = command_and_param_from_line(info->cmd_table[index]);
+	split_path_to_exec(info,forker, i);
 	j = 0;
-	while(command_and_param[j])
+	while(info->command_and_param[j])
 	{
-		free(command_and_param[j]);
+		free(info->command_and_param[j]);
 		j++;
 	}
 }
@@ -232,22 +233,21 @@ int	check_if_only_red(char *cmd)
 }
 void manage_exec(t_data *info, char **env)
 {
-	char	*path = get_path(env);
-	char	**command_and_param;
+	info->path = get_path(env);
 	if(!info && !env)
 	{};
 	int i = 0;
 	int err;
-	command_and_param = malloc(sizeof(char **) * 2);
+	info->command_and_param = malloc(sizeof(char **) * 2);
 	// int num_of_red = look_for_redirections();
 	while(info->cmd_table[i])
 	{
 		if(check_if_only_red(info->cmd_table[i]) == 1)
 			return ;
-		if(check_for_buildins(info->cmd_table[i], env) == 1)
-		{
-			printf("Build-ins detected\n");
-		}
+		// if(check_for_buildins(info->cmd_table[i], env) == 1)
+		// {
+		// 	printf("Build-ins detected\n");
+		// }
 		// info->cmd_table[i]
 		if(!info->cmd_table[i + 1])
 		{
@@ -255,7 +255,7 @@ void manage_exec(t_data *info, char **env)
 			{
 			}else
 			{
-				execute_single_command(command_and_param, path, info, env, 0, 0, -1);
+				execute_single_command(info, 0, 0, -1);
 			}
 			i++;
 		}
@@ -266,17 +266,17 @@ void manage_exec(t_data *info, char **env)
 				
 			}else if(err == 1)
 			{
-				piping(command_and_param, path, info, env, i);
+				piping(info, i);
 			}
 			i += 2;
 		}
 	}
-	free(command_and_param);
-	free(path);
+	free(info->command_and_param);
+	free(info->path);
 }
 
 //Now piping time
-int piping(char **command_and_param, char *path, t_data *info, char **env, int index)
+int piping( t_data *info, int index)
 {
 	int fd[2];
 	int pid2;
@@ -290,7 +290,7 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execute_single_command(command_and_param, path, info, env, index, 1, -1);
+		execute_single_command( info, index, 1, -1);
 	}
 	pid2 = fork();
 	if(pid2 < 0)
@@ -300,7 +300,7 @@ int piping(char **command_and_param, char *path, t_data *info, char **env, int i
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execute_single_command(command_and_param, path, info, env, index + 1, 1, -1);
+		execute_single_command(info, index + 1, 1, -1);
 	}
 	close(fd[0]);
 	close(fd[1]);

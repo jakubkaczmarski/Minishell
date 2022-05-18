@@ -1,3 +1,0 @@
-		/*input.c*/
-copy_envv: for some reason the content of the first pointer gets
-			changed but I never touch the list after coping ?!?!

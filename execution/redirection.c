@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/16 15:24:32 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 00:14:52 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ char *get_cmd(t_el_counter *counter)
 int		exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env)
 {
 	char **command_and_param = ft_split(get_cmd(el_counter), ' ');
-	char	*path = get_path(env);
 	t_data info;
+	info.path = get_path(env);
 	info.cmd_table = malloc(sizeof(char **) * 1);
 	info.cmd_table[0] = get_cmd(el_counter);
+	info.env = env;
 	if(!command_and_param)
 	{
 		printf("There is no command to exec\n");
@@ -41,7 +42,7 @@ int		exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env)
 	}
 	if(el_counter->fd_input != -1)
 	{
-		execute_single_command(command_and_param, path, &info , env, 0,el_counter->fd_input, 0);
+		execute_single_command(&info , 0,el_counter->fd_input, 0);
 		close(el_counter->fd_input);
 		waitpid(el_counter->fd_input, NULL, 0);
 	}
@@ -49,7 +50,7 @@ int		exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env)
 	{
 		if(el_counter->fd_output != -1)
 		{	
-			execute_single_command(command_and_param, path, &info, env, 0, el_counter->fd_output, 1);
+			execute_single_command( &info, 0, el_counter->fd_output, 1);
 			close(el_counter->fd_output);
 			waitpid(el_counter->fd_output, NULL, 0);
 		}
