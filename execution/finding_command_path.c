@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finding_command_path.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 17:12:50 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 18:54:13 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
