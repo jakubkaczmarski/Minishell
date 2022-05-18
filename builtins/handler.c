@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 15:59:45 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:00:18 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ int	builtin_handler(t_data *info)
 		else if (!ft_strncmp(info->command_and_param[y], "env", 3))
 		{
 			print_envv(info->envv, 0);
+			return (1);
+		}else if (!ft_strncmp(info->command_and_param[y], "pwd", 3))
+		{
+			print_path();
+			return (1);
+		}else if (!ft_strncmp(info->command_and_param[y], "cd", 2))
+		{
+			cd(info);
 			return (1);
 		}
 		else

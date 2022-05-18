@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 15:59:22 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 16:58:56 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,12 @@ int		replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr);
 //echo.c
 void	ft_echo(t_data *info);
 
+//pwd.c
+void	print_path(void);
 //signals.c
 void	handle_sigs_interactive(void);
-
+//cd.c
+void	cd(t_data *info);
 //kuba
 char	**get_env_arr(t_data *info);
 void	manage_exec(t_data *info, char **env);
