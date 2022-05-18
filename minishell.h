@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 17:17:10 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:41:22 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int					free_exec(char **splitted_path, char *full_cmd_path);
 char				**convert(t_list *envv);
 void				loop_through_red_right(t_el_counter *el_counter, int i);
 void				loop_through_red_left(t_el_counter *el_counter, int i);
-void				format_line_to_exec(t_el_counter *el_counter, char *trimmed_line,  int index );
+void				format_line_to_exec(t_el_counter *el_counter, char *trimmed_line);
 int					exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env);
 char			*get_cmd(t_el_counter *counter);
 #endif

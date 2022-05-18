@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:12:31 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 17:12:58 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:42:47 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int split_path_to_exec(t_data *info,  int forker, int index)
 {
 	char **splitted_path;
 	char *full_cmd_path;
-	// info->path = get_path(info->env);
 	splitted_path = ft_split(info->path, ':');
 	if(builtin_handler(info) == 1)
 	{

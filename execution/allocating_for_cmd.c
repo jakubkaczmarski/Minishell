@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 17:09:57 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 17:40:37 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ char	*get_wrd(char *trimmed_line, int *i)
 	}
 	return NULL;
 }
-void format_line_to_exec(t_el_counter *el_counter, char *trimmed_line,  int index )
+void format_line_to_exec(t_el_counter *el_counter, char *trimmed_line )
 {
 	char *temp;
 	int i;
+	int index;
 
+	index = 0;
 	i = 0;
 	el_counter->redirect_arr[i] = get_wrd(trimmed_line, &index);
 	i++;
@@ -79,9 +81,8 @@ int Kurwa(t_el_counter *kurwa, char *line)
 		return 0;
 	kurwa->redirect_arr = malloc(sizeof(char**) * (i));
 	kurwa->num_of_wrds = i;
-	index = 0;
 	trimmed_line = ft_strtrim(line, " ");
-	format_line_to_exec(kurwa, trimmed_line, index);
+	format_line_to_exec(kurwa, trimmed_line);
 	return 0;
 }
 void		loop_through_red_left(t_el_counter *el_counter, int i)
