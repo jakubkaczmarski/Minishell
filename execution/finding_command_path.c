@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 10:46:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 14:08:36 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:09:59 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,19 +205,12 @@ void manage_exec(t_data *info, char **env)
 	{
 		if(check_if_only_red(info->cmd_table[i]) == 1)
 			return ;
-		// if(check_for_buildins(info->cmd_table[i], env) == 1)
-		// {
-		// 	printf("Build-ins detected\n");
-		// }
-		// info->cmd_table[i]
 		if(!info->cmd_table[i + 1])
 		{
 			if(run_redictions(info, i,env) != 0)
 			{
 			}else
-			{
 				execute_single_command(info, 0, 0, -1);
-			}
 			i++;
 		}
 		else{
@@ -226,9 +219,7 @@ void manage_exec(t_data *info, char **env)
 				run_redictions(info, i + 1, env);
 				
 			}else if(err == 1)
-			{
 				piping(info, i);
-			}
 			i += 2;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/17 23:56:20 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:25:46 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,25 @@ int Kurwa(t_el_counter *kurwa, char *line)
 	}
 	return 0;
 }
-
-int		loop_through_redir(t_el_counter *el_counter)
+void		loop_through_red_left(t_el_counter *el_counter, int i)
 {
-	int i = 0;
-	el_counter->cmd_arr = malloc(sizeof(t_cmd) * el_counter->num_of_wrds);
-	while(el_counter->redirect_arr[i])
+	if(el_counter->redirect_arr[i][1] == '>')
 	{
-		if(el_counter->redirect_arr[i][0] == '<')
-		{
-			if(el_counter->redirect_arr[i][1] == '<')
+				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
+				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
+				el_counter->cmd_arr[i].flag = ">>";
+				el_counter->red_num_in++;
+			}else
+			{
+				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][1];
+				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
+				el_counter->cmd_arr[i].flag = ">";
+				el_counter->red_num_in++;
+			}
+}
+void		loop_through_red_right(t_el_counter *el_counter, int i)
+{
+		if(el_counter->redirect_arr[i][1] == '<')
 			{
 				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
 				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
@@ -103,22 +112,19 @@ int		loop_through_redir(t_el_counter *el_counter)
 				el_counter->cmd_arr[i].flag = "<";
 				el_counter->red_num_out++;
 			}
-		}else if(el_counter->redirect_arr[i][0] == '>')
+}
+int		loop_through_redir(t_el_counter *el_counter)
+{
+	int i = 0;
+	el_counter->cmd_arr = malloc(sizeof(t_cmd) * el_counter->num_of_wrds);
+	while(el_counter->redirect_arr[i])
+	{
+		if(el_counter->redirect_arr[i][0] == '<')
+			loop_through_red_right(el_counter, i);
+		else if(el_counter->redirect_arr[i][0] == '>')
+			loop_through_red_left(el_counter, i);
+		else
 		{
-			if(el_counter->redirect_arr[i][1] == '>')
-			{
-				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][2];
-				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
-				el_counter->cmd_arr[i].flag = ">>";
-				el_counter->red_num_in++;
-			}else
-			{
-				el_counter->cmd_arr[i].command = &el_counter->redirect_arr[i][1];
-				el_counter->cmd_arr[i].flag = calloc(2, sizeof(char));
-				el_counter->cmd_arr[i].flag = ">";
-				el_counter->red_num_in++;
-			}
-		}else{
 			el_counter->cmd_arr[i].command = el_counter->redirect_arr[i];
 			el_counter->cmd_arr[i].flag = calloc(sizeof(char), 2);
 			el_counter->cmd_arr[i].flag[0] = 'N';

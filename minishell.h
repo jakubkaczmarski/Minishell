@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 14:08:42 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:26:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,6 @@ int		check_if_only_red(char *cmd);
 char	*exec_cmd(t_data *info, int forker, int index, char **splitted_path);
 int		free_exec(char **splitted_path, char *full_cmd_path);
 char	**convert(t_list *envv);
+void		loop_through_red_right(t_el_counter *el_counter, int i);
+void		loop_through_red_left(t_el_counter *el_counter, int i);
 #endif
