@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/18 17:41:22 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/19 09:19:22 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #include <signal.h>
 #include <string.h>
 
-//for each command with redirections
+//can get removed???
 typedef struct s_cmd {
 	char	*command;
 	char	*flag;
@@ -43,10 +43,6 @@ typedef struct s_data {
 	int			ret_val;
 }				t_data;
 
-//main.c
-int	input_error();
-void print_envv(t_list *envv, int flag);
-
 typedef struct s_count_el
 {
 	char **redirect_arr;
@@ -62,6 +58,11 @@ typedef struct s_count_el
 	int here_doc_thingy;
 	char *magic_here_doc_word;
 } t_el_counter;
+
+//main.c
+int		input_error();
+void	print_envv(t_list *envv, int flag);
+
 //			parse
 //input.c
 char	*handle_input(t_data *info, char *input, char **envv);
@@ -107,7 +108,8 @@ void	export_handler(t_data *info, int index);
 
 //export_utils.c
 void	split_and_print(char *smallest);
-void	sort_list(t_list **envv);
+void	sort_list(t_list *envv);
+void indexing(t_list *envv);
 
 //unset.c
 void	unset_handler(t_data *info, int index);
@@ -119,10 +121,14 @@ void	ft_echo(t_data *info);
 
 //pwd.c
 void	print_path(void);
+
 //signals.c
 void	handle_sigs_interactive(void);
+
 //cd.c
 void	cd(t_data *info);
+
+//		execution
 //kuba
 char	**get_env_arr(t_data *info);
 void	manage_exec(t_data *info, char **env);

@@ -6,11 +6,24 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:07:25 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 19:07:16 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 09:17:09 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*
+resets the index of the list
+*/
+void indexing(t_list *envv)
+{
+	while (envv != NULL)
+	{
+		envv->index = 0;
+		envv = envv->next;
+	}
+}
+
 
 /*
 splits the list by '=' and prints it it out with
@@ -41,14 +54,14 @@ void	split_and_print(char *smallest)
 sorts the list and prints it out in alphabetical order with
 a specific shema
 */
-void	sort_list(t_list **envv)
+void	sort_list(t_list *envv)
 {
 	t_list	*curr;
 	t_list	*smallest;
 	int		amount_elements;
 
-	smallest = *envv;
-	curr = *envv;
+	smallest = envv;
+	curr = envv;
 	amount_elements = ft_lstsize(curr);
 	while (amount_elements-- > 0)
 	{
@@ -63,9 +76,10 @@ void	sort_list(t_list **envv)
 		}
 		smallest->index = -1;
 		split_and_print(smallest->content);
-		smallest = *envv;
+		smallest = envv;
 		while (smallest->index == -1 && smallest->next != NULL) //optional | remove?
 			smallest = smallest->next;
-		curr = *envv;
+		curr = envv;
 	}
+	indexing(envv);
 }
