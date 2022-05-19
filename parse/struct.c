@@ -6,12 +6,30 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 16:30:16 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 17:51:35 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+/*
+inserts a space at the position that you pass
+*/
+char *insert_space(char *string, int i)
+{
+	char *new_string;
+	int j;
+	
+	j = 0;
+	new_string = malloc(sizeof(char *) * ft_strlen(string) + 1);
+	if (!new_string)
+		return (string);
+	ft_copy(new_string, string, i + 1);
+	new_string[i] = ' ';
+	ft_copy(&new_string[i + 1], &string[i], 0);
+	//free(string);
+	return (new_string);
+}
 
 /*
 <something.txt
@@ -37,12 +55,11 @@ int redirect_input(t_cmd *cmd, char *string)
 		if (string[i + j] == '<')
 		{
 			start = i;
-			if (string[i + (++j)] == ' ')
-				i++;
-				//string = insert_space(string, i);
+			if (string[i++ + (++j)] != ' ' && string[i] != '<')
+			 	string = insert_space(string, i);
 			while (string[i + j] != ' ')
 				j++;
-			cmd->in[index] = ft_substr(string, start, j);
+			cmd->in[index] = ft_substr(string, start, j + 1);
 			printf("in_redirect[%d]: %s\n", index, cmd->in[index]);
 			index++;
 		}
