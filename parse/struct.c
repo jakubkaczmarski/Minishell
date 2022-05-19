@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 19:25:16 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 19:50:07 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,11 @@ int redirect_output(t_cmd *cmd, char *string)
 		if (string[i + j] == '>')
 		{
 			start = i;
-			if (string[i++ + j] != ' ' && string[i] != '>')
-			 	string = insert_space(string, i);
+			if (string[i++ + j] != ' ' && string[i + 1] != '>')
+			 	string = insert_space(string, i++);
 			while (string[i + j++] != '\0' && string[i + j] != '>')
 				j++;
-			cmd->out[index] = ft_substr(string, start, j);
+			cmd->out[index] = ft_substr(string, start, j + 1);
 			printf("out_redirect[%d]: %s\n", index, cmd->out[index]);
 			index++;
 			j--;
@@ -117,7 +117,6 @@ int redirect_cmd(t_cmd *cmd, char *string)
 	position = 0;
 	while (cmd->in[i])
 		position += ft_strlen(cmd->in[i++]);
-	printf("position: %d\n", position);
 	i = 0;
 	while (string[position + i] != '>')
 		i++;
@@ -135,9 +134,13 @@ int redirect_cmd(t_cmd *cmd, char *string)
 void handle_struct(t_data *info)
 {
 	int i;
+	int j;
+	int flag;
 	int position;
 
 	i = 0;
+	j = 0;
+	flag = 0;
 	position = 0;
 	//execute command by command and call the functions in a loop
 	info->cmd = malloc(sizeof(t_cmd *));
@@ -146,6 +149,14 @@ void handle_struct(t_data *info)
 	info->cmd->cmd = malloc(sizeof(char **));
 	while (info->cmd_table[i])
 	{
+		// while (info->cmd_table[i][j])
+		// 	if (info->cmd_table[i][j] == '<' || info->cmd_table[i][j++] == '>')
+		// 		flag = 1;
+		// if (flag == 1)
+		// 	break ;
+		// i = 0;
+		if (ft_strchr(info->cmd_table[i], '<') == NULL && ft_strchr(info->cmd_table[i], '>') == NULL)
+			return ;
 		printf("------ROUND %d--------\n", i);
 		info->cmd->in[i] = malloc(sizeof(char *));
 		info->cmd->out[i] = malloc(sizeof(char *));
