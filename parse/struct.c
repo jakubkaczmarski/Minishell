@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 18:32:39 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 19:25:16 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int redirect_input(t_cmd *cmd, char *string)
 		j = 0;
 		i++;
 	}
-	return (index);
+	return (i);
 }
 
 /*
@@ -101,16 +101,44 @@ int redirect_output(t_cmd *cmd, char *string)
 		j = 0;
 		i++;
 	}
-	return (index);
+	return (j);
+}
+
+/*
+cmd
+*/
+int redirect_cmd(t_cmd *cmd, char *string)
+{
+	int i;
+	int position;
+	char *tmp;
+
+	i = 0;
+	position = 0;
+	while (cmd->in[i])
+		position += ft_strlen(cmd->in[i++]);
+	printf("position: %d\n", position);
+	i = 0;
+	while (string[position + i] != '>')
+		i++;
+	tmp = ft_substr(string, position, i);
+	cmd->cmd = ft_split(tmp, ' ');
+	i = 0;
+	while (cmd->cmd[i])
+	{
+		printf("cmd[%d]: %s\n", i, cmd->cmd[i]);
+		i++;
+	}
+	return (i);
 }
 
 void handle_struct(t_data *info)
 {
 	int i;
-	int amount_red;
+	int position;
 
 	i = 0;
-	amount_red = 0;
+	position = 0;
 	//execute command by command and call the functions in a loop
 	info->cmd = malloc(sizeof(t_cmd *));
 	info->cmd->in = malloc(sizeof(char **));
@@ -121,8 +149,9 @@ void handle_struct(t_data *info)
 		printf("------ROUND %d--------\n", i);
 		info->cmd->in[i] = malloc(sizeof(char *));
 		info->cmd->out[i] = malloc(sizeof(char *));
-		amount_red += redirect_input(&(info->cmd[i]), info->cmd_table[i]);
-		amount_red += redirect_output(&(info->cmd[i]), info->cmd_table[i]);	
+		position += redirect_input(&(info->cmd[i]), info->cmd_table[i]);
+		redirect_cmd(&(info->cmd[i]), info->cmd_table[i]);
+		redirect_output(&(info->cmd[i]), info->cmd_table[i]);
 		i++;
 	}
 }
