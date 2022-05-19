@@ -8,6 +8,7 @@ SRCS =	main.c \
 		parse/quotes.c \
 		parse/cmd_table.c \
 		parse/cmd_table_utils.c \
+		parse/struct.c \
 		builtins/handler.c \
 		builtins/echo.c \
 		builtins/export.c \

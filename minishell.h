@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/19 13:55:59 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 14:07:58 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ char	*modify_input(char *input, char *value, int var_len);
 char	*return_envv_val(char **envv, char *str);
 char	*ft_crop_brackets(char *var);
 char	*get_value(char *var, int *counter);
+
+//struct.c
+void handle_struct(t_data *info);
 
 //quotes.c
 char	*quote_handler(char *input);
