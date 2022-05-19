@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 09:15:13 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 09:55:57 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ checks if the input is alphanum and _ . ,
 int	ft_isvalid(char *str)
 {
 	int	i;
+	int flag;
 
 	i = 0;
+	flag = 0;
 	while (str[i])
 	{
+		if (str[i] == '=')
+			flag = 1;
 		if ((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122))
 			i++;
 		else if ((str[i] >= 48 && str[i] <= 57) || str[i] == 123 \
@@ -32,8 +36,13 @@ int	ft_isvalid(char *str)
 		else
 		{
 			printf("export: '%s': not a valid identifier\n", str);
-			return (1);
+			return (-1);
 		}
+	}
+	if (flag == 0)
+	{
+		printf("export: '%s': not a valid identifier\n", str);
+		return (-1);
 	}
 	return (0);
 }

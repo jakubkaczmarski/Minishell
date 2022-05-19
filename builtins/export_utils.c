@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:07:25 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 09:19:55 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 09:41:18 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 /*
 resets the index of the list
 */
-void indexing(t_list *envv)
+void	indexing(t_list *envv)
 {
-	while (envv != NULL)
+	t_list *tmp;
+
+	tmp = envv;
+	while (tmp != NULL)
 	{
-		envv->index = 0;
-		envv = envv->next;
+		tmp->index = 0;
+		tmp = tmp->next;
 	}
 }
-
 
 /*
 splits the list by '=' and prints it it out with
@@ -77,7 +79,7 @@ void	sort_list(t_list *envv)
 		smallest->index = -1;
 		split_and_print(smallest->content);
 		smallest = envv;
-		while (smallest->index == -1 && smallest->next != NULL) //optional | remove?
+		while (smallest->index == -1 && smallest->next != NULL)
 			smallest = smallest->next;
 		curr = envv;
 	}
