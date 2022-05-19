@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/19 20:39:15 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/19 22:03:16 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,13 +274,10 @@ void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
     int input;
     int output;
     input = child_process_in(info, fd ,pipe_1);
-     printf("Final thingy in %d \n", input);
     usleep(51);
     if(input < 0)
         exit(-1);
     output = child_process_out(info, out_fd, pipe_1);
-//   printf("Final thingy v 2 Out_fd  %d\n", out_fd);
-    write(2, "Final thingy v 2 Out_fd  ", 26);
     ft_putnbr_fd(output, 2);
     write (2, "\n", 1);
   usleep(50);
@@ -288,7 +285,6 @@ void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
         exit(-1);
 
     execve(info->cmd[info->index].command_path, &info->cmd[info->index].cmd[0], info->env);
-    write (2, "HELLOOOEKOPOFKQPWODKOQPWKDPOQWFPOKQFW\n", 39);
     close(pipe_1[0]);
     close(pipe_1[1]);
 }
@@ -300,7 +296,6 @@ int fork_and_exec(t_data *info,int fd, int out_fd)
     printf("we got here\n");
     if(info || fd || out_fd){}
     int pipe_1[2];
-    int kurwa_err;
     int status;
     if(pipe(pipe_1) == -1)
         return -1;
@@ -321,28 +316,34 @@ int fork_and_exec(t_data *info,int fd, int out_fd)
 // int clean_stuff();
 int exec_prep_thingys(t_data *info,int fd, int out_fd)
 {  
-
+    // printf("Index %s", info->cmd[info->index].in[0]);
     if(!info->cmd[info->index].in[0] && info->index == 0)
+    {
         fd = -1;
-  
-   else  if (info->cmd[info->index].in[0])
+    }
+   else  if (info->cmd[info->index].in[0][0] != '\t')
+   {
         if((fd = put_proper_in_fd(info, fd)) < 0)
+        {
+            perror("domdqwkodwqkodqwopk");
             return -1;
-
+        }
+   }
+    
     if(!info->cmd[info->index].out[0] && info->index == 0)
     {
         out_fd = -1;
     }
     else
     {
-
+        
         if((out_fd = put_proper_out_fd(info, out_fd)) < 0)
         {
             close(fd);
             return -1;
         }
     }
-      perror("domdqwkodwqkodqwopk");
+  
     if(!info->cmd[info->index].cmd[0])
     {
         close(fd);
@@ -367,8 +368,10 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
 }
 int exec_stuff(t_data *info)
 {
+
     int fd = STDIN_FILENO;
     info->index = 0;
+
     while (info->index < info->amount_cmd)
     { 
         printf("we got here %d info index \n", info->index);

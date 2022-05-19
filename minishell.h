@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/19 20:40:27 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/19 20:52:38 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_cmd {
 							//>>something.txt
 	char	**cmd;		//ls[0]wc-l[1]
 
-	char	**command_path; //full cmd_path
+	char	*command_path; //full cmd_path
 	char	*gen_path;	//partial path to cmd
 }				t_cmd;
 
@@ -171,4 +171,22 @@ void				loop_through_red_left(t_el_counter *el_counter, int i);
 void				format_line_to_exec(t_el_counter *el_counter, char *trimmed_line);
 int					exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env);
 char			*get_cmd(t_el_counter *counter);
+
+//New exec
+void    fake_here_doc(char *line);
+int    real_here_doc(char *line);
+int get_real_one(t_data *info, int i);
+int get_the_real_one_out(t_data *info, int out_fd, int i);
+int put_proper_in_fd(t_data *info, int fd);
+int put_proper_out_fd(t_data *info, int out_fd);
+char *cmd_exists(t_data *info);
+int child_process_in(t_data *info, int fd, int *pipe_1);
+int child_process_out(t_data *info, int out_fd, int *pipe_1);
+void run_child(t_data *info,int  fd,int out_fd,int *pipe_1);
+int fork_and_exec(t_data *info,int fd, int out_fd);
+int exec_prep_thingys(t_data *info,int fd, int out_fd);
+int exec_stuff(t_data *info);
+char *get_path(char **envv);
+char *check_for_cmd_in_path(char *path, char *command);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 19:51:17 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 21:27:36 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,20 +140,35 @@ void handle_struct(t_data *info)
 	i = 0;
 	j = 0;
 	position = 0;
-	info->cmd = malloc(sizeof(t_cmd *));
-	info->cmd->in = malloc(sizeof(char **));
-	info->cmd->out = malloc(sizeof(char **));
-	info->cmd->cmd = malloc(sizeof(char **));
+	info->cmd = ft_calloc(sizeof(t_cmd *), 1);
+	info->cmd->in = ft_calloc(sizeof(char **), 1);
+	info->cmd->in[0] = ft_calloc(sizeof(char *), 1);
+	info->cmd->in[0][0] = '\t';
+	info->cmd->out = ft_calloc(sizeof(char **), 1);
+	info->cmd->out[0] = ft_calloc(sizeof(char *), 1);
+	info->cmd->out[0][0] = '\t';
+	info->cmd->cmd = ft_calloc(sizeof(char **),1 );
 	while (info->cmd_table[i])
 	{
 		if (ft_strchr(info->cmd_table[i], '<') == NULL && ft_strchr(info->cmd_table[i], '>') == NULL)
-			return ;
+		{
+			while(info->cmd_table[i])
+			{
+				info->cmd->cmd[i] = info->cmd_table[i];
+				printf("CMd : %s", info->cmd->cmd[i]);
+				i++;
+			}
+			info->amount_cmd = i;
+			printf("Command ammout %d", info->amount_cmd);
+			break;
+		}
 		printf("------ROUND %d--------\n", i);
-		info->cmd->in[i] = malloc(sizeof(char *));
-		info->cmd->out[i] = malloc(sizeof(char *));
+		info->cmd->in[i] = ft_calloc(sizeof(char *) ,1);
+		info->cmd->out[i] = ft_calloc(sizeof(char *) ,1);
 		position += redirect_input(&(info->cmd[i]), info->cmd_table[i]);
 		redirect_cmd(&(info->cmd[i]), info->cmd_table[i]);
 		redirect_output(&(info->cmd[i]), info->cmd_table[i]);
+		
 		i++;
 	}
 }

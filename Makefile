@@ -17,6 +17,7 @@ SRCS =	main.c \
 		builtins/signals.c \
 		builtins/pwd.c\
 		builtins/cd.c\
+		execution/new_execution.c\
 		#execution/finding_command_path.c\
 		execution/redirection.c\
 		execution/allocating_for_cmd.c\
