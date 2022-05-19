@@ -6,11 +6,21 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 09:55:57 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 10:05:51 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	ft_valid_helper(char *str, int flag)
+{
+	if (flag == 0)
+	{
+		printf("export: '%s': not a valid identifier\n", str);
+		return (-1);
+	}
+	return (0);
+}
 
 /*
 checks if the input is alphanum and _ . ,
@@ -18,7 +28,7 @@ checks if the input is alphanum and _ . ,
 int	ft_isvalid(char *str)
 {
 	int	i;
-	int flag;
+	int	flag;
 
 	i = 0;
 	flag = 0;
@@ -39,12 +49,7 @@ int	ft_isvalid(char *str)
 			return (-1);
 		}
 	}
-	if (flag == 0)
-	{
-		printf("export: '%s': not a valid identifier\n", str);
-		return (-1);
-	}
-	return (0);
+	return (ft_valid_helper(str, flag));
 }
 
 /*
@@ -114,5 +119,3 @@ void	export_handler(t_data *info, int index)
 	if (index == 1)
 		sort_list(info->envv);
 }
-
-
