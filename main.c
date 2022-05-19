@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 10:29:48 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 13:58:14 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);	
 		if(!input)
 			break;
-		manage_exec(info, envv);
+		//manage_exec(info, envv);
+		printf("input: %s\n", input);
 		free(input);
 		counter = 0;
 		while (info->cmd_table[counter])
@@ -73,12 +74,12 @@ int main(int argc, char **argv, char **envv)
 	if(!input)
 	{
 		free(input);
+		free(info);
 	}else{
 		free(info->cmd_table[0]);
 		ft_lstclear(&(info->envv), free);
 		free(info->envv);
 		free(info);
 	}
-
 	return (0);
 }

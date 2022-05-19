@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 08:09:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 09:39:43 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 13:56:25 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ char	*cmd_table_handler(t_data *info, char *input)
 	while (amount_multis-- > 0)
 		input = remove_multi_spaces(input, 0, 0);
 	info->cmd_table = ft_split(input, '|');
+	
 	return (input);
 }

@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/19 09:19:22 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 13:55:59 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,25 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
-#include <signal.h>
-#include <string.h>
+# include <signal.h>
+# include <string.h>
 
-//can get removed???
+
+//ls > something | wc -c 
 typedef struct s_cmd {
-	char	*command;
-	char	*flag;
+	char	**in;			//< something.txt
+							//<<something.txt
+	char	**out;			//> something.txt
+							//>>something.txt
+	char	**cmd;		//ls[0]wc-l[1]
 }				t_cmd;
 
 //main-struct
 typedef struct s_data {
 	char	**cmd_table;
 	t_list	*envv;
-	t_cmd	*cmd;
+	t_cmd	*cmd; //call it in an array
+	int		amount_cmd;
 	char	*path;
 	int			index;
 	int			forker;
