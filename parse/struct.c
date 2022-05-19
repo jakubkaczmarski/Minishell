@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 17:51:35 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 18:32:39 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char *insert_space(char *string, int i)
 	ft_copy(new_string, string, i + 1);
 	new_string[i] = ' ';
 	ft_copy(&new_string[i + 1], &string[i], 0);
-	//free(string);
 	return (new_string);
 }
 
@@ -70,6 +69,41 @@ int redirect_input(t_cmd *cmd, char *string)
 	return (index);
 }
 
+/*
+output
+*/
+int redirect_output(t_cmd *cmd, char *string)
+{
+	int	i;
+	int	j;
+	int	start;
+	int	index;
+
+	i = 0;
+	j = 0;
+	start = 0;
+	index = 0;
+	while (string[i])
+	{
+		if (string[i + j] == '>')
+		{
+			start = i;
+			if (string[i++ + j] != ' ' && string[i] != '>')
+			 	string = insert_space(string, i);
+			while (string[i + j++] != '\0' && string[i + j] != '>')
+				j++;
+			cmd->out[index] = ft_substr(string, start, j);
+			printf("out_redirect[%d]: %s\n", index, cmd->out[index]);
+			index++;
+			j--;
+		}
+		i += j;
+		j = 0;
+		i++;
+	}
+	return (index);
+}
+
 void handle_struct(t_data *info)
 {
 	int i;
@@ -86,15 +120,9 @@ void handle_struct(t_data *info)
 	{
 		printf("------ROUND %d--------\n", i);
 		info->cmd->in[i] = malloc(sizeof(char *));
+		info->cmd->out[i] = malloc(sizeof(char *));
 		amount_red += redirect_input(&(info->cmd[i]), info->cmd_table[i]);
-		//redirect_output();
-		
+		amount_red += redirect_output(&(info->cmd[i]), info->cmd_table[i]);	
 		i++;
 	}
-
-
-	
-
-
-	
 }
