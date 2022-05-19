@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 09:12:42 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 10:29:19 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ int	builtin_handler(t_data *info)
 		}
 		else if (!ft_strncmp(info->command_and_param[y], "$?", 2))
 		{
-			//dollar_questionmark(info);
-			
+			printf(" %d ", info->ret_val);
 			info->ret_val = 127;
 		}
 		else if (!ft_strncmp(info->command_and_param[y], "export", 6))

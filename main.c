@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 09:12:57 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 10:29:48 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int main(int argc, char **argv, char **envv)
 	handle_sigs_interactive(); //signals
 	while (1)
 	{
-		input = readline("minishell>🦖");
+		input = readline("minishell🦖>");
 		if (!input)
 			break ;
 		if(input[0] == '\0')
@@ -64,7 +64,6 @@ int main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);	
 		if(!input)
 			break;
-		//builtin_handler(info);
 		manage_exec(info, envv);
 		free(input);
 		counter = 0;

@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 10:05:51 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 10:12:50 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_isvalid(char *str)
 }
 
 /*
-counts how many characters are until the given character
+counts the character until the given character
 */
 int	ft_strint(char *str, char c)
 {
