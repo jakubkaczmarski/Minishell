@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/19 19:27:27 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 20:40:27 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ typedef struct s_cmd {
 	char	**out;			//> something.txt
 							//>>something.txt
 	char	**cmd;		//ls[0]wc-l[1]
+
+	char	**command_path; //full cmd_path
+	char	*gen_path;	//partial path to cmd
 }				t_cmd;
 
 //main-struct
@@ -42,6 +45,7 @@ typedef struct s_data {
 	int		amount_cmd;
 	char	*path;
 	int			index;
+	int			pid;
 	int			forker;
 	char	**env;
 	char	**command_and_param;
