@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 19:50:07 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/19 19:51:17 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,26 +135,17 @@ void handle_struct(t_data *info)
 {
 	int i;
 	int j;
-	int flag;
 	int position;
 
 	i = 0;
 	j = 0;
-	flag = 0;
 	position = 0;
-	//execute command by command and call the functions in a loop
 	info->cmd = malloc(sizeof(t_cmd *));
 	info->cmd->in = malloc(sizeof(char **));
 	info->cmd->out = malloc(sizeof(char **));
 	info->cmd->cmd = malloc(sizeof(char **));
 	while (info->cmd_table[i])
 	{
-		// while (info->cmd_table[i][j])
-		// 	if (info->cmd_table[i][j] == '<' || info->cmd_table[i][j++] == '>')
-		// 		flag = 1;
-		// if (flag == 1)
-		// 	break ;
-		// i = 0;
 		if (ft_strchr(info->cmd_table[i], '<') == NULL && ft_strchr(info->cmd_table[i], '>') == NULL)
 			return ;
 		printf("------ROUND %d--------\n", i);
