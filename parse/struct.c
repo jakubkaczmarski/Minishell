@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 21:27:36 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/20 08:50:59 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,16 +155,16 @@ void handle_struct(t_data *info)
 			while(info->cmd_table[i])
 			{
 				info->cmd->cmd[i] = info->cmd_table[i];
-				printf("CMd : %s", info->cmd->cmd[i]);
+				printf("CMd : %s\n", info->cmd->cmd[i]);
 				i++;
 			}
 			info->amount_cmd = i;
-			printf("Command ammout %d", info->amount_cmd);
+			printf("Command ammout %d\n", info->amount_cmd);
 			break;
 		}
 		printf("------ROUND %d--------\n", i);
-		info->cmd->in[i] = ft_calloc(sizeof(char *) ,1);
-		info->cmd->out[i] = ft_calloc(sizeof(char *) ,1);
+		info->cmd->in[i] = ft_calloc(sizeof(char *) , 1);
+		info->cmd->out[i] = ft_calloc(sizeof(char *) , 1);
 		position += redirect_input(&(info->cmd[i]), info->cmd_table[i]);
 		redirect_cmd(&(info->cmd[i]), info->cmd_table[i]);
 		redirect_output(&(info->cmd[i]), info->cmd_table[i]);
