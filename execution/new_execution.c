@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/19 22:03:16 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:26:50 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,7 +325,7 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
    {
         if((fd = put_proper_in_fd(info, fd)) < 0)
         {
-            perror("domdqwkodwqkodqwopk");
+ 
             return -1;
         }
    }
@@ -336,7 +336,6 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
     }
     else
     {
-        
         if((out_fd = put_proper_out_fd(info, out_fd)) < 0)
         {
             close(fd);
@@ -351,7 +350,8 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
         return -1;
     }
 
-    info->cmd[info->index].gen_path = get_path(info->env);
+    info->cmd[info->index].gen_path = get_path(info->env); 
+    
     // printf("First %s \n, Second %s", info->cmd[info->index].gen_path, info->cmd[info->index].cmd[0] );
     if(((info->cmd[info->index].command_path = cmd_exists(info))))
         printf("Command %s\n", info->cmd[info->index].command_path);
@@ -361,9 +361,11 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
         perror("There is no command in the path\n");
     }
     //This and command with paht
-    //If there is no command you return and close both of them 
-    if(!info->cmd[info->index + 1].cmd[0])
+    //If there is no command you return and close both of them
+    perror("Siemasnjko"); 
+    // if(!info->cmd[info->index + 1].cmd[0])
         out_fd = STDOUT_FILENO;
+
     return fork_and_exec(info, fd, out_fd);
 }
 int exec_stuff(t_data *info)

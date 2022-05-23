@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 01:18:20 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:26:40 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ void	handle_struct(t_data *info)
 				info->cmd[i].out = add_after_string(info->cmd[i].out, temp[j]);
  			}else{
 				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
+				info->amount_cmd++;
 			 }
 			j++;
 		}
@@ -230,6 +231,7 @@ void	handle_struct(t_data *info)
 		// while(i)
 		// free(temp);
 	}
+
 	// ft_split("")
 	// int i;
 	// int j;
