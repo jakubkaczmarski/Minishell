@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 20:53:45 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 00:14:51 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);	
 		if(!input)
 			break;
-		exec_stuff(info);	
+		// exec_stuff(info);	
 		//manage_exec(info, envv);
 		// printf("input: %s\n", input);
 		free(input);

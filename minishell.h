@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/19 20:52:38 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:00:47 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void indexing(t_list *envv);
 void	unset_handler(t_data *info, int index);
 void	remove_in_envv(t_list **envv, char *var);
 int		replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr);
-
+void	handle_struct(t_data *info);
 //echo.c
 void	ft_echo(t_data *info);
 
