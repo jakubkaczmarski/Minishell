@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 13:15:47 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 13:57:11 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,31 @@ char **add_env(char **env)
 	}
 	return ret;
 }
+
+
+void free_all(t_data *info)
+{
+	int i = 0;
+	int j;
+		j = 0;
+		while(info->cmd[i].cmd[j])
+		{
+			free(info->cmd[i].cmd[j]);
+			j++;
+		}
+		j = 0;
+		while(info->cmd[i].in[j])
+		{
+			free(info->cmd[i].in[j]);
+		}
+		j = 0;
+		while(info->cmd[i].out[j])
+		{
+			free(info->cmd[i].out[j]);
+		}
+		free(info->cmd[i].command_path);
+		free(info->cmd[i].gen_path);
+}
 /*
 @param argc amount of arguments
 @param argv arguments as array
@@ -89,10 +114,11 @@ int main(int argc, char **argv, char **envv)
 		if(!input)
 			break;
 		exec_stuff(info);	
-		//manage_exec(info, envv);
+		// manage_exec(info, envv);
 		// printf("input: %s\n", input);
 		free(input);
 		counter = 0;
+		free_all(info);
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);	
 	}

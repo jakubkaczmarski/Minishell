@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/24 13:17:19 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 13:50:19 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,6 @@ char *cmd_exists(t_data *info)
 
     while(splitted_path[i])
 	{
-              perror("wdoqkqkodwkqowpqdkwop");
         full_cmd_path = check_for_cmd_in_path(splitted_path[i],info->cmd[info->index].cmd[0]);
         // printf("%s\n",splitted_path[i],info->cmd[info->index].cmd[0] );
 		if(full_cmd_path)
@@ -171,7 +170,6 @@ char *cmd_exists(t_data *info)
 		}
 		i++;
 	}
-        perror("wdoqkqkodwkqowpqdkwop");
     return NULL;
 }
 
@@ -200,10 +198,8 @@ int child_process_in(t_data *info, int fd, int *pipe_1)
         return (STDIN_FILENO);
     else 
            {
-               printf("HEIEIIELDEOEGPOWGPJOW\n");
                if ((check = dup2(pipe_1[0], STDIN_FILENO)) < 0)
             {
-                perror("fuck off");
                 return (-1);
             }
             return (pipe_1[0]);
@@ -324,7 +320,7 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
     {
         fd = -1;
     }
-   else  if (info->cmd[info->index].in[0][0] != '\t')
+   else  if (info->cmd[info->index].in[0])
    {
         if((fd = put_proper_in_fd(info, fd)) < 0)
         {
@@ -352,10 +348,7 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
         close(out_fd);
         return -1;
     }
-    printf("Czary 2d array of env \n");
-  
-    info->cmd[info->index].gen_path = get_path(info->env); 
-    printf("Path %s\n", info->cmd[info->index].gen_path);
+    info->cmd[info->index].gen_path = get_path(info->env);
     // printf("First %s \n, Second %s", info->cmd[info->index].gen_path, info->cmd[info->index].cmd[0] );
     if(((info->cmd[info->index].command_path = cmd_exists(info))))
     {
@@ -369,7 +362,6 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
         
     //This and command with paht
     //If there is no command you return and close both of them
-    perror("Siemasnjko"); 
     // if(!info->cmd[info->index + 1].cmd[0])
         out_fd = STDOUT_FILENO;
 

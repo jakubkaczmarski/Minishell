@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 12:47:15 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:04:31 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ void	handle_struct(t_data *info)
 	print_cmd_table(info->cmd_table);
 	int i = 0;
 	int j = 0;
+	info->amount_cmd = 0;
 	char **temp;
 	
 	while(info->cmd_table[i])
