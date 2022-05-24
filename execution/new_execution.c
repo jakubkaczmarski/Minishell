@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/24 15:20:31 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:36:30 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,39 +234,6 @@ int child_process_out(t_data *info, int out_fd, int *pipe_1)
            }
        
     return (0);
-    // int check;
-    // printf("Out fd %d Pipe 1 %d\n", out_fd, pipe_1[1]);
-    // if(out_fd == -1 || info->index == info->amount_cmd - 1)
-    // {
-    //     //Piping
-    //     check = dup2(pipe_1[1], STDOUT_FILENO);
-
-    //     if(check < 0)
-    //     {
-
-    //             perror("Problem with pipes");
-    //             return -1;   
-    //     }
-    //     return pipe_1[1];
-
-    // }
-
-    // check = dup2(out_fd, STDOUT_FILENO);
-
-    //     if(check < 0)
-    //     {
-    //         perror("Redireciton err");
-    //         return -1;
-    //     }
-    //     printf("Hiello\n");
-    //     check = close(pipe_1[1]);
-    //     if(check < 0)
-    //     {
-    //          perror("Close");
-    //         return -1;
-    //     }
-    // printf("Out_Fd %d\n",out_fd);
-    // return out_fd;
 }
 void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
 {
@@ -282,8 +249,11 @@ void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
   usleep(50);
     if(output < 0)
         exit(-1);
-
-    execve(info->cmd[info->index].command_path, &info->cmd[info->index].cmd[0], info->env);
+    if(builtin_handler(info) == 1)
+    {
+        printf("Build in executed");
+    }else
+        execve(info->cmd[info->index].command_path, &info->cmd[info->index].cmd[0], info->env);
     close(pipe_1[0]);
     close(pipe_1[1]);
 }
@@ -312,6 +282,10 @@ int fork_and_exec(t_data *info,int fd, int out_fd)
     printf("return of exec loop for next fd == %d\n", pipe_1[0]);
     return pipe_1[0];
 }
+// int check_for_build_ins(t_data *info)
+// {
+//     if(info->cmd[info->index].cmd[0])
+// }
 // int clean_stuff();
 int exec_prep_thingys(t_data *info,int fd, int out_fd)
 {  
@@ -360,7 +334,6 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
         close(out_fd);
         perror("There is no command in the path\n");
     }
-        
     //This and command with paht
     //If there is no command you return and close both of them
     // if(!info->cmd[info->index + 1].cmd[0])
@@ -368,7 +341,7 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
     //     printf("Siemanko");
     //     out_fd = STDOUT_FILENO;
     // }
-    perror("Made it to fork and executiuon\n\n");
+    // perror("Made it to fork and executiuon\n\n");
     return fork_and_exec(info, fd, out_fd);
 }
 int exec_stuff(t_data *info)
