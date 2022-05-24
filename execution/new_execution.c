@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/24 13:50:19 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:42:46 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,7 +320,7 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
     {
         fd = -1;
     }
-   else  if (info->cmd[info->index].in[0])
+   else
    {
         if((fd = put_proper_in_fd(info, fd)) < 0)
         {
@@ -363,8 +363,10 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
     //This and command with paht
     //If there is no command you return and close both of them
     // if(!info->cmd[info->index + 1].cmd[0])
-        out_fd = STDOUT_FILENO;
-
+    // {
+    //     printf("Siemanko");
+    //     out_fd = STDOUT_FILENO;
+    // }
     return fork_and_exec(info, fd, out_fd);
 }
 int exec_stuff(t_data *info)
