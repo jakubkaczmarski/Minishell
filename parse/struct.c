@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 01:26:40 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 12:47:15 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ void	handle_struct(t_data *info)
 		temp = ft_split(info->cmd_table[i], ' ');
 		print_2d_array(temp, 1)
 ;		info->cmd[i] =	*alloc_mem_for_info();
+		info->cmd[i + 1] =	*alloc_mem_for_info();
 		while(temp[j])
 		{
 			if(temp[j][0] == '<')

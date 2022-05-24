@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/24 01:00:47 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 13:12:45 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,6 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd);
 int exec_stuff(t_data *info);
 char *get_path(char **envv);
 char *check_for_cmd_in_path(char *path, char *command);
-
+void    print_2d_array(char    **arr, int fd);
+char **add_after_string(char **arr, char *new_el);
 #endif

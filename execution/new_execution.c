@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/24 01:26:50 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 13:17:19 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,10 @@ char *cmd_exists(t_data *info)
     char **splitted_path = ft_split( info->cmd[info->index].gen_path, ':');
     char *full_cmd_path;
     i = 0;
+
     while(splitted_path[i])
 	{
+              perror("wdoqkqkodwkqowpqdkwop");
         full_cmd_path = check_for_cmd_in_path(splitted_path[i],info->cmd[info->index].cmd[0]);
         // printf("%s\n",splitted_path[i],info->cmd[info->index].cmd[0] );
 		if(full_cmd_path)
@@ -169,6 +171,7 @@ char *cmd_exists(t_data *info)
 		}
 		i++;
 	}
+        perror("wdoqkqkodwkqowpqdkwop");
     return NULL;
 }
 
@@ -342,24 +345,28 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
             return -1;
         }
     }
-  
+
     if(!info->cmd[info->index].cmd[0])
     {
         close(fd);
         close(out_fd);
         return -1;
     }
-
+    printf("Czary 2d array of env \n");
+  
     info->cmd[info->index].gen_path = get_path(info->env); 
-    
+    printf("Path %s\n", info->cmd[info->index].gen_path);
     // printf("First %s \n, Second %s", info->cmd[info->index].gen_path, info->cmd[info->index].cmd[0] );
     if(((info->cmd[info->index].command_path = cmd_exists(info))))
+    {
         printf("Command %s\n", info->cmd[info->index].command_path);
+    }
     else{
         close(fd);
         close(out_fd);
         perror("There is no command in the path\n");
     }
+        
     //This and command with paht
     //If there is no command you return and close both of them
     perror("Siemasnjko"); 
