@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 14:37:22 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:24:58 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ void	handle_struct(t_data *info)
 		print_2d_array(temp, 1)
 ;		info->cmd[i] =	*alloc_mem_for_info();
 		info->cmd[i + 1] =	*alloc_mem_for_info();
+		int argum = 0;
 		while(temp[j])
 		{
 			if(temp[j][0] == '<')
@@ -214,6 +215,7 @@ void	handle_struct(t_data *info)
 					joined = ft_strjoin("<",temp[j]);
 					info->cmd[i].in = add_after_string(info->cmd[i].in, joined);
 				}
+				argum = 1;
 			}else if(temp[j][0] == '>')
 			{
 				if(temp[j][1] && temp[j][1] == '>')
@@ -225,16 +227,19 @@ void	handle_struct(t_data *info)
 					joined = ft_strjoin(">",temp[j]);
 					info->cmd[i].out = add_after_string(info->cmd[i].out, joined);
 				}
+				argum = 1;
  			}else{
+				if(argum == 1 || info->amount_cmd == 0)
+					info->amount_cmd++;
 				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
-				info->amount_cmd++;
+				argum = 0;
 			 }
 			j++;
 		}
 			printf("Printing in\n");
 			print_2d_array(info->cmd[i].in, 1);
 			printf("\nPrinting cmd\n");
-
+			printf("Command ammount %d", info->amount_cmd);
 			print_2d_array(info->cmd[i].cmd, 1);
 			printf("\nPrinting out\n");
 			print_2d_array(info->cmd[i].out, 1);

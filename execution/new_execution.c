@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/24 14:42:46 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:20:31 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,6 +348,7 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
         close(out_fd);
         return -1;
     }
+    // perror("Siemanko");
     info->cmd[info->index].gen_path = get_path(info->env);
     // printf("First %s \n, Second %s", info->cmd[info->index].gen_path, info->cmd[info->index].cmd[0] );
     if(((info->cmd[info->index].command_path = cmd_exists(info))))
@@ -367,6 +368,7 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
     //     printf("Siemanko");
     //     out_fd = STDOUT_FILENO;
     // }
+    perror("Made it to fork and executiuon\n\n");
     return fork_and_exec(info, fd, out_fd);
 }
 int exec_stuff(t_data *info)
