@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 14:34:37 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:37:22 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,12 +218,12 @@ void	handle_struct(t_data *info)
 			{
 				if(temp[j][1] && temp[j][1] == '>')
 				{
-					info->cmd[i].in = add_after_string(info->cmd[i].in, temp[j]);
+					info->cmd[i].out = add_after_string(info->cmd[i].out, temp[j]);
 				}else
 				{
 					temp[j][0] = ' ';
 					joined = ft_strjoin(">",temp[j]);
-					info->cmd[i].in = add_after_string(info->cmd[i].in, joined);
+					info->cmd[i].out = add_after_string(info->cmd[i].out, joined);
 				}
  			}else{
 				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
