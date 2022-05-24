@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 13:57:11 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:29:24 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int main(int argc, char **argv, char **envv)
 		// printf("input: %s\n", input);
 		free(input);
 		counter = 0;
-		free_all(info);
+		// free_all(info);
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);	
 	}

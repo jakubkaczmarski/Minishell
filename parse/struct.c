@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 14:04:31 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:34:37 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,12 +194,9 @@ void	handle_struct(t_data *info)
 	int j = 0;
 	info->amount_cmd = 0;
 	char **temp;
-	
+	char *joined;
 	while(info->cmd_table[i])
 	{
-
-		
-		// printf("%p\n", info->cmd[i]);
 		temp = ft_split(info->cmd_table[i], ' ');
 		print_2d_array(temp, 1)
 ;		info->cmd[i] =	*alloc_mem_for_info();
@@ -208,14 +205,26 @@ void	handle_struct(t_data *info)
 		{
 			if(temp[j][0] == '<')
 			{
-				if ((ft_strlen(temp[j]) < 2))
+				if(temp[j][1] && temp[j][1] == '<')
 				{
-					//This way just add the next and add redirection in front of it 		
+					info->cmd[i].in = add_after_string(info->cmd[i].in, temp[j]);
+				}else
+				{
+					temp[j][0] = ' ';
+					joined = ft_strjoin("<",temp[j]);
+					info->cmd[i].in = add_after_string(info->cmd[i].in, joined);
 				}
-				info->cmd[i].in = add_after_string(info->cmd[i].in, temp[j]);
 			}else if(temp[j][0] == '>')
 			{
-				info->cmd[i].out = add_after_string(info->cmd[i].out, temp[j]);
+				if(temp[j][1] && temp[j][1] == '>')
+				{
+					info->cmd[i].in = add_after_string(info->cmd[i].in, temp[j]);
+				}else
+				{
+					temp[j][0] = ' ';
+					joined = ft_strjoin(">",temp[j]);
+					info->cmd[i].in = add_after_string(info->cmd[i].in, joined);
+				}
  			}else{
 				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
 				info->amount_cmd++;
