@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 07:29:01 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/12 10:11:17 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/24 16:59:29 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,23 @@ one by one from the list envv
 void	unset_handler(t_data *info, int index)
 {
 	int		i;
-	char	**variables;
+	// char	**variables;
 	char	*var;
 
 	i = 0;
-	variables = ft_split(info->cmd_table[index], ' ');
-	free(variables[0]);
 	index = 1;
-	while (variables[index])
+	while (info->cmd[info->index].cmd[index])
 	{
-		while (variables[index][i] != '\0')
+
+		while (info->cmd[info->index].cmd[index][i] != '\0')
 			i++;
-		var = ft_substr(variables[index], 0, i);
+		var = ft_substr(info->cmd[info->index].cmd[index], 0, i);
+		printf("\n\nHalp %s\n\n\n", var);
 		remove_in_envv(&(info->envv), var);
-		free(variables[index]);
+		printf("\n\nHalp %s\n\n\n", var);
+		free(info->cmd[info->index].cmd[index]);
 		free(var);
 		i = 0;
 		index++;
 	}
-	free(variables);
 }
