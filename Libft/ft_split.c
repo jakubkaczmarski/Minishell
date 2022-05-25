@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:29:28 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/26 01:38:56 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 01:40:47 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ static char	**ft_fillwords(char **new,  char *str, char c, size_t count)
 		while (str[i] && str[i] == c)
 			i++;
 		len = ft_wordlen(str + i, c);
-		printf("Begining %s s_index %d End index %zu\n", str, i, len);
-		printf("Str_len_b %d\n",ft_strlen(str));
+		// printf("Begining %s s_index %d End index %zu\n", str, i, len);
+		// printf("Str_len_b %d\n",ft_strlen(str));
 		
 		new[words] = ft_substr(str, i, len);
 		str[len_t] = '\0';
-		printf("Middle %s\n", str);
-		printf("Str_len_m %d\n",ft_strlen(str));
+		// printf("Middle %s\n", str);
+		// printf("Str_len_m %d\n",ft_strlen(str));
 		// printf("In array %s ", new[words]);
 		if (!new[words])
 			return (ft_freemem(new, words));
@@ -108,7 +108,7 @@ static char	**ft_fillwords(char **new,  char *str, char c, size_t count)
 	}
 
 	new[words] = NULL;
-	printf("String after filling :)\n");
+	// printf("String after filling :)\n");
 	print_2d_array(new, 1);
 	printf("\n\n\n");
 	return (new);
@@ -125,6 +125,5 @@ char	**ft_split(const char *str, char c)
 	new = malloc ((count + 1) * sizeof(*new));
 	if (!new)
 		return (NULL);
-	printf("String przed fill up %s %zu\n\n", str, count);
 	return (ft_fillwords(new, (char *)str, c, count));
 }
