@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/25 14:19:32 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:31:09 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,12 +179,15 @@ t_cmd *alloc_mem_for_info(void)
 	// arr[i++] = strdup;
 
 	cmd = ft_calloc(sizeof(t_cmd), 1);
-	cmd->out  = ft_calloc(sizeof(char *), 1);
-	cmd->in  = ft_calloc(sizeof(char *), 1);
-	cmd->cmd  = ft_calloc(sizeof(char *), 1);
+	cmd->out  = ft_calloc(sizeof(char *), 2);
+	cmd->in  = ft_calloc(sizeof(char *), 2);
+	cmd->cmd  = ft_calloc(sizeof(char *), 2);
 	cmd->cmd[0] = NULL;
 	cmd->in[0] = NULL;
 	cmd->out[0] =  NULL;
+	cmd->cmd[1] = NULL;
+	cmd->in[1] = NULL;
+	cmd->out[1] =  NULL;
 	return cmd;
 }
 void	handle_struct(t_data *info)
@@ -201,7 +204,6 @@ void	handle_struct(t_data *info)
 		temp = ft_split(info->cmd_table[i], ' ');
 		// print_2d_array(temp, 1)
 ;		info->cmd[i] =	*alloc_mem_for_info();
-		info->cmd[i + 1] =	*alloc_mem_for_info();
 		argum = 1;
 		j = 0;
 		while(temp[j])
@@ -250,7 +252,7 @@ void	handle_struct(t_data *info)
 		// while(i)
 		// free(temp);
 	}
-
+	info->cmd[i] =	*alloc_mem_for_info();
 	// ft_split("")
 	// int i;
 	// int j;

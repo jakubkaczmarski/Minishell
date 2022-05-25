@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/25 13:19:52 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/25 15:26:45 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,10 @@ int put_proper_in_fd(t_data *info, int fd)
     //Loop till the last one
     //<< 
     //< and a space
-    while( info->cmd[info->index].in[i + 1] != NULL)
+    printf("Should not be NULL %s\n",info->cmd[info->index].in[i + 1]);
+    while(info->cmd[info->index].in[i + 1])
     {
+            perror("Czary mary dzikie weze\n\n");
         if(info->cmd[info->index].in[i][1] == '<' )
         {
             fake_here_doc(info->cmd[info->index].in[i]);
@@ -115,6 +117,7 @@ int put_proper_in_fd(t_data *info, int fd)
         }
         i++;
     }
+    perror("Siemanko");
     return (get_real_one(info, i));
 }
 int put_proper_out_fd(t_data *info, int out_fd)
@@ -294,7 +297,7 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
     {
         fd = -1;
     }
-   else
+   else if(info->cmd[info->index].in[0])
    {
         if((fd = put_proper_in_fd(info, fd)) < 0)
         {
@@ -302,12 +305,12 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
             return -1;
         }
    }
-    
+   
     if(!info->cmd[info->index].out[0] && info->index == 0)
     {
         out_fd = -1;
     }
-    else
+    else if(info->cmd[info->index].out[0])
     {
         if((out_fd = put_proper_out_fd(info, out_fd)) < 0)
         {
