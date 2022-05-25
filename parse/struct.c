@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/25 14:31:09 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/25 15:42:20 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ int cmd_tracker(t_cmd *cmd, char *string)
 		j++;
 	cmd->cmd = ft_split(ft_substr(string, i, j), ' ');
 	i = 0;
-	while(cmd->cmd[i])
-	{
-		printf("cmd: %s\n", cmd->cmd[i++]);
-	}
+	// while(cmd->cmd[i])
+	// {
+		// printf("cmd: %s\n", cmd->cmd[i++]);
+	// }
 	return (1);
 }
 
@@ -120,7 +120,7 @@ char **add_after_string(char **arr, char *new_el)
 {
 	int i = 0;
 	char **temp;
-	printf("trying to add %s\n", new_el);
+	// printf("trying to add %s\n", new_el);
 	while(arr[i])
 	{
 		i++;
@@ -192,7 +192,7 @@ t_cmd *alloc_mem_for_info(void)
 }
 void	handle_struct(t_data *info)
 {
-	print_cmd_table(info->cmd_table);
+	// print_cmd_table(info->cmd_table);
 	int i = 0;
 	int j = 0;
 	info->amount_cmd = 0;
@@ -235,19 +235,19 @@ void	handle_struct(t_data *info)
  			}else{
 				if(argum == 1 || info->amount_cmd == 0)
 					info->amount_cmd++;
-				printf("Else triggered %s\n", temp[i]);
+				// printf("Else triggered %s\n", temp[i]);
 				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
 				argum = 0;
 			 }
 			j++;
 		}
-			printf("Command amount %d\n", info->amount_cmd);
-			printf("Printing in\n");
-			print_2d_array(info->cmd[i].in, 1);
-			printf("\nPrinting cmd\n");
-			print_2d_array(info->cmd[i].cmd, 1);
-			printf("\nPrinting out\n");
-			print_2d_array(info->cmd[i].out, 1);
+			// printf("Command amount %d\n", info->amount_cmd);
+			// printf("Printing in\n");
+			// print_2d_array(info->cmd[i].in, 1);
+			// printf("\nPrinting cmd\n");
+			// print_2d_array(info->cmd[i].cmd, 1);
+			// printf("\nPrinting out\n");
+			// print_2d_array(info->cmd[i].out, 1);
 			i++;
 		// while(i)
 		// free(temp);
