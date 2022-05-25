@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/25 20:13:29 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/25 22:46:22 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,28 @@ void free_all(t_data *info)
 	int i = 0;
 	int j;
 		j = 0;
-		while(info->cmd[i].cmd[j])
+		while(i < info->amount_cmd)
 		{
-			free(info->cmd[i].cmd[j]);
-			j++;
+			while(info->cmd[i].cmd[j])
+			{
+				free(info->cmd[i].cmd[j]);
+				j++;
+			}
+			j = 0;
+			while(info->cmd[i].in[j])
+			{
+				free(info->cmd[i].in[j]);
+			}
+			j = 0;
+			while(info->cmd[i].out[j])
+			{
+				free(info->cmd[i].out[j]);
+			}
+			free(info->cmd[i].command_path);
+			free(info->cmd[i].gen_path);
+			i++;
 		}
-		j = 0;
-		while(info->cmd[i].in[j])
-		{
-			free(info->cmd[i].in[j]);
-		}
-		j = 0;
-		while(info->cmd[i].out[j])
-		{
-			free(info->cmd[i].out[j]);
-		}
-		free(info->cmd[i].command_path);
-		free(info->cmd[i].gen_path);
+		
 }
 /*
 @param argc amount of arguments

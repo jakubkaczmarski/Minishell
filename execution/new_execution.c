@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/25 15:36:27 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/25 22:26:09 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,7 +334,7 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
     else{
         close(fd);
         close(out_fd);
-        // perror("There is no command in the path\n");
+        perror("Command is wrong\n");
     }
     //This and command with paht
     //If there is no command you return and close both of them
