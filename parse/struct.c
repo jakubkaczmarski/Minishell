@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 15:24:58 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:19:32 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,13 +195,15 @@ void	handle_struct(t_data *info)
 	info->amount_cmd = 0;
 	char **temp;
 	char *joined;
+	int argum = 0;
 	while(info->cmd_table[i])
 	{
 		temp = ft_split(info->cmd_table[i], ' ');
-		print_2d_array(temp, 1)
+		// print_2d_array(temp, 1)
 ;		info->cmd[i] =	*alloc_mem_for_info();
 		info->cmd[i + 1] =	*alloc_mem_for_info();
-		int argum = 0;
+		argum = 1;
+		j = 0;
 		while(temp[j])
 		{
 			if(temp[j][0] == '<')
@@ -231,15 +233,16 @@ void	handle_struct(t_data *info)
  			}else{
 				if(argum == 1 || info->amount_cmd == 0)
 					info->amount_cmd++;
+				printf("Else triggered %s\n", temp[i]);
 				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
 				argum = 0;
 			 }
 			j++;
 		}
+			printf("Command amount %d\n", info->amount_cmd);
 			printf("Printing in\n");
 			print_2d_array(info->cmd[i].in, 1);
 			printf("\nPrinting cmd\n");
-			printf("Command ammount %d", info->amount_cmd);
 			print_2d_array(info->cmd[i].cmd, 1);
 			printf("\nPrinting out\n");
 			print_2d_array(info->cmd[i].out, 1);
