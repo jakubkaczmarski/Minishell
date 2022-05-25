@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/25 22:42:37 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 00:29:08 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int cmd_tracker(t_cmd *cmd, char *string)
 	while (string[i + j] != '<' && string[i + j] != '>' \
 		&& string[i + j] != '\0' && (i + j) != len)
 		j++;
+	printf("is it here\n");
 	cmd->cmd = ft_split(ft_substr(string, i, j), ' ');
 	i = 0;
 	// while(cmd->cmd[i])
