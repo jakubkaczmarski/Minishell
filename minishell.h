@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/24 13:12:45 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:41:16 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ char	*modify_input(char *input, char *value, int var_len);
 char	*return_envv_val(char **envv, char *str);
 char	*ft_crop_brackets(char *var);
 char	*get_value(char *var, int *counter);
-
+int replace_line(t_data *info, int index, char c);
+int	crop_redir(t_data *info);
 //struct.c
 void handle_struct(t_data *info);
 

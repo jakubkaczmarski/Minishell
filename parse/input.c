@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/25 19:05:55 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:35:52 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,85 +71,6 @@ int	count_dollars(char *input)
 	return (amount);
 }
 
-int replace_line(t_data *info, int index)
-{
-	int i = 0;
-	int j = 0;
-	char *new_line;
-	new_line = ft_calloc(sizeof(char) ,ft_strlen(info->cmd_table[i]));
-	
-	while(info->cmd_table[index][i])
-	{
-		
-		if(info->cmd_table[index][i] == '<')
-		{
-			new_line[j] = info->cmd_table[index][i];
-			j++;
-			if(info->cmd_table[index][i + 1] && info->cmd_table[index][i + 1] == '<' )
-			{
-				new_line[j] = info->cmd_table[0][i + 1];
-				if(info->cmd_table[index][i + 2] && info->cmd_table[index][i + 2] == '<')
-				{
-					perror("INPUT ERROR");
-					return -1;
-				}
-				i += 2;
-				j++;
-				while(info->cmd_table[index][i] == ' ')
-				{
-					i++;
-				}
-			}else{
-				i++;
-			}
-		}else if(info->cmd_table[index][i] == '>')
-		{
-				if(info->cmd_table[index][i] == '>')
-		{
-			new_line[j] = info->cmd_table[index][i];
-			j++;
-			if(info->cmd_table[index][i + 1] && info->cmd_table[index][i + 1] == '>' )
-			{
-				new_line[j] = info->cmd_table[index][i + 1];
-				if(info->cmd_table[index][i + 2] && info->cmd_table[index][i + 2] == '>')
-				{
-					perror("INPUT ERROR");
-					return -1;
-				}
-				i += 2;
-				j++;
-				while(info->cmd_table[index][i] == ' ')
-				{
-					i++;
-				}
-			}else{
-				i++;
-			}
-		}
-		}
-		new_line[j] = 	info->cmd_table[index][i];
-		j++;
-		i++;
-	}
-	free(info->cmd_table[index]);
-	info->cmd_table[index] = new_line;
-	return 0;
-}
-int	crop_redir(t_data *info)
-{
-	int	i;
-
-	i = 0;
-	while(info->cmd_table[i])
-	{
-		if(replace_line(info, i) == -1)
-		{
-			return -1;
-		}
-		i++;
-	}
- 	return 0;
-}
 
 
 /*
@@ -171,6 +92,7 @@ char	*handle_input(t_data *info, char *input, char **envv)
 	}
 	input = cmd_table_handler(info, input);
 	crop_redir(info);
+	print_2d_array(info->cmd_table, 1);
 	handle_struct(info);
 	print_cmd_table(info->cmd_table);
 	return (input);
