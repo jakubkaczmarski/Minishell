@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:35:54 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/26 01:16:49 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 01:45:41 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int replace_line(t_data *info, int index, char c)
 	int j = 0;
 	int size =  ft_strlen(info->cmd_table[index]);
 	char *new_line;
-	new_line = ft_calloc(sizeof(char) ,ft_strlen(info->cmd_table[index]));
+	new_line = ft_calloc(sizeof(char) ,ft_strlen(info->cmd_table[index]) + 1);
 	
 	while(i < size )
 	{

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:29:28 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/26 01:40:47 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 01:44:29 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char	**ft_split(const char *str, char c)
 	if (!str)
 		return (NULL);
 	count = ft_countwords(str, c);
-	new = malloc ((count + 1) * sizeof(*new));
+	new = ft_calloc(sizeof(*new), (count + 1));
 	if (!new)
 		return (NULL);
 	return (ft_fillwords(new, (char *)str, c, count));
