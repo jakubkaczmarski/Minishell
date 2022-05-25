@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:35:54 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/25 19:42:40 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:48:28 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,17 @@ int replace_line(t_data *info, int index, char c)
 			{
 				new_line[j] = info->cmd_table[0][i + 1];
 				if(info->cmd_table[index][i + 2] && info->cmd_table[index][i + 2] == c)
-				{
-					perror("INPUT ERROR");
 					return -1;
-				}
 				i += 2;
 				j++;
 				while(info->cmd_table[index][i] == ' ')
-				{
 					i++;
-				}
 			}else{
 				i++;
 				while(info->cmd_table[index][i] == ' ')
-				{
 					i++;
-				}
 			}
 		}
-        //here
 		new_line[j] = 	info->cmd_table[index][i];
 		j++;
 		i++;
@@ -57,28 +49,6 @@ int replace_line(t_data *info, int index, char c)
 	info->cmd_table[index] = new_line;
 	return 0;
 }
-// else if(info->cmd_table[index][i] == '>')
-// 		{
-// 				if(info->cmd_table[index][i] == '>')
-// 		{
-// 			new_line[j] = info->cmd_table[index][i];
-// 			j++;
-// 			if(info->cmd_table[index][i + 1] && info->cmd_table[index][i + 1] == '>' )
-// 			{
-// 				new_line[j] = info->cmd_table[index][i + 1];
-// 				if(info->cmd_table[index][i + 2] && info->cmd_table[index][i + 2] == '>')
-// 					return -1;
-// 				i += 2;
-// 				j++;
-// 				while(info->cmd_table[index][i] == ' ')
-// 					i++;
-// 			}else{
-// 				i++;
-// 					while(info->cmd_table[index][i] == ' ')
-// 					i++;
-// 			}
-// 		}
-// 		}
 int	crop_redir(t_data *info)
 {
 	int	i;
