@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/25 19:50:23 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/25 20:06:17 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,31 @@ int	builtin_handler(t_data *info)
 			return (1);
 		}else if(!ft_strncmp(info->cmd[info->index].cmd[0], "exit", 4))
 		{
+			exit_program(info);
 			//Exit with NULL
 			//Exit with number from 0 to 255
 			//Exit with one argument which is not number exit abc
 			//Exit with multiple arguments numbers from 0 to 255 or abc
-			exit(1);
 		}
 		else
 			return (-1);
 		y++;
 	}
 	return (0);
+}
+
+void exit_program(t_data *info)
+{
+	int i;
+
+	i = 0;
+	if(!info->cmd[info->index].cmd[i + 1])
+	{
+		exit(0);
+	}
+	// while(info->cmd[info->index].cmd[i])
+	// {
+		// if()
+		// i++;
+	// }
 }
