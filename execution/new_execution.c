@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/26 16:10:14 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 22:58:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 void    fake_here_doc(char *line)
 {
     char *magic_word;
+    printf("Line in Fake %s", line);
     while(1)
     {
         magic_word = readline("> "); 
+        printf("Halp %s", magic_word);
         if(!magic_word)
+        {
+            printf("Magic word exists %s", magic_word);
             break;
+        }
         if(ft_strncmp(line, magic_word, ft_strlen(magic_word)) == 0)
         {
+            printf("Halp %s", magic_word);
             free(magic_word);
             break;
         }
@@ -32,29 +38,49 @@ int    real_here_doc(char *line)
     char *magic_word;
     int pipe_1[2];
     pipe(pipe_1);
-    close(pipe_1[0]);
+    // printf("Line in hgreagreagaregae \n");
+    // printf("Line in here_doc %s \n", line);
     while(1)
     {
+        // perror("dqwpkoqwdkopqdwkopqwdkpo");
+        // printf("Halp \n");
         magic_word = readline(">"); 
+        
+            // perror("I'm done reading");
+        
         if(!magic_word)
-            break;
+        {
+            // perror("I'm done magic word NULL\n");
+            close(pipe_1[1]);
+            return -1;
+        }
+        // printf("Whats going on??\n");
         if(ft_strncmp(line, magic_word, ft_strlen(magic_word)) == 0)
         {
+            // perror("I'm done strncnp \n\n\n");
             free(magic_word);
             break;
         }
+        // printf("Whats going n22222??\n");
+        // printf("this is magic word == %s\n", magic_word);
+        // printf("Whats going n22222??\n");
         write(pipe_1[1], magic_word, ft_strlen(magic_word));
+        // printf("Whats going 33333??\n");
         write(pipe_1[1], "\n",1);
+        // printf("Whats going 123421412?\n");
         free(magic_word);
+        // write(2, "i swear i got here\n", 20);
     }
-    return pipe_1[1];
+    close(pipe_1[1]);
+    printf("pipe 1 after exec  %d\n", pipe_1[1]);
+    return pipe_1[0];
 }
 int get_real_one(t_data *info, int i)
 {
     int err;
     if(info->cmd[info->index].in[i][1] == '<' )
     {
-        return real_here_doc(info->cmd[info->index].in[i]);
+        return real_here_doc(&info->cmd[info->index].in[i][2]);
     }else{
         if(access(&info->cmd[info->index].in[i][2], F_OK) != 0)
         {
@@ -94,6 +120,8 @@ int get_the_real_one_out(t_data *info, int out_fd, int i)
 int put_proper_in_fd(t_data *info, int fd)
 {
     int i = 0;
+    if(!fd){}
+    printf("File_fd in put proper in fd %d\n", fd);
     if(fd != STDIN_FILENO && fd > 0)
         close(fd);
     //Loop till the last one
@@ -242,22 +270,59 @@ void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
     int input;
     int output;
     input = child_process_in(info, fd ,pipe_1);
+    ft_putstr_fd("After input\n",2);
+    ft_putnbr_fd(input, 2);
     usleep(51);
     if(input < 0)
-        exit(-1);
+         exit(-1) ; ;
 
     output = child_process_out(info, out_fd, pipe_1);
+    ft_putstr_fd("After output\n",2);
+    ft_putnbr_fd(output, 2);
   usleep(50);
     if(output < 0)
-        exit(-1);
-    if(builtin_handler(info) == 1)
+         exit(-1) ; ;
+    int stat = builtin_handler(info) == 1;
+    if(stat == 1)
     {
         // printf("Build in executed");
+    }else if(stat == 2)
+    {
+        
     }else
         execve(info->cmd[info->index].command_path, &info->cmd[info->index].cmd[0], info->env);
     close(pipe_1[0]);
     close(pipe_1[1]);
-    exit(-1);
+    exit(-1) ;
+}
+int non_fork_buid_ins(t_data *info)
+{
+    int	y;
+
+	y = 0;
+     if (!ft_strncmp(info->cmd[info->index].cmd[0], "cd", 2))
+	{	
+        cd(info);
+		return (1);
+	}
+     if (!ft_strncmp(info->cmd[info->index].cmd[0], "exit", 4))
+	{	
+        exit_program(info);
+		return (1);
+	}else if (!ft_strncmp(info->cmd[info->index].cmd[0], "export", 6))
+	{
+		export_handler(info, y);
+		info->ret_val = 0;
+		return (1);
+	}
+	else if (!ft_strncmp(info->cmd[info->index].cmd[0], "unset", 5))
+	{
+		unset_handler(info, y);
+		info->ret_val = 0;
+		return (1);
+	}else{
+        return (0);
+    }
 }
 int fork_and_exec(t_data *info,int fd, int out_fd)
 {
@@ -265,11 +330,14 @@ int fork_and_exec(t_data *info,int fd, int out_fd)
     // perror();
     // perror("\n")
     // printf("we got here\n");
+    if(non_fork_buid_ins(info) == 1)
+        return -1;
     if(info || fd || out_fd){}
     int pipe_1[2];
     int status;
     if(pipe(pipe_1) == -1)
         return -1;
+    printf("A lot of fd %d\n", fd);
     info->pid = fork();
     if(info->pid == -1)
         return - 1;
@@ -304,7 +372,7 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
             return -1;
         }
    }
-   
+   printf("Fd : %d\n", fd);
     if(!info->cmd[info->index].out[0] && info->index == 0)
     {
         out_fd = -1;

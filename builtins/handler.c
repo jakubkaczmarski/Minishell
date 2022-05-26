@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/25 22:24:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:16:01 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,6 @@ int	builtin_handler(t_data *info)
 			info->ret_val = 127;
 			return (1);
 		}
-		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "export", 6))
-		{
-			export_handler(info, y);
-			info->ret_val = 0;
-			return (1);
-		}
-		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "unset", 5))
-		{
-			unset_handler(info, y);
-			info->ret_val = 0;
-			return (1);
-		}
 		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "env", 3))
 		{
 			print_envv(info->envv, 0);
@@ -66,18 +54,6 @@ int	builtin_handler(t_data *info)
 			print_path();
 			info->ret_val = 0;
 			return (1);
-		}else if (!ft_strncmp(info->cmd[info->index].cmd[0], "cd", 2))
-		{
-			cd(info);
-			info->ret_val = 0;
-			return (1);
-		}else if(!ft_strncmp(info->cmd[info->index].cmd[0], "exit", 4))
-		{
-			exit_program(info);
-			//Exit with NULL
-			//Exit with number from 0 to 255
-			//Exit with one argument which is not number exit abc
-			//Exit with multiple arguments numbers from 0 to 255 or abc
 		}
 		else
 			return (-1);

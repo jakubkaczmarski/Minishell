@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 16:54:09 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:19:44 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,10 @@ void	export_handler(t_data *info, int index)
 
 	index = 1;
 	i = 0;
+
 	while (info->cmd[info->index].cmd[index])
 	{
+		perror("Siemanko");
 		while (info->cmd[info->index].cmd[index][i] != '\0')
 			i++;
 		var_val = ft_substr(info->cmd[info->index].cmd[index], 0, i);
