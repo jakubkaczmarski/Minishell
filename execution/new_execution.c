@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/26 15:43:07 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 16:00:58 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,7 @@ void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
         execve(info->cmd[info->index].command_path, &info->cmd[info->index].cmd[0], info->env);
     close(pipe_1[0]);
     close(pipe_1[1]);
+    exit(-1);
 }
 int fork_and_exec(t_data *info,int fd, int out_fd)
 {
