@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/26 00:29:08 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 14:33:55 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,13 +243,13 @@ void	handle_struct(t_data *info)
 			 }
 			j++;
 		}
-			printf("Command amount %d\n", info->amount_cmd);
-			printf("Printing in\n");
-			print_2d_array(info->cmd[i].in, 1);
-			printf("\nPrinting cmd\n");
-			print_2d_array(info->cmd[i].cmd, 1);
-			printf("\nPrinting out\n");
-			print_2d_array(info->cmd[i].out, 1);
+			// printf("Command amount %d\n", info->amount_cmd);
+			// printf("Printing in\n");
+			// print_2d_array(info->cmd[i].in, 1);
+			// printf("\nPrinting cmd\n");
+			// print_2d_array(info->cmd[i].cmd, 1);
+			// printf("\nPrinting out\n");
+			// print_2d_array(info->cmd[i].out, 1);
 			i++;
 		// while(i)
 		// free(temp);

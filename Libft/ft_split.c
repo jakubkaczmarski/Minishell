@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:29:28 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/26 01:44:29 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 15:39:46 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,27 +90,17 @@ static char	**ft_fillwords(char **new,  char *str, char c, size_t count)
 		while (str[i] && str[i] == c)
 			i++;
 		len = ft_wordlen(str + i, c);
-		// printf("Begining %s s_index %d End index %zu\n", str, i, len);
-		// printf("Str_len_b %d\n",ft_strlen(str));
-		
 		new[words] = ft_substr(str, i, len);
 		str[len_t] = '\0';
-		// printf("Middle %s\n", str);
-		// printf("Str_len_m %d\n",ft_strlen(str));
-		// printf("In array %s ", new[words]);
 		if (!new[words])
 			return (ft_freemem(new, words));
 		
 		while (str[i] && str[i] != c)
 			i = flag_handler(str, &flag, i);
-		printf("End %s\n", str);
 		words++;
 	}
 
 	new[words] = NULL;
-	// printf("String after filling :)\n");
-	print_2d_array(new, 1);
-	printf("\n\n\n");
 	return (new);
 }
 

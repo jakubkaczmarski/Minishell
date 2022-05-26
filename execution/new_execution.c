@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/25 22:26:09 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 15:43:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,15 +245,14 @@ void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
     usleep(51);
     if(input < 0)
         exit(-1);
+
     output = child_process_out(info, out_fd, pipe_1);
-    ft_putnbr_fd(output, 2);
-    write (2, "\n", 1);
   usleep(50);
     if(output < 0)
         exit(-1);
     if(builtin_handler(info) == 1)
     {
-        printf("Build in executed");
+        // printf("Build in executed");
     }else
         execve(info->cmd[info->index].command_path, &info->cmd[info->index].cmd[0], info->env);
     close(pipe_1[0]);
@@ -291,7 +290,6 @@ int fork_and_exec(t_data *info,int fd, int out_fd)
 // int clean_stuff();
 int exec_prep_thingys(t_data *info,int fd, int out_fd)
 {  
-    // printf("Index %s", info->cmd[info->index].in[0]);
     if(!info->cmd[info->index].in[0] && info->index == 0)
     {
         fd = -1;
@@ -324,8 +322,9 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
         close(out_fd);
         return -1;
     }
-    // perror("Siemanko");
+
     info->cmd[info->index].gen_path = get_path(info->env);
+
     // printf("First %s \n, Second %s", info->cmd[info->index].gen_path, info->cmd[info->index].cmd[0] );
     if(((info->cmd[info->index].command_path = cmd_exists(info))))
     {
@@ -354,7 +353,6 @@ int exec_stuff(t_data *info)
 
     while (info->index < info->amount_cmd)
     { 
-        // printf("we got here %d info index \n", info->index);
         fd = exec_prep_thingys(info, fd, STDOUT_FILENO);
         info->index++;
     }

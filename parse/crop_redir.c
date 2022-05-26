@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:35:54 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/26 01:45:41 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 14:33:17 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ int	crop_redir(t_data *info)
 	int	i;
 
 	i = 0;
-	printf("Before crop\n");
-	print_cmd_table(info->cmd_table);
 	while(info->cmd_table[i])
 	{
 		if(replace_line(info, i, '<') == -1)
@@ -70,8 +68,5 @@ int	crop_redir(t_data *info)
         }
 		i++;
 	};
-	printf("After crop\n");
-	print_cmd_table(info->cmd_table);
-	printf("\n\n\n\n");
  	return 0;
 }
