@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 20:53:45 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 15:37:25 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,53 @@ void print_envv(t_list *envv, int flag)
 	}
 }
 
+char **add_env(char **env)
+{
+	char **ret;
+	int i = 0;
+	while(env[i])
+	{
+		i++;
+	}
+	ret = ft_calloc(sizeof(char *), i + 1);
+	i = 0;
+	while(env[i])
+	{
+		ret[i] = ft_strdup(env[i]);
+		i++;
+	}
+	return ret;
+}
+
+
+void free_all(t_data *info)
+{
+	int i = 0;
+	int j;
+		j = 0;
+		while(i < info->amount_cmd)
+		{
+			while(info->cmd[i].cmd[j])
+			{
+				free(info->cmd[i].cmd[j]);
+				j++;
+			}
+			j = 0;
+			while(info->cmd[i].in[j])
+			{
+				free(info->cmd[i].in[j]);
+			}
+			j = 0;
+			while(info->cmd[i].out[j])
+			{
+				free(info->cmd[i].out[j]);
+			}
+			free(info->cmd[i].command_path);
+			free(info->cmd[i].gen_path);
+			i++;
+		}
+		
+}
 /*
 @param argc amount of arguments
 @param argv arguments as array
@@ -50,25 +97,30 @@ int main(int argc, char **argv, char **envv)
 		return (1);
 	info->ret_val = 0;
 	printf("Start %s\n", argv[0]);
+	
+
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-	handle_sigs_interactive(); //signals
+	
+	info->env = add_env(envv);
+	handle_sigs_interactive(); //signal
 	while (1)
 	{
+
 		input = readline("minishell🦖>");
 		if (!input)
 			break ;
 		if(input[0] == '\0')
 			continue;
 		add_history(input);
+		
 		input = handle_input(info, input, envv);	
 		if(!input)
 			break;
-		exec_stuff(info);	
-		//manage_exec(info, envv);
-		// printf("input: %s\n", input);
+		exec_stuff(info);
 		free(input);
 		counter = 0;
+		// free_all(info);
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);	
 	}

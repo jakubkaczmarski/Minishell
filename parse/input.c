@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/19 19:45:30 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/26 14:41:29 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	count_dollars(char *input)
 	return (amount);
 }
 
+
+
 /*
 put envv in a struct and replace them with the actual values
 */
@@ -89,7 +91,8 @@ char	*handle_input(t_data *info, char *input, char **envv)
 		input = quote_handler(input);
 	}
 	input = cmd_table_handler(info, input);
-	print_cmd_table(info->cmd_table);
+	crop_redir(info);
 	handle_struct(info);
+	print_cmd_table(info->cmd_table);
 	return (input);
 }

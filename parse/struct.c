@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/20 08:50:59 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/26 14:33:55 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,151 +24,259 @@ char *insert_space(char *string, int i)
 	new_string = malloc(sizeof(char *) * ft_strlen(string) + 1);
 	if (!new_string)
 		return (string);
-	ft_copy(new_string, string, i + 1);
-	new_string[i] = ' ';
-	ft_copy(&new_string[i + 1], &string[i], 0);
+	ft_copy(new_string, string, i + 2);
+	new_string[i + 1] = ' ';
+	ft_copy(&new_string[i + 2], &string[i + 1], 0);
 	return (new_string);
 }
 
-/*
-<something.txt
-< something.txt
-<<something.txt
-go though the string and the first word after the redirect is the filename
-for each redirect you have to have one index in the array
-if there is <sth then insert a space: < sth
-*/
-int redirect_input(t_cmd *cmd, char *string)
-{
-	int	i;
-	int	j;
-	int	start;
-	int	index;
-
-	i = 0;
-	j = 0;
-	start = 0;
-	index = 0;
-	while (string[i])
-	{
-		if (string[i + j] == '<')
-		{
-			start = i;
-			if (string[i++ + (++j)] != ' ' && string[i] != '<')
-			 	string = insert_space(string, i);
-			while (string[i + j] != ' ')
-				j++;
-			cmd->in[index] = ft_substr(string, start, j + 1);
-			printf("in_redirect[%d]: %s\n", index, cmd->in[index]);
-			index++;
-		}
-		i += j;
-		j = 0;
-		i++;
-	}
-	return (i);
-}
-
-/*
-output
-*/
-int redirect_output(t_cmd *cmd, char *string)
-{
-	int	i;
-	int	j;
-	int	start;
-	int	index;
-
-	i = 0;
-	j = 0;
-	start = 0;
-	index = 0;
-	while (string[i])
-	{
-		if (string[i + j] == '>')
-		{
-			start = i;
-			if (string[i++ + j] != ' ' && string[i + 1] != '>')
-			 	string = insert_space(string, i++);
-			while (string[i + j++] != '\0' && string[i + j] != '>')
-				j++;
-			cmd->out[index] = ft_substr(string, start, j + 1);
-			printf("out_redirect[%d]: %s\n", index, cmd->out[index]);
-			index++;
-			j--;
-		}
-		i += j;
-		j = 0;
-		i++;
-	}
-	return (j);
-}
-
-/*
-cmd
-*/
-int redirect_cmd(t_cmd *cmd, char *string)
+void track_redirection(t_cmd *cmd, char *string, char c, int j)
 {
 	int i;
-	int position;
-	char *tmp;
 
 	i = 0;
-	position = 0;
-	while (cmd->in[i])
-		position += ft_strlen(cmd->in[i++]);
-	i = 0;
-	while (string[position + i] != '>')
+	if (string[i + 1] == ' ')
+		i = 2;
+	while (string[i] != ' ' && string[i] != '\0')
 		i++;
-	tmp = ft_substr(string, position, i);
-	cmd->cmd = ft_split(tmp, ' ');
-	i = 0;
-	while (cmd->cmd[i])
+	if (c == '<')
 	{
-		printf("cmd[%d]: %s\n", i, cmd->cmd[i]);
-		i++;
+		cmd->in[j] = ft_substr(string, 0, i);
+		printf("in_red[%d]: %s\n", j, cmd->in[j]);
 	}
-	return (i);
+	else if (c == '>')
+	{
+		cmd->out[j] = ft_substr(string, 0, i);
+		printf("out_red[%d]: %s\n", j, cmd->out[j]);
+	}
 }
 
-void handle_struct(t_data *info)
+void redirections(t_cmd *cmd, char *string)
+{
+	int i;
+	int in_j;
+	int out_j;
+
+	i = 0;
+	in_j = 0;
+	out_j = 0;
+	while (string[i])
+	{
+		if (string[i] == '<')
+		{
+			if (string[i + 1] != ' ')
+				string = insert_space(string, i);
+			track_redirection(cmd, &string[i], '<', in_j++);
+		}
+		else if (string[i] == '>')
+		{
+			if (string[i + 1] != ' ')
+				string = insert_space(string, i);
+			track_redirection(cmd, &string[i], '>', out_j++);
+		}
+		i++;
+	}
+}
+
+int cmd_tracker(t_cmd *cmd, char *string)
 {
 	int i;
 	int j;
-	int position;
+	int len;
 
 	i = 0;
 	j = 0;
-	position = 0;
-	info->cmd = ft_calloc(sizeof(t_cmd *), 1);
-	info->cmd->in = ft_calloc(sizeof(char **), 1);
-	info->cmd->in[0] = ft_calloc(sizeof(char *), 1);
-	info->cmd->in[0][0] = '\t';
-	info->cmd->out = ft_calloc(sizeof(char **), 1);
-	info->cmd->out[0] = ft_calloc(sizeof(char *), 1);
-	info->cmd->out[0][0] = '\t';
-	info->cmd->cmd = ft_calloc(sizeof(char **),1 );
-	while (info->cmd_table[i])
+	len = ft_strlen(string);
+	while (string[i] != ' ')
 	{
-		if (ft_strchr(info->cmd_table[i], '<') == NULL && ft_strchr(info->cmd_table[i], '>') == NULL)
-		{
-			while(info->cmd_table[i])
-			{
-				info->cmd->cmd[i] = info->cmd_table[i];
-				printf("CMd : %s\n", info->cmd->cmd[i]);
-				i++;
-			}
-			info->amount_cmd = i;
-			printf("Command ammout %d\n", info->amount_cmd);
-			break;
-		}
-		printf("------ROUND %d--------\n", i);
-		info->cmd->in[i] = ft_calloc(sizeof(char *) , 1);
-		info->cmd->out[i] = ft_calloc(sizeof(char *) , 1);
-		position += redirect_input(&(info->cmd[i]), info->cmd_table[i]);
-		redirect_cmd(&(info->cmd[i]), info->cmd_table[i]);
-		redirect_output(&(info->cmd[i]), info->cmd_table[i]);
-		
+		if (string[i + 2] == '<' || string[i + 2] == '>')
+			i++;
 		i++;
 	}
+	while (string[i + j] != '<' && string[i + j] != '>' \
+		&& string[i + j] != '\0' && (i + j) != len)
+		j++;
+	printf("is it here\n");
+	cmd->cmd = ft_split(ft_substr(string, i, j), ' ');
+	i = 0;
+	// while(cmd->cmd[i])
+	// {
+		// printf("cmd: %s\n", cmd->cmd[i++]);
+	// }
+	return (1);
+}
+
+// void get_cmd_itself(t_cmd *cmd, char *line)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while(line[i] == )
+// 	{
+		
+// 	}
+// }
+//Realocate mem
+char **add_after_string(char **arr, char *new_el)
+{
+	int i = 0;
+	char **temp;
+	// printf("trying to add %s\n", new_el);
+	while(arr[i])
+	{
+		i++;
+	}
+	temp = ft_calloc((sizeof(char *)), i + 2);
+	i = 0;
+	while(arr[i])
+	{
+		temp[i] = arr[i];
+		i++;
+	}
+	
+	temp[i] = new_el;
+	free(arr);
+	return temp;
+}
+void    print_2d_array(char    **arr, int fd)
+{
+    int    i;
+
+    i = 0;
+    if (arr)
+    {
+        while (arr[i] != NULL)
+        {
+            ft_putstr_fd(arr[i], fd);
+            if (arr[i][ft_strlen(arr[i]) - 1] != '\n')
+                ft_putchar_fd('\n', fd);
+            i++;
+        }
+    }
+}
+
+void    free_2d_array(char    **arr)
+{
+    int    i;
+
+    i = 0;
+    if (arr)
+    {
+        while (arr[i] != NULL) 
+        {
+            free(arr[i]);
+            i++;
+        }
+    }
+    free(arr);
+}
+t_cmd *alloc_mem_for_info(void)
+{
+
+	t_cmd *cmd;
+
+	// arr
+	// arr = malloc (sizeof(char *) * amount of ptr +1);
+	// arr[i++] = strdup;
+
+	cmd = ft_calloc(sizeof(t_cmd), 1);
+	cmd->out  = ft_calloc(sizeof(char *), 2);
+	cmd->in  = ft_calloc(sizeof(char *), 2);
+	cmd->cmd  = ft_calloc(sizeof(char *), 2);
+	cmd->cmd[0] = NULL;
+	cmd->in[0] = NULL;
+	cmd->out[0] =  NULL;
+	cmd->cmd[1] = NULL;
+	cmd->in[1] = NULL;
+	cmd->out[1] =  NULL;
+	return cmd;
+}
+void	handle_struct(t_data *info)
+{
+	// print_cmd_table(info->cmd_table);
+	int i = 0;
+	int j = 0;
+	info->amount_cmd = 0;
+	char **temp;
+	char *joined;
+	int argum = 0;
+	while(info->cmd_table[i])
+	{
+		temp = ft_split(info->cmd_table[i], ' ');
+		// print_2d_array(temp, 1)
+;		info->cmd[i] =	*alloc_mem_for_info();
+		argum = 1;
+		j = 0;
+		while(temp[j])
+		{
+			if(temp[j][0] == '<')
+			{
+				if(temp[j][1] && temp[j][1] == '<')
+				{
+					info->cmd[i].in = add_after_string(info->cmd[i].in, temp[j]);
+				}else
+				{
+					temp[j][0] = ' ';
+					joined = ft_strjoin("<",temp[j]);
+					info->cmd[i].in = add_after_string(info->cmd[i].in, joined);
+				}
+				argum = 1;
+			}else if(temp[j][0] == '>')
+			{
+				if(temp[j][1] && temp[j][1] == '>')
+				{
+					info->cmd[i].out = add_after_string(info->cmd[i].out, temp[j]);
+				}else
+				{
+					temp[j][0] = ' ';
+					joined = ft_strjoin(">",temp[j]);
+					printf("Joined %s\n", joined);
+					info->cmd[i].out = add_after_string(info->cmd[i].out, joined);
+				}
+				argum = 1;
+ 			}else{
+				if(argum == 1 || info->amount_cmd == 0)
+					info->amount_cmd++;
+				// printf("Else triggered %s\n", temp[i]);
+				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
+				argum = 0;
+			 }
+			j++;
+		}
+			// printf("Command amount %d\n", info->amount_cmd);
+			// printf("Printing in\n");
+			// print_2d_array(info->cmd[i].in, 1);
+			// printf("\nPrinting cmd\n");
+			// print_2d_array(info->cmd[i].cmd, 1);
+			// printf("\nPrinting out\n");
+			// print_2d_array(info->cmd[i].out, 1);
+			i++;
+		// while(i)
+		// free(temp);
+	}
+	info->cmd[i] =	*alloc_mem_for_info();
+	// ft_split("")
+	// int i;
+	// int j;
+	// int position;
+	// t_cmd *cmd;
+
+	// i = 0;
+	// j = 0;
+	// position = 0;
+	// while (info->cmd_table[i])
+	// {
+	// 	printf("------ROUND %d--------\n", i);
+	// 	info->cmd[i] = *(t_cmd*)ft_calloc(sizeof(t_cmd *), 1);
+	// 	cmd = &(info->cmd[i]);
+	// 	cmd->cmd = ft_calloc(sizeof(char **), 1);
+	// 	cmd->in = ft_calloc(sizeof(char **), 1);
+	// 	cmd->out = ft_calloc(sizeof(char **), 1);
+		
+	// 	// get_cmd_itself(&(info->cmd[i]), info->cmd_table[i]);
+	// 	redirections(&(info->cmd[i]), info->cmd_table[i]);
+	// 	info->amount_cmd += cmd_tracker(&(info->cmd[i]), info->cmd_table[i]);
+	// 	printf("amount_cmd: %d\n", info->amount_cmd);	
+	// 	i++;
+	// }
 }

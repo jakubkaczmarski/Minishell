@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/19 22:03:16 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 15:43:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,10 @@ int put_proper_in_fd(t_data *info, int fd)
     //Loop till the last one
     //<< 
     //< and a space
-    while( info->cmd[info->index].in[i + 1] != NULL)
+    // printf("Should not be NULL %s\n",info->cmd[info->index].in[i + 1]);
+    while(info->cmd[info->index].in[i + 1])
     {
+            // perror("Czary mary dzikie weze\n\n");
         if(info->cmd[info->index].in[i][1] == '<' )
         {
             fake_here_doc(info->cmd[info->index].in[i]);
@@ -158,13 +160,14 @@ char *cmd_exists(t_data *info)
     char **splitted_path = ft_split( info->cmd[info->index].gen_path, ':');
     char *full_cmd_path;
     i = 0;
+
     while(splitted_path[i])
 	{
         full_cmd_path = check_for_cmd_in_path(splitted_path[i],info->cmd[info->index].cmd[0]);
         // printf("%s\n",splitted_path[i],info->cmd[info->index].cmd[0] );
 		if(full_cmd_path)
 		{
-            printf("Command found  %s \n", info->cmd[info->index].cmd[0]);
+            // printf("Command found  %s \n", info->cmd[info->index].cmd[0]);=
             return full_cmd_path;
 		}
 		i++;
@@ -181,8 +184,8 @@ char *cmd_exists(t_data *info)
 int child_process_in(t_data *info, int fd, int *pipe_1)
 {
     int check;
-    printf("child process in pipe [0] == %d\n", pipe_1[0]);
-    printf("child process in fd == %d\n", fd);
+    // printf("child process in pipe [0] == %d\n", pipe_1[0]);
+    // printf("child process in fd == %d\n", fd);
     if (fd > 2)
     {
         if ((check = dup2(fd, STDIN_FILENO)) < 0)
@@ -197,10 +200,8 @@ int child_process_in(t_data *info, int fd, int *pipe_1)
         return (STDIN_FILENO);
     else 
            {
-               printf("HEIEIIELDEOEGPOWGPJOW\n");
                if ((check = dup2(pipe_1[0], STDIN_FILENO)) < 0)
             {
-                perror("fuck off");
                 return (-1);
             }
             return (pipe_1[0]);
@@ -211,12 +212,12 @@ int child_process_in(t_data *info, int fd, int *pipe_1)
 int child_process_out(t_data *info, int out_fd, int *pipe_1)
 {
    int check;
-   printf("index == %d \n", info->index);
+//    printf("index == %d \n", info->index);
     if (out_fd > 2)
     {
         if ((check = dup2(out_fd, STDOUT_FILENO)) < 0)
             {
-                perror("fuck off");
+                perror("out Error");
                 return (-1);
             }
             close(pipe_1[1]);
@@ -228,46 +229,13 @@ int child_process_out(t_data *info, int out_fd, int *pipe_1)
            {
                if ((check = dup2(pipe_1[1], STDOUT_FILENO)) < 0)
             {
-                perror("fuck off");
+                perror("Out error");
                 return (-1);
             }
             return (pipe_1[1]);
            }
        
     return (0);
-    // int check;
-    // printf("Out fd %d Pipe 1 %d\n", out_fd, pipe_1[1]);
-    // if(out_fd == -1 || info->index == info->amount_cmd - 1)
-    // {
-    //     //Piping
-    //     check = dup2(pipe_1[1], STDOUT_FILENO);
-
-    //     if(check < 0)
-    //     {
-
-    //             perror("Problem with pipes");
-    //             return -1;   
-    //     }
-    //     return pipe_1[1];
-
-    // }
-
-    // check = dup2(out_fd, STDOUT_FILENO);
-
-    //     if(check < 0)
-    //     {
-    //         perror("Redireciton err");
-    //         return -1;
-    //     }
-    //     printf("Hiello\n");
-    //     check = close(pipe_1[1]);
-    //     if(check < 0)
-    //     {
-    //          perror("Close");
-    //         return -1;
-    //     }
-    // printf("Out_Fd %d\n",out_fd);
-    // return out_fd;
 }
 void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
 {
@@ -277,14 +245,16 @@ void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
     usleep(51);
     if(input < 0)
         exit(-1);
+
     output = child_process_out(info, out_fd, pipe_1);
-    ft_putnbr_fd(output, 2);
-    write (2, "\n", 1);
   usleep(50);
     if(output < 0)
         exit(-1);
-
-    execve(info->cmd[info->index].command_path, &info->cmd[info->index].cmd[0], info->env);
+    if(builtin_handler(info) == 1)
+    {
+        // printf("Build in executed");
+    }else
+        execve(info->cmd[info->index].command_path, &info->cmd[info->index].cmd[0], info->env);
     close(pipe_1[0]);
     close(pipe_1[1]);
 }
@@ -293,7 +263,7 @@ int fork_and_exec(t_data *info,int fd, int out_fd)
     // ft_putnbr_fd(out_fd,1);
     // perror();
     // perror("\n")
-    printf("we got here\n");
+    // printf("we got here\n");
     if(info || fd || out_fd){}
     int pipe_1[2];
     int status;
@@ -310,40 +280,42 @@ int fork_and_exec(t_data *info,int fd, int out_fd)
     close(fd);
     if(out_fd > 2)
     close(out_fd);
-    printf("return of exec loop for next fd == %d\n", pipe_1[0]);
+    // printf("return of exec loop for next fd == %d\n", pipe_1[0]);
     return pipe_1[0];
 }
+// int check_for_build_ins(t_data *info)
+// {
+//     if(info->cmd[info->index].cmd[0])
+// }
 // int clean_stuff();
 int exec_prep_thingys(t_data *info,int fd, int out_fd)
 {  
-    // printf("Index %s", info->cmd[info->index].in[0]);
     if(!info->cmd[info->index].in[0] && info->index == 0)
     {
         fd = -1;
     }
-   else  if (info->cmd[info->index].in[0][0] != '\t')
+   else if(info->cmd[info->index].in[0])
    {
         if((fd = put_proper_in_fd(info, fd)) < 0)
         {
-            perror("domdqwkodwqkodqwopk");
+ 
             return -1;
         }
    }
-    
+   
     if(!info->cmd[info->index].out[0] && info->index == 0)
     {
         out_fd = -1;
     }
-    else
+    else if(info->cmd[info->index].out[0])
     {
-        
         if((out_fd = put_proper_out_fd(info, out_fd)) < 0)
         {
             close(fd);
             return -1;
         }
     }
-  
+
     if(!info->cmd[info->index].cmd[0])
     {
         close(fd);
@@ -352,18 +324,25 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
     }
 
     info->cmd[info->index].gen_path = get_path(info->env);
+
     // printf("First %s \n, Second %s", info->cmd[info->index].gen_path, info->cmd[info->index].cmd[0] );
     if(((info->cmd[info->index].command_path = cmd_exists(info))))
-        printf("Command %s\n", info->cmd[info->index].command_path);
+    {
+        // printf("Command %s\n", info->cmd[info->index].command_path);
+    }
     else{
         close(fd);
         close(out_fd);
-        perror("There is no command in the path\n");
+        perror("Command is wrong\n");
     }
     //This and command with paht
-    //If there is no command you return and close both of them 
-    if(!info->cmd[info->index + 1].cmd[0])
-        out_fd = STDOUT_FILENO;
+    //If there is no command you return and close both of them
+    // if(!info->cmd[info->index + 1].cmd[0])
+    // {
+    //     printf("Siemanko");
+    //     out_fd = STDOUT_FILENO;
+    // }
+    // perror("Made it to fork and executiuon\n\n");
     return fork_and_exec(info, fd, out_fd);
 }
 int exec_stuff(t_data *info)
@@ -374,7 +353,6 @@ int exec_stuff(t_data *info)
 
     while (info->index < info->amount_cmd)
     { 
-        printf("we got here %d info index \n", info->index);
         fd = exec_prep_thingys(info, fd, STDOUT_FILENO);
         info->index++;
     }

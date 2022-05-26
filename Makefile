@@ -18,6 +18,7 @@ SRCS =	main.c \
 		builtins/pwd.c\
 		builtins/cd.c\
 		execution/new_execution.c\
+		parse/crop_redir.c\
 		#execution/finding_command_path.c\
 		execution/redirection.c\
 		execution/allocating_for_cmd.c\
