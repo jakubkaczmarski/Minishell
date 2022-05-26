@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/25 20:01:54 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 16:08:05 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ char *get_path(char **envv);
 char *check_for_cmd_in_path(char *path, char *command);
 void    print_2d_array(char    **arr, int fd);
 char **add_after_string(char **arr, char *new_el);
-
+void	handle_child_signals(void);
 //Exit 
 void exit_program(t_data *info);
 #endif

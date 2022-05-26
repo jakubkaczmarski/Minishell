@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/26 16:00:58 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 16:10:14 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,7 @@ int fork_and_exec(t_data *info,int fd, int out_fd)
     if(info->pid == 0)
         run_child(info, fd, out_fd, pipe_1);
     waitpid(info->pid, &status, 0);
+    handle_child_signals();
     close(pipe_1[1]);
     if(fd > 2)
     close(fd);

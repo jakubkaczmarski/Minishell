@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 18:52:30 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/26 15:54:34 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/26 16:09:20 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,20 @@ static void	sigint_handler(int signal)
 	}
 }
 
-// static void	child_signal_handler(int signal)
-// {
-// 	if (signal == SIGQUIT)
-// 		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
-// 	else if (signal == SIGINT)
-// 		ft_putchar_fd('\n', STDERR_FILENO);
-// }
+static void	child_signal_handler(int signal)
+{
+	if (signal == SIGQUIT)
+		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+	else if (signal == SIGINT)
+		ft_putchar_fd('\n', STDERR_FILENO);
+	perror("Child sig");
+}
 
-// void	handle_child_signals(void)
-// {
-// 	signal(SIGINT, child_signal_handler);
-// 	signal(SIGQUIT, child_signal_handler);
-// }
+void	handle_child_signals(void)
+{
+	signal(SIGINT, child_signal_handler);
+	signal(SIGQUIT, child_signal_handler);
+}
 
 /*
 Signal handler for the keyboard to controll the shell
