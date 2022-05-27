@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/27 13:41:49 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/27 13:48:54 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ int put_proper_in_fd(t_data *info, int fd)
     printf("File_fd in put proper in fd %d\n", fd);
     if(fd != STDIN_FILENO && fd > 0)
         close(fd);
-    //Loop till the last one
-    //<< 
-    //< and a space
     while(info->cmd[info->index].in[i + 1])
     {
         if(info->cmd[info->index].in[i][1] == '<' )
@@ -77,8 +74,7 @@ int put_proper_out_fd(t_data *info, int out_fd)
 int child_process_in(t_data *info, int fd, int *pipe_1)
 {
     int check;
-    // printf("child process in pipe [0] == %d\n", pipe_1[0]);
-    // printf("child process in fd == %d\n", fd);
+
     if (fd > 2)
     {
         if ((check = dup2(fd, STDIN_FILENO)) < 0)
@@ -106,7 +102,7 @@ int child_process_in(t_data *info, int fd, int *pipe_1)
 int child_process_out(t_data *info, int out_fd, int *pipe_1)
 {
    int check;
-//    printf("index == %d \n", info->index);
+
     if (out_fd > 2)
     {
         if ((check = dup2(out_fd, STDOUT_FILENO)) < 0)
@@ -141,8 +137,7 @@ void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
     ft_putnbr_fd(input, 2);
     usleep(51);
     if(input < 0)
-         exit(-1) ; ;
-
+         exit(-1) ; 
     output = child_process_out(info, out_fd, pipe_1);
     ft_putstr_fd("After output\n",2);
     ft_putnbr_fd(output, 2);

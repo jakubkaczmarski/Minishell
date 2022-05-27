@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/26 14:33:55 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/27 13:50:18 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,29 +99,15 @@ int cmd_tracker(t_cmd *cmd, char *string)
 	printf("is it here\n");
 	cmd->cmd = ft_split(ft_substr(string, i, j), ' ');
 	i = 0;
-	// while(cmd->cmd[i])
-	// {
-		// printf("cmd: %s\n", cmd->cmd[i++]);
-	// }
 	return (1);
 }
 
-// void get_cmd_itself(t_cmd *cmd, char *line)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while(line[i] == )
-// 	{
-		
-// 	}
-// }
 //Realocate mem
 char **add_after_string(char **arr, char *new_el)
 {
 	int i = 0;
 	char **temp;
-	// printf("trying to add %s\n", new_el);
+
 	while(arr[i])
 	{
 		i++;
@@ -175,10 +161,6 @@ t_cmd *alloc_mem_for_info(void)
 
 	t_cmd *cmd;
 
-	// arr
-	// arr = malloc (sizeof(char *) * amount of ptr +1);
-	// arr[i++] = strdup;
-
 	cmd = ft_calloc(sizeof(t_cmd), 1);
 	cmd->out  = ft_calloc(sizeof(char *), 2);
 	cmd->in  = ft_calloc(sizeof(char *), 2);
@@ -193,7 +175,6 @@ t_cmd *alloc_mem_for_info(void)
 }
 void	handle_struct(t_data *info)
 {
-	// print_cmd_table(info->cmd_table);
 	int i = 0;
 	int j = 0;
 	info->amount_cmd = 0;
@@ -203,8 +184,7 @@ void	handle_struct(t_data *info)
 	while(info->cmd_table[i])
 	{
 		temp = ft_split(info->cmd_table[i], ' ');
-		// print_2d_array(temp, 1)
-;		info->cmd[i] =	*alloc_mem_for_info();
+		info->cmd[i] =	*alloc_mem_for_info();
 		argum = 1;
 		j = 0;
 		while(temp[j])
@@ -237,7 +217,6 @@ void	handle_struct(t_data *info)
  			}else{
 				if(argum == 1 || info->amount_cmd == 0)
 					info->amount_cmd++;
-				// printf("Else triggered %s\n", temp[i]);
 				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
 				argum = 0;
 			 }
@@ -251,32 +230,6 @@ void	handle_struct(t_data *info)
 			// printf("\nPrinting out\n");
 			// print_2d_array(info->cmd[i].out, 1);
 			i++;
-		// while(i)
-		// free(temp);
 	}
 	info->cmd[i] =	*alloc_mem_for_info();
-	// ft_split("")
-	// int i;
-	// int j;
-	// int position;
-	// t_cmd *cmd;
-
-	// i = 0;
-	// j = 0;
-	// position = 0;
-	// while (info->cmd_table[i])
-	// {
-	// 	printf("------ROUND %d--------\n", i);
-	// 	info->cmd[i] = *(t_cmd*)ft_calloc(sizeof(t_cmd *), 1);
-	// 	cmd = &(info->cmd[i]);
-	// 	cmd->cmd = ft_calloc(sizeof(char **), 1);
-	// 	cmd->in = ft_calloc(sizeof(char **), 1);
-	// 	cmd->out = ft_calloc(sizeof(char **), 1);
-		
-	// 	// get_cmd_itself(&(info->cmd[i]), info->cmd_table[i]);
-	// 	redirections(&(info->cmd[i]), info->cmd_table[i]);
-	// 	info->amount_cmd += cmd_tracker(&(info->cmd[i]), info->cmd_table[i]);
-	// 	printf("amount_cmd: %d\n", info->amount_cmd);	
-	// 	i++;
-	// }
 }

@@ -6,22 +6,11 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/27 13:41:26 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/27 13:47:16 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
-
-
-
-
-// if redirections of any kind always use redirection
-// if info index == 0 we want to keep stdin 
-// else we use pipe 1 [0]
-
-
 
 int non_fork_buid_ins(t_data *info)
 {
@@ -54,10 +43,6 @@ int non_fork_buid_ins(t_data *info)
 }
 int fork_and_exec(t_data *info,int fd, int out_fd)
 {
-    // ft_putnbr_fd(out_fd,1);
-    // perror();
-    // perror("\n")
-    // printf("we got here\n");
     if(non_fork_buid_ins(info) == 1)
         return -1;
     if(info || fd || out_fd){}
@@ -78,33 +63,18 @@ int fork_and_exec(t_data *info,int fd, int out_fd)
     close(fd);
     if(out_fd > 2)
     close(out_fd);
-    // printf("return of exec loop for next fd == %d\n", pipe_1[0]);
     return pipe_1[0];
 }
-// int check_for_build_ins(t_data *info)
-// {
-//     if(info->cmd[info->index].cmd[0])
-// }
-// int clean_stuff();
+
 int exec_prep_thingys(t_data *info,int fd, int out_fd)
 {  
     if(!info->cmd[info->index].in[0] && info->index == 0)
-    {
         fd = -1;
-    }
    else if(info->cmd[info->index].in[0])
-   {
         if((fd = put_proper_in_fd(info, fd)) < 0)
-        {
- 
             return -1;
-        }
-   }
-   printf("Fd : %d\n", fd);
     if(!info->cmd[info->index].out[0] && info->index == 0)
-    {
         out_fd = -1;
-    }
     else if(info->cmd[info->index].out[0])
     {
         if((out_fd = put_proper_out_fd(info, out_fd)) < 0)
@@ -122,25 +92,12 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
     }
 
     info->cmd[info->index].gen_path = get_path(info->env);
-
-    // printf("First %s \n, Second %s", info->cmd[info->index].gen_path, info->cmd[info->index].cmd[0] );
-    if(((info->cmd[info->index].command_path = cmd_exists(info))))
+    if((!(info->cmd[info->index].command_path = cmd_exists(info)))
     {
-        // printf("Command %s\n", info->cmd[info->index].command_path);
-    }
-    else{
         close(fd);
         close(out_fd);
         perror("Command is wrong\n");
     }
-    //This and command with paht
-    //If there is no command you return and close both of them
-    // if(!info->cmd[info->index + 1].cmd[0])
-    // {
-    //     printf("Siemanko");
-    //     out_fd = STDOUT_FILENO;
-    // }
-    // perror("Made it to fork and executiuon\n\n");
     return fork_and_exec(info, fd, out_fd);
 }
 int exec_stuff(t_data *info)
