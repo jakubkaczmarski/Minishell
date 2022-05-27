@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/26 16:08:05 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/27 13:29:13 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,10 @@ char *check_for_cmd_in_path(char *path, char *command);
 void    print_2d_array(char    **arr, int fd);
 char **add_after_string(char **arr, char *new_el);
 void	handle_child_signals(void);
+int get_the_real_one_out(t_data *info, int out_fd, int i);
+int get_real_one(t_data *info, int i);
+void    fake_here_doc(char *line);
+
 //Exit 
 void exit_program(t_data *info);
 #endif

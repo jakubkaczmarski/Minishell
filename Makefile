@@ -19,12 +19,9 @@ SRCS =	main.c \
 		builtins/cd.c\
 		execution/new_execution.c\
 		parse/crop_redir.c\
-		#execution/finding_command_path.c\
-		execution/redirection.c\
-		execution/allocating_for_cmd.c\
-		execution/convert.c \
-		execution/exec_cmd.c\
-		execution/handling_cmd.c\
+		execution/in_out_heredoc.c\
+		execution/path_getting.c\
+		execution/child_process.c\
 
 all: minishell
 
