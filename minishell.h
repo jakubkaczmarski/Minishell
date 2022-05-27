@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/27 13:29:13 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/27 15:02:30 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_count_el
 
 //main.c
 int		input_error();
-void	print_envv(t_list *envv, int flag);
+void	print_envv(t_list **envv, int flag);
 
 //			parse
 //input.c

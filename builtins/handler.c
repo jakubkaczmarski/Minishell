@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/26 17:16:01 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/27 15:02:57 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	builtin_handler(t_data *info)
 		}
 		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "env", 3))
 		{
-			print_envv(info->envv, 0);
+			print_envv(&(info->envv), 0);
 			info->ret_val = 0;
 			return (1);
 		}else if (!ft_strncmp(info->cmd[info->index].cmd[0], "pwd", 3))

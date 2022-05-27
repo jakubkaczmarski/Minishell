@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/26 15:56:28 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/27 15:33:00 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,51 @@ int input_error()
 	return (1);
 }
 
-void print_envv(t_list *envv, int flag)
+void print_envv(t_list **envv, int flag)
 {
-	if (!envv)
+	t_list *temp = *envv;
+	if (!temp)
 		return ;
-	while (envv != NULL)
+	while (temp != NULL)
 	{
 		if (flag == 1)
-			printf("delcare -x %s\n", envv->content);
+			printf("delcare -x %s\n",temp->content);
 		else
-			printf("%s\n", envv->content);
-		envv = envv->next;
+			printf("%s\n", temp->content);
+		temp = temp->next;
 	}
+}
+int	get_size_of_list(t_list **envv)
+{
+	t_list *temp = *envv;
+	int counter;
+
+	counter = 0;
+	if (!temp)
+		return 0;
+	while (temp != NULL)
+	{
+		counter++;
+		temp = temp->next;
+	}
+	return counter;
+}
+char **convert_env_list_to_str(t_list **envv)
+{
+	printf("Size of list q\n");
+	int size = 	get_size_of_list(envv);
+	char **env_arr = ft_calloc(sizeof(char *), size + 1);
+	int  i;
+
+	i = 0;
+	t_list *temp = *envv;
+	while (temp != NULL)
+	{
+		env_arr[i] = ft_strdup(temp->content);
+		temp = temp->next;
+		i++;
+	}
+	return env_arr;
 }
 
 char **add_env(char **env)
@@ -101,9 +134,15 @@ int main(int argc, char **argv, char **envv)
 
 	if (copy_envv(&(info->envv), envv))
 		return (1);
+	char **arr_thingy = convert_env_list_to_str(&(info->envv));
+	print_2d_array(arr_thingy, 1);
+
+//  = add_env(envv);
+	// printf("Size of list %d \n", get_size_of_list(&(info->envv)));
 	
-	info->env = add_env(envv);
+
 	handle_sigs_interactive(); //signal
+
 	while (1)
 	{
 
@@ -112,11 +151,13 @@ int main(int argc, char **argv, char **envv)
 			break ;
 		if(input[0] == '\0')
 			continue;
+
 		add_history(input);
-		
+			
 		input = handle_input(info, input, envv);	
 		if(!input)
 			break;
+
 		exec_stuff(info);
 		free(input);
 		counter = 0;
