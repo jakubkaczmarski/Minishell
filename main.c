@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/27 15:33:00 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:40:36 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,10 @@ int main(int argc, char **argv, char **envv)
 
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-	char **arr_thingy = convert_env_list_to_str(&(info->envv));
-	print_2d_array(arr_thingy, 1);
+	// char **arr_thingy = convert_env_list_to_str(&(info->envv));
+	// print_2d_array(arr_thingy, 1);
 
-//  = add_env(envv);
+ 	info->env = add_env(envv);
 	// printf("Size of list %d \n", get_size_of_list(&(info->envv)));
 	
 
