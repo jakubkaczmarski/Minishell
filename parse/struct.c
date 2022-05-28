@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/27 13:55:16 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 15:26:41 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,8 @@ void    free_2d_array(char    **arr)
     }
     free(arr);
 }
-t_cmd *alloc_mem_for_info(void)
+t_cmd *alloc_mem_for_info(t_cmd *cmd)
 {
-
-	t_cmd *cmd;
-
-	cmd = ft_calloc(sizeof(t_cmd), 1);
 	cmd->out  = ft_calloc(sizeof(char *), 2);
 	cmd->in  = ft_calloc(sizeof(char *), 2);
 	cmd->cmd  = ft_calloc(sizeof(char *), 2);
@@ -90,10 +86,11 @@ void	handle_struct(t_data *info)
 	char **temp;
 	char *joined;
 	int argum = 0;
+	info->cmd = ft_calloc(sizeof(t_cmd*), 50);
 	while(info->cmd_table[i])
 	{
 		temp = ft_split(info->cmd_table[i], ' ');
-		info->cmd[i] =	*alloc_mem_for_info();
+		alloc_mem_for_info(&info->cmd[i]);
 		argum = 1;
 		j = 0;
 		while(temp[j])
@@ -140,5 +137,5 @@ void	handle_struct(t_data *info)
 			// print_2d_array(info->cmd[i].out, 1);
 			i++;
 	}
-	info->cmd[i] =	*alloc_mem_for_info();
+			alloc_mem_for_info(&info->cmd[i]);
 }

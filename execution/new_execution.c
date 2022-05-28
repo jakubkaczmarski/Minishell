@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/27 19:38:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 15:14:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int fork_and_exec(t_data *info,int fd, int out_fd)
     int status;
     if(pipe(pipe_1) == -1)
         return -1;
-    printf("A lot of fd %d\n", fd);
     info->pid = fork();
     if(info->pid == -1)
         return - 1;

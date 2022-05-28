@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/27 15:02:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 15:17:16 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void	handle_child_signals(void);
 int get_the_real_one_out(t_data *info, int out_fd, int i);
 int get_real_one(t_data *info, int i);
 void    fake_here_doc(char *line);
-
+char **convert_env_list_to_str(t_list **envv);
 //Exit 
 void exit_program(t_data *info);
 #endif

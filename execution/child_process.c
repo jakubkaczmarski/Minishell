@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/27 13:48:54 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 15:14:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,14 +133,10 @@ void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
     int input;
     int output;
     input = child_process_in(info, fd ,pipe_1);
-    ft_putstr_fd("After input\n",2);
-    ft_putnbr_fd(input, 2);
     usleep(51);
     if(input < 0)
          exit(-1) ; 
     output = child_process_out(info, out_fd, pipe_1);
-    ft_putstr_fd("After output\n",2);
-    ft_putnbr_fd(output, 2);
   usleep(50);
     if(output < 0)
          exit(-1) ; ;

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/27 19:40:36 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 15:28:12 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	get_size_of_list(t_list **envv)
 }
 char **convert_env_list_to_str(t_list **envv)
 {
-	printf("Size of list q\n");
 	int size = 	get_size_of_list(envv);
 	char **env_arr = ft_calloc(sizeof(char *), size + 1);
 	int  i;
@@ -122,21 +121,20 @@ int main(int argc, char **argv, char **envv)
 	t_data *info;
 	char *input;
 	int counter;
-
+	if(argv[0]){};
 	if (argc != 1)
 		return (input_error());
 	info = malloc(sizeof(t_data *));
 	if (!info)
 		return (1);
 	info->ret_val = 0;
-	printf("Start %s\n", argv[0]);
-	
+	// printf("Start %s\n", argv[0]);
+	// print_2d_array(convert_env_list_to_str(&info->envv),1 );
 
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-	// char **arr_thingy = convert_env_list_to_str(&(info->envv));
-	// print_2d_array(arr_thingy, 1);
-
+	
+	// printf("\n\n");
  	info->env = add_env(envv);
 	// printf("Size of list %d \n", get_size_of_list(&(info->envv)));
 	
