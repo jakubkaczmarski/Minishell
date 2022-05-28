@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/28 17:41:37 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 17:45:28 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	builtin_handler(t_data *info)
 int	check_if_only_nums(char *str)
 {
 	int i = 0;
+	if((str[i] == '+' && str[i + 1]) || (str[i] == '-' && str[i + 1]))
+		i++;
 	while(str[i])
 	{
 		if(str[i] < '0' || str[i] > '9')
