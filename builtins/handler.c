@@ -6,20 +6,11 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/28 17:45:28 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 00:35:50 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// void dollar_questionmark(t_data *info)
-// {
-// 	char *s;
-
-// 	perror("send help\n");
-// 	s = ft_strjoin("command not found:", ft_itoa(info->ret_val));
-// 	perror(s);
-// }
 
 /*
 handles all the builtins. Goes through the command table
@@ -62,42 +53,4 @@ int	builtin_handler(t_data *info)
 		y++;
 	}
 	return (0);
-}
-int	check_if_only_nums(char *str)
-{
-	int i = 0;
-	if((str[i] == '+' && str[i + 1]) || (str[i] == '-' && str[i + 1]))
-		i++;
-	while(str[i])
-	{
-		if(str[i] < '0' || str[i] > '9')
-		{
-			return -1;
-		}
-		i++;
-	}
-	return 1;
-}
-void exit_program(t_data *info)
-{
-	int i;
-
-	i = 0;
-	if(!info->cmd[info->index].cmd[i + 1])
-	{
-		exit(0);
-	}else if(info->cmd[info->index].cmd[i + 2])
-	{
-		perror("Too many arguments\n");
-		return ;
-	}
-	if(info->cmd[info->index].cmd[i + 1])
-	{
-		if(check_if_only_nums(info->cmd[info->index].cmd[i + 1]) == 1)
-		{
-			exit(ft_atoi((const char *)info->cmd[info->index].cmd[i + 1]));
-		}else{
-			perror("Non numerical arguments");
-		}
-	}
 }

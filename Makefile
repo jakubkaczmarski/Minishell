@@ -18,6 +18,7 @@ SRCS =	main.c \
 		builtins/signals.c \
 		builtins/pwd.c\
 		builtins/cd.c\
+		builtins/exit.c\
 		execution/new_execution.c\
 		parse/crop_redir.c\
 		execution/in_out_heredoc.c\

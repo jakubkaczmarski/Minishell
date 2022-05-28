@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/28 18:19:43 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 00:36:26 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,8 +198,10 @@ void    fake_here_doc(char *line);
 char **convert_env_list_to_str(t_list **envv);
 //Exit 
 void exit_program(t_data *info);
-
+int	check_if_only_nums(char *str);
 //Sig
 void	handle_here_doc_sig_par(void);
+
+
 
 #endif
