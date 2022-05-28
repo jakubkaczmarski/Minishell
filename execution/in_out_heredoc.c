@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/28 18:20:38 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 00:33:09 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ int    real_here_doc(char *line)
     char *magic_word;
     int pipe_1[2];
     pipe(pipe_1);
-    handle_here_doc_sig_par();
+  
     while(1)
     {
+        handle_here_doc_sig_par();
         magic_word = readline(">"); 
         if(!magic_word)
         {

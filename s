@@ -1,0 +1,11 @@
+Libft
+Makefile
+README.md
+builtins
+execution
+main.c
+minishell
+minishell.dSYM
+minishell.h
+parse
+s
