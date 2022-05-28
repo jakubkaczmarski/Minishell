@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/28 17:38:59 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 18:43:25 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,14 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
     info->cmd[info->index].gen_path = get_path(info->env);
     if((!(info->cmd[info->index].command_path = cmd_exists(info))))
     {
-        close(fd);
-        close(out_fd);
+
         if(non_fork_buid_ins(info) == 1)
-            return 1;
+            return STDIN_FILENO;
         else{
+            close(fd);
+            close(out_fd);
             perror("Command is wrong\n");
-            return 1;
+            return STDIN_FILENO;
         }
     }
     return fork_and_exec(info, fd, out_fd);

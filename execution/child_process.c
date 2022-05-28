@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/28 15:14:07 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 18:46:56 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,16 +139,19 @@ void run_child(t_data *info,int  fd,int out_fd,int *pipe_1)
     output = child_process_out(info, out_fd, pipe_1);
   usleep(50);
     if(output < 0)
-         exit(-1) ; ;
+         exit(-1) ; 
+        
     int stat = builtin_handler(info) == 1;
     if(stat == 1)
     {
-        // printf("Build in executed");
+        close(pipe_1[0]);
+        close(pipe_1[1]);
+        exit(-1) ;
     }else if(stat == 2)
     {
         
     }else
-        execve(info->cmd[info->index].command_path, &info->cmd[info->index].cmd[0], info->env);
+        execve(info->cmd[info->index].command_path, info->cmd[info->index].cmd, info->env);
     close(pipe_1[0]);
     close(pipe_1[1]);
     exit(-1) ;
