@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 01:04:43 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 01:49:05 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int exec_prep_thingys(t_data *info,int fd, int out_fd)
         else{
             close(fd);
             close(out_fd);
-            perror("Command is wrong\n");
+            write(2,"Command is wrong\n",19);
             return STDIN_FILENO;
         }
     }
