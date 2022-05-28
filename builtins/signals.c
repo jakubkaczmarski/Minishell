@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 18:52:30 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/26 16:09:20 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 18:20:51 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	child_signal_handler(int signal)
 		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
 	else if (signal == SIGINT)
 		ft_putchar_fd('\n', STDERR_FILENO);
-	perror("Child sig");
+	// perror("Child sig");
 }
 
 void	handle_child_signals(void)
@@ -48,4 +48,18 @@ void	handle_sigs_interactive(void)
 {
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+//Here_doc
+
+// static void here_doc_child(int sig)
+// {
+// 	if(sig == SIGINT)
+// 		exit(1);
+// }
+
+void	handle_here_doc_sig_par(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 }

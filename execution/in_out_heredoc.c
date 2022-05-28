@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   in_out_and_Here_doc.c                              :+:      :+:    :+:   */
+/*   in_out_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/27 13:31:40 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 18:20:38 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void    fake_here_doc(char *line)
 {
     char *magic_word;
     printf("Line in Fake %s", line);
+    handle_here_doc_sig_par();
     while(1)
     {
         magic_word = readline("> "); 
@@ -40,6 +41,7 @@ int    real_here_doc(char *line)
     char *magic_word;
     int pipe_1[2];
     pipe(pipe_1);
+    handle_here_doc_sig_par();
     while(1)
     {
         magic_word = readline(">"); 
