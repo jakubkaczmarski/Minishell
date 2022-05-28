@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/26 14:41:29 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 17:40:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ char	*handle_input(t_data *info, char *input, char **envv)
 {
 	int	amount_dollars;
 
-	if (ft_strncmp(input, "exit", 4) == 0)
-		return (NULL);
+	// if (ft_strncmp(input, "exit", 4) == 0)
+	// 	return (NULL);
 	if (ft_strncmp(input, "$?", 2) == 0)
 		return (cmd_table_handler(info, input));
 	amount_dollars = count_dollars(input);

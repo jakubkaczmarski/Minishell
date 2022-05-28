@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/28 15:48:25 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 17:38:59 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int non_fork_buid_ins(t_data *info)
 		return (1);
 	}
      if (!ft_strncmp(info->cmd[info->index].cmd[0], "exit", 4))
-	{	
+	{
         exit_program(info);
 		return (1);
 	}else if (!ft_strncmp(info->cmd[info->index].cmd[0], "export", 6))

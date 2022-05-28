@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/28 15:17:03 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/28 17:41:37 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,19 @@ int	builtin_handler(t_data *info)
 	}
 	return (0);
 }
-
+int	check_if_only_nums(char *str)
+{
+	int i = 0;
+	while(str[i])
+	{
+		if(str[i] < '0' || str[i] > '9')
+		{
+			return -1;
+		}
+		i++;
+	}
+	return 1;
+}
 void exit_program(t_data *info)
 {
 	int i;
@@ -72,10 +84,18 @@ void exit_program(t_data *info)
 	if(!info->cmd[info->index].cmd[i + 1])
 	{
 		exit(0);
+	}else if(info->cmd[info->index].cmd[i + 2])
+	{
+		perror("Too many arguments\n");
+		return ;
 	}
-	// while(info->cmd[info->index].cmd[i])
-	// {
-		// if()
-		// i++;
-	// }
+	if(info->cmd[info->index].cmd[i + 1])
+	{
+		if(check_if_only_nums(info->cmd[info->index].cmd[i + 1]) == 1)
+		{
+			exit(ft_atoi((const char *)info->cmd[info->index].cmd[i + 1]));
+		}else{
+			perror("Non numerical arguments");
+		}
+	}
 }
