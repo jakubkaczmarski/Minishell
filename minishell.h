@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 00:42:04 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 00:43:05 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,9 +145,9 @@ void	cd(t_data *info);
 //kuba
 
 //New exec
-void    fake_here_doc(char *line);
-int    real_here_doc(char *line);
-int get_real_one(t_data *info, int i);
+void	fake_here_doc(char *line);
+int		real_here_doc(char *line);
+int		get_real_one(t_data *info, int i);
 int get_the_real_one_out(t_data *info, int out_fd, int i);
 int put_proper_in_fd(t_data *info, int fd);
 int put_proper_out_fd(t_data *info, int out_fd);

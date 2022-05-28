@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 00:39:40 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 00:56:22 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ void free_all(t_data *info)
 			while(info->cmd[i].in[j])
 			{
 				free(info->cmd[i].in[j]);
+				j++;
 			}
 			j = 0;
 			while(info->cmd[i].out[j])
 			{
 				free(info->cmd[i].out[j]);
+				j++;
 			}
-			free(info->cmd[i].command_path);
-			free(info->cmd[i].gen_path);
+			// free(info->cmd[i].command_path);
+			// free(info->cmd[i].gen_path);
 			i++;
 		}
 		
