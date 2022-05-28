@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 00:33:09 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 01:09:41 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int    real_here_doc(char *line)
     char *magic_word;
     int pipe_1[2];
     pipe(pipe_1);
-  
+    handle_here_doc_sig_par();
     while(1)
     {
-        handle_here_doc_sig_par();
+
         magic_word = readline(">"); 
         if(!magic_word)
         {
@@ -61,7 +61,7 @@ int    real_here_doc(char *line)
         free(magic_word);
     }
     close(pipe_1[1]);
-    printf("pipe 1 after exec  %d\n", pipe_1[1]);
+    // printf("pipe 1 after exec  %d\n", pipe_1[1]);
     return pipe_1[0];
 }
 
@@ -100,7 +100,7 @@ int get_the_real_one_out(t_data *info, int out_fd, int i)
         out_fd =open(&info->cmd->out[i][2], O_WRONLY | O_CREAT, 0777 );
         if(out_fd < 0)
         {
-            perror("No file to read from");
+            write(2, "No file to read from", 21);
             return -1;
         }else{
             return out_fd;

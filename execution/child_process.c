@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 01:04:54 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 01:09:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int put_proper_in_fd(t_data *info, int fd)
 {
     int i = 0;
     if(!fd){}
-    printf("File_fd in put proper in fd %d\n", fd);
+    // printf("File_fd in put proper in fd %d\n", fd);
     if(fd != STDIN_FILENO && fd > 0)
         close(fd);
     while(info->cmd[info->index].in[i + 1])
@@ -27,7 +27,7 @@ int put_proper_in_fd(t_data *info, int fd)
         }else{
                 if(access(&info->cmd->in[i][2], F_OK) != 0)
                 {
-                    perror("No file to read from");
+                    write(2, "No file to read from", 21);
                 }else{
                     i++;
                     continue;
@@ -47,7 +47,7 @@ int put_proper_out_fd(t_data *info, int out_fd)
         {
             if((out_fd =open(&info->cmd->out[i][2], O_WRONLY | O_CREAT | O_APPEND, 0777 )) < 0)
                 {
-                    perror("No file to read from");
+                    write(2, "No file to read from", 21);
                 }else{
                     i++;
                     close(out_fd);
@@ -56,7 +56,7 @@ int put_proper_out_fd(t_data *info, int out_fd)
         }else{
                 if((out_fd = open(&info->cmd->out[i][2], O_WRONLY | O_CREAT, 0777 )) < 0)
                 {
-                    perror("No file to read from");
+                    write(2, "No file to read from", 21);
                 }else{
                     close(out_fd);
                     i++;
@@ -65,9 +65,9 @@ int put_proper_out_fd(t_data *info, int out_fd)
         }
         i++;
     }
-        write(2, "\n", 1);
-   ft_putnbr_fd(i, 2);
-   write(2, "\n", 1);
+//         write(2, "\n", 1);
+//    ft_putnbr_fd(i, 2);
+//    write(2, "\n", 1);
     return (get_the_real_one_out(info, out_fd, i));
 }
 
