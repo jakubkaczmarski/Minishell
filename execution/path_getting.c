@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:35:36 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/27 13:48:21 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 01:03:33 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ char *check_for_cmd_in_path(char *path, char *command)
 	char *cmd;
 	char *cmd1;
 	cmd1 = ft_strjoin(path, "/");
-	if(access(command, F_OK) == 0)
+	if(access(command, X_OK) == 0)
 	{
 		cmd = ft_strjoin("", command);
 		return cmd;
 	}
 	cmd = ft_strjoin(cmd1, command);
-	if(access(cmd, F_OK) == 0)
+	if(access(cmd, X_OK) == 0)
 	{
 		free(cmd1);
 		return cmd;
