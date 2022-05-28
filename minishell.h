@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 00:36:26 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 00:40:04 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,5 +203,10 @@ int	check_if_only_nums(char *str);
 void	handle_here_doc_sig_par(void);
 
 
+//Env
+void			print_envv(t_list **envv, int flag);
+int				get_size_of_list(t_list **envv);
+char		**convert_env_list_to_str(t_list **envv);
+char		**add_env(char **env);
 
 #endif
