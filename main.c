@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/28 15:28:12 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 00:37:25 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int main(int argc, char **argv, char **envv)
 		exec_stuff(info);
 		free(input);
 		counter = 0;
-		// free_all(info);
+		free_all(info);
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);	
 	}
