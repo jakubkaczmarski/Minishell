@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 00:40:04 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 00:42:04 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,35 +143,6 @@ void	cd(t_data *info);
 
 //		execution
 //kuba
-char	**get_env_arr(t_data *info);
-void	manage_exec(t_data *info, char **env);
-int		split_path_to_exec( t_data *info, int forker, int i);
-char	*check_for_cmd_in_path(char *path, char *command);
-char	*get_path(char **envv);
-char	**command_and_param_from_line(char *line);
-void	execute_single_command(t_data *info, int index, int forker, int i);
-int		piping(t_data *info,  int index);
-int		find_len_first_command(t_data *info, int index);
-int		run_redictions(t_data *info, int index, char ** env);
-int		get_num_to_alloc(t_el_counter *el_count, t_data *info, int index);
-int		alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index);
-void	manage_input_red(char *line);
-int		Kurwa(t_el_counter *kurwa, char *line);
-int		exec_input_red(t_el_counter *el_counter);
-int		exec_output_red(t_el_counter *el_counter);
-int		loop_through_redir(t_el_counter *el_counter);
-int		check_for_buildins(char *line, char **env);
-int		get_here_doc(t_el_counter *el_counter);
-int		manage_here_doc(t_el_counter *el_counter, int index);
-int		check_if_only_red(char *cmd);
-char	*exec_cmd(t_data *info, int forker, int index, char **splitted_path);
-int					free_exec(char **splitted_path, char *full_cmd_path);
-char				**convert(t_list *envv);
-void				loop_through_red_right(t_el_counter *el_counter, int i);
-void				loop_through_red_left(t_el_counter *el_counter, int i);
-void				format_line_to_exec(t_el_counter *el_counter, char *trimmed_line);
-int					exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env);
-char			*get_cmd(t_el_counter *counter);
 
 //New exec
 void    fake_here_doc(char *line);
@@ -201,12 +172,40 @@ void exit_program(t_data *info);
 int	check_if_only_nums(char *str);
 //Sig
 void	handle_here_doc_sig_par(void);
-
-
 //Env
 void			print_envv(t_list **envv, int flag);
 int				get_size_of_list(t_list **envv);
 char		**convert_env_list_to_str(t_list **envv);
 char		**add_env(char **env);
 
+
+// char	**get_env_arr(t_data *info);
+// void	manage_exec(t_data *info, char **env);
+// int		split_path_to_exec( t_data *info, int forker, int i);
+// char	*check_for_cmd_in_path(char *path, char *command);
+// char	*get_path(char **envv);
+// char	**command_and_param_from_line(char *line);
+// void	execute_single_command(t_data *info, int index, int forker, int i);
+// int		piping(t_data *info,  int index);
+// int		find_len_first_command(t_data *info, int index);
+// int		run_redictions(t_data *info, int index, char ** env);
+// int		get_num_to_alloc(t_el_counter *el_count, t_data *info, int index);
+// int		alloc_mem_for_words(t_el_counter *el_count, t_data *info, int index);
+// void	manage_input_red(char *line);
+// int		Kurwa(t_el_counter *kurwa, char *line);
+// int		exec_input_red(t_el_counter *el_counter);
+// int		exec_output_red(t_el_counter *el_counter);
+// int		loop_through_redir(t_el_counter *el_counter);
+// int		check_for_buildins(char *line, char **env);
+// int		get_here_doc(t_el_counter *el_counter);
+// int		manage_here_doc(t_el_counter *el_counter, int index);
+// int		check_if_only_red(char *cmd);
+// char	*exec_cmd(t_data *info, int forker, int index, char **splitted_path);
+// int					free_exec(char **splitted_path, char *full_cmd_path);
+// char				**convert(t_list *envv);
+// void				loop_through_red_right(t_el_counter *el_counter, int i);
+// void				loop_through_red_left(t_el_counter *el_counter, int i);
+// void				format_line_to_exec(t_el_counter *el_counter, char *trimmed_line);
+// int					exec_cmd_and_close_fds(t_el_counter *el_counter, char  **env);
+// char			*get_cmd(t_el_counter *counter);
 #endif
