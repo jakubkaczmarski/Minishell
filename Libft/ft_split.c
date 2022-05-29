@@ -6,12 +6,13 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:29:28 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/26 15:39:46 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 18:43:18 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "../minishell.h"
+
 static size_t	ft_countwords(const char *str, char c)
 {
 	size_t	i;
@@ -74,17 +75,18 @@ static char	**ft_freemem(char **new, size_t count)
 	return (NULL);
 }
 
-static char	**ft_fillwords(char **new,  char *str, char c, size_t count)
+static char	**ft_fillwords(char **new, char *str, char c, size_t count)
 {
 	size_t	words;
 	size_t	len;
 	int		i;
 	int		flag;
+	int		len_t;
 
 	i = 0;
 	words = 0;
 	flag = 0;
-	int len_t = ft_strlen(str);
+	len_t = ft_strlen(str);
 	while (words < count)
 	{
 		while (str[i] && str[i] == c)
@@ -94,12 +96,10 @@ static char	**ft_fillwords(char **new,  char *str, char c, size_t count)
 		str[len_t] = '\0';
 		if (!new[words])
 			return (ft_freemem(new, words));
-		
 		while (str[i] && str[i] != c)
 			i = flag_handler(str, &flag, i);
 		words++;
 	}
-
 	new[words] = NULL;
 	return (new);
 }
