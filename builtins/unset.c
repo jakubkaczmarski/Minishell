@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 07:29:01 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 16:59:29 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 17:07:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,5 @@ void	unset_handler(t_data *info, int index)
 		i = 0;
 		index++;
 	}
+	info->ret_val = 0;
 }
