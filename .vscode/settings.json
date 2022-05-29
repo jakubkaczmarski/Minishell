@@ -2,6 +2,8 @@
     "files.associations": {
         "sstream": "c",
         "minishell.h": "c",
-        "chrono": "c"
+        "chrono": "c",
+        "__locale": "c",
+        "ios": "c"
     }
 }
