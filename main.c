@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 15:05:06 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:09:40 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int input_error()
 	return (1);
 }
 
-void free_all(t_data *info)
+void free_all(t_data *info, int counter)
 {
 	int i = 0;
 	int j;
@@ -46,6 +46,8 @@ void free_all(t_data *info)
 			// free(info->cmd[i].gen_path);
 			i++;
 		}
+		while (info->cmd_table[counter])
+			free(info->cmd_table[counter++]);
 		
 }
 
@@ -54,6 +56,20 @@ void update_env(t_data *info)
 	char **str = convert_env_list_to_str(&info->envv);
 	// int i = 0;
 	info->env = add_env(str);
+}
+
+void end_free(char *input, t_data *info)
+{
+	if(!input)
+	{
+		free(input);
+		free(info);
+	}else{
+		free(info->cmd_table[0]);
+		ft_lstclear(&(info->envv), free);
+		free(info->envv);
+		free(info);
+	}
 }
 /*
 @param argc amount of arguments
@@ -72,18 +88,11 @@ int main(int argc, char **argv, char **envv)
 	if (!info)
 		return (1);
 	info->ret_val = 0;
-	// printf("Start %s\n", argv[0]);
-	// print_2d_array(convert_env_list_to_str(&info->envv),1 );
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-	// printf("\n\n");
-
-
-	// printf("Size of list %d \n", get_size_of_list(&(info->envv)));
 	handle_sigs_interactive(); //signal
 	while (1)
 	{
-
 		input = readline("minishell🦖>");
 		if (!input)
 			break ;
@@ -94,24 +103,11 @@ int main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);	
 		if(!input)
 			break;
-
 		exec_stuff(info);
 		free(input);
 		counter = 0;
-		free_all(info);
-		
-		while (info->cmd_table[counter])
-			free(info->cmd_table[counter++]);	
+		free_all(info, counter);
 	}
-	if(!input)
-	{
-		free(input);
-		free(info);
-	}else{
-		free(info->cmd_table[0]);
-		ft_lstclear(&(info->envv), free);
-		free(info->envv);
-		free(info);
-	}
+	end_free(input, info);
 	return (0);
 }
