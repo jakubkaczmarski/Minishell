@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 18:18:19 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 18:20:29 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,7 @@ int	child_process_out(t_data *info, int out_fd, int *pipe_1)
 		return (STDOUT_FILENO);
 	else
 	{
-		check = dup2(pipe_1[1], STDOUT_FILENO);
-		if (check < 0)
+		if (dup2(pipe_1[1], STDOUT_FILENO) < 0)
 		{
 			perror("Out error");
 			return (-1);
