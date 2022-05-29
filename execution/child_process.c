@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 18:32:47 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 00:33:23 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void	run_child(t_data *info, int fd, int out_fd, int *pipe_1)
 	if (builtin_handler(info) == 1)
 	{
 		close(pipe_1[0]);
+		info->ret_val = -1;
 		close(pipe_1[1]);
 		exit(-1);
 	}
@@ -147,6 +148,7 @@ void	run_child(t_data *info, int fd, int out_fd, int *pipe_1)
 		execve(info->cmd[info->index].command_path,
 			info->cmd[info->index].cmd,
 			info->env);
+		info->ret_val = 0;
 	}
 	close(pipe_1[0]);
 	close(pipe_1[1]);
