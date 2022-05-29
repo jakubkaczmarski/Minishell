@@ -17,7 +17,7 @@ copy function that puts two strings together.
 If len == 0 then everyrthing gets copied,
 otherwise len == how many characters of src should get copied.
 */
-int	ft_copy(char *dst, char *src, int len)
+int		ft_copy(char *dst, char *src, int len)
 {
 	int	i;
 
@@ -54,14 +54,15 @@ char	*modify_input(char *input, char *value, int var_len)
 	char	*new_input;
 
 	i = 0;
-	new_input = ft_calloc(sizeof(char *),
-			(ft_strlen(input) + ft_strlen(value) + 1));
+	new_input =
+		ft_calloc(sizeof(char *), (ft_strlen(input) + ft_strlen(value) + 1));
 	if (!new_input)
 		return (input);
 	while (input[i])
 	{
-		if (input[i] == '$' && ((input[i - 1] != '\'') \
-			|| (input[i - 1] == '\'' && input[i - 2] == '"')))
+		if (input[i] == '$' &&
+			((input[i - 1] != '\'') ||
+				(input[i - 1] == '\'' && input[i - 2] == '"')))
 			break ;
 		i++;
 	}
@@ -81,6 +82,7 @@ char	*return_envv_val(char **envv, char *str)
 	int		i;
 	int		counter;
 	char	*value;
+
 	i = 0;
 	counter = 1;
 	value = NULL;
@@ -90,8 +92,7 @@ char	*return_envv_val(char **envv, char *str)
 		{
 			while (envv[i][counter] != '=')
 				counter++;
-			value = ft_substr(envv[i], counter + 1,
-					ft_strlen(&envv[i][counter]));
+			value = ft_substr(envv[i], counter + 1, ft_strlen(&envv[i][counter]));
 			return (value);
 		}
 		i++;

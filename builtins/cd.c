@@ -12,41 +12,42 @@
 
 #include "../minishell.h"
 
-
-char *find_home(t_data *info)
+char	*find_home(t_data *info)
 {
-	int index;
+	int	index;
 
-	index =0;
-	while(info->env[index] && ft_strncmp("HOME=", info->env[index], 5) != 0)
+	index = 0;
+	while (info->env[index] && ft_strncmp("HOME=", info->env[index], 5) != 0)
 		index++;
-	if(!info->env[index])
-		return NULL;
-	return (info->env[index]  + 5);
+	if (!info->env[index])
+		return (NULL);
+	return (info->env[index] + 5);
 }
-//CD 
-//first check if there is an argument to the cd command
-//If there isn't find HOME variable and cd into it
+// CD
+// first check if there is an argument to the cd command
+// If there isn't find HOME variable and cd into it
 void	cd(t_data *info)
 {
+	char	*home;
+	char	arr[4000];
+	int		ret;
+
 	// char *full_path;
-	char *home; 
-	if(!info->cmd[info->index].cmd[0])
+	if (!info->cmd[info->index].cmd[0])
 		return ;
-	char arr[4000];
-	int ret;
 	home = find_home(info);
-	if(info->cmd[info->index].cmd[1])
+	if (info->cmd[info->index].cmd[1])
 	{
 		ret = chdir(info->cmd[info->index].cmd[1]);
-		if(ret != 0)
+		if (ret != 0)
 		{
 			perror("Path name doesn't exist\n");
 		}
 		printf("%s\n", getcwd(arr, 4000));
-	}else
+	}
+	else
 	{
-		printf("Path %s\n",home);
+		printf("Path %s\n", home);
 		// print_2d_array(info->env, 1);
 		chdir(home);
 		printf("%s\n", getcwd(arr, 4000));

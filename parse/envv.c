@@ -15,7 +15,7 @@
 /*
 handles the input given by the user and puts it into a struct
 */
-int	copy_envv(t_list **l_envv, char **envv)
+int		copy_envv(t_list **l_envv, char **envv)
 {
 	t_list	*s;
 	t_list	*tmp;
@@ -37,72 +37,79 @@ int	copy_envv(t_list **l_envv, char **envv)
 		free(tmp);
 		return (0);
 	}
-	
 	return (1);
 }
 
-void print_envv(t_list **envv, int flag)
+void	print_envv(t_list **envv, int flag)
 {
-	t_list *temp = *envv;
+	t_list	*temp;
+
+	temp = *envv;
 	if (!temp)
 		return ;
 	while (temp != NULL)
 	{
 		if (flag == 1)
-			printf("delcare -x %s\n",temp->content);
+			printf("delcare -x %s\n", temp->content);
 		else
 			printf("%s\n", temp->content);
 		temp = temp->next;
 	}
 }
 
-int	get_size_of_list(t_list **envv)
+int		get_size_of_list(t_list **envv)
 {
-	t_list *temp = *envv;
-	int counter;
+	t_list	*temp;
+	int		counter;
 
+	temp = *envv;
 	counter = 0;
 	if (!temp)
-		return 0;
+		return (0);
 	while (temp != NULL)
 	{
 		counter++;
 		temp = temp->next;
 	}
-	return counter;
+	return (counter);
 }
 
-char **convert_env_list_to_str(t_list **envv)
+char	**convert_env_list_to_str(t_list **envv)
 {
-	int size = 	get_size_of_list(envv);
-	char **env_arr = ft_calloc(sizeof(char *), size + 1);
-	int  i;
+	int		size;
+	char	**env_arr;
+	int		i;
+	t_list	*temp;
 
+	size = get_size_of_list(envv);
+	env_arr = ft_calloc(sizeof(char *), size + 1);
 	i = 0;
-	t_list *temp = *envv;
+	temp = *envv;
 	while (temp != NULL)
 	{
 		env_arr[i] = ft_strdup(temp->content);
 		temp = temp->next;
 		i++;
 	}
-	return env_arr;
+	return (env_arr);
 }
 
-char **add_env(char **env)
+char	**add_env(char **env)
 {
-	char **ret;
-	int i = 0;
-	while(env[i])
+	char	**ret;
+	int		i;
+
+	i = 0;
+	while (env[i])
 	{
 		i++;
 	}
 	ret = ft_calloc(sizeof(char *), i + 1);
 	i = 0;
-	while(env[i])
+	while (env[i])
 	{
 		ret[i] = ft_strdup(env[i]);
 		i++;
 	}
-	return ret;
+	return (ret);
 }

@@ -32,7 +32,7 @@ static void	child_signal_handler(int signal)
 	// perror("Child sig");
 }
 
-void	handle_child_signals(void)
+void		handle_child_signals(void)
 {
 	signal(SIGINT, child_signal_handler);
 	signal(SIGQUIT, child_signal_handler);
@@ -44,13 +44,13 @@ Signal handler for the keyboard to controll the shell
 @param SIGQUIT CTL+\
 @param SIG_IGN ignores other signals
 */
-void	handle_sigs_interactive(void)
+void		handle_sigs_interactive(void)
 {
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-//Here_doc
+// Here_doc
 
 // static void here_doc_child(int sig)
 // {
@@ -58,7 +58,7 @@ void	handle_sigs_interactive(void)
 // 		exit(1);
 // }
 
-void	handle_here_doc_sig_par(void)
+void		handle_here_doc_sig_par(void)
 {
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, SIG_IGN);

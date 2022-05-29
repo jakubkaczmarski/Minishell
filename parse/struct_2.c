@@ -14,10 +14,10 @@
 /*
 inserts a space at the position that you pass
 */
-char *insert_space(char *string, int i)
+char	*insert_space(char *string, int i)
 {
-	char *new_string;
-	int j;
+	char	*new_string;
+	int		j;
 
 	j = 0;
 	new_string = malloc(sizeof(char *) * ft_strlen(string) + 1);
@@ -29,9 +29,9 @@ char *insert_space(char *string, int i)
 	return (new_string);
 }
 
-void track_redirection(t_cmd *cmd, char *string, char c, int j)
+void	track_redirection(t_cmd *cmd, char *string, char c, int j)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (string[i + 1] == ' ')
@@ -50,11 +50,11 @@ void track_redirection(t_cmd *cmd, char *string, char c, int j)
 	}
 }
 
-void redirections(t_cmd *cmd, char *string)
+void	redirections(t_cmd *cmd, char *string)
 {
-	int i;
-	int in_j;
-	int out_j;
+	int	i;
+	int	in_j;
+	int	out_j;
 
 	i = 0;
 	in_j = 0;
@@ -77,11 +77,11 @@ void redirections(t_cmd *cmd, char *string)
 	}
 }
 
-int cmd_tracker(t_cmd *cmd, char *string)
+int		cmd_tracker(t_cmd *cmd, char *string)
 {
-	int i;
-	int j;
-	int len;
+	int	i;
+	int	j;
+	int	len;
 
 	i = 0;
 	j = 0;
@@ -92,8 +92,8 @@ int cmd_tracker(t_cmd *cmd, char *string)
 			i++;
 		i++;
 	}
-	while (string[i + j] != '<' && string[i + j] != '>' \
-		&& string[i + j] != '\0' && (i + j) != len)
+	while (string[i + j] != '<' && string[i + j] != '>' &&
+			string[i + j] != '\0' && (i + j) != len)
 		j++;
 	printf("is it here\n");
 	cmd->cmd = ft_split(ft_substr(string, i, j), ' ');

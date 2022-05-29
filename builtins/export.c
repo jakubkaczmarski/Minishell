@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-int	ft_valid_helper(char *str, int flag)
+int		ft_valid_helper(char *str, int flag)
 {
 	if (flag == 0)
 	{
@@ -25,7 +25,7 @@ int	ft_valid_helper(char *str, int flag)
 /*
 checks if the input is alphanum and _ . ,
 */
-int	ft_isvalid(char *str)
+int		ft_isvalid(char *str)
 {
 	int	i;
 	int	flag;
@@ -38,8 +38,7 @@ int	ft_isvalid(char *str)
 			flag = 1;
 		if ((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122))
 			i++;
-		else if ((str[i] >= 48 && str[i] <= 57) || str[i] == 123 \
-			|| str[i] == 125)
+		else if ((str[i] >= 48 && str[i] <= 57) || str[i] == 123 || str[i] == 125)
 			i++;
 		else if (str[i] == 95 || str[i] == 46 || str[i] == 44 || str[i] == 61)
 			i++;
@@ -55,7 +54,7 @@ int	ft_isvalid(char *str)
 /*
 counts the character until the given character
 */
-int	ft_strint(char *str, char c)
+int		ft_strint(char *str, char c)
 {
 	int	i;
 
@@ -80,8 +79,8 @@ void	export_in_envv(t_list **envv, char *var_val)
 		return ;
 	while (tmp->next != NULL)
 	{
-		if (!ft_strncmp(tmp->content, element->content, \
-			ft_strint(element->content, '=')))
+		if (!ft_strncmp(
+				tmp->content, element->content, ft_strint(element->content, '=')))
 		{
 			free(tmp->content);
 			tmp->content = element->content;
@@ -94,8 +93,8 @@ void	export_in_envv(t_list **envv, char *var_val)
 }
 
 /*
-'export' is 7 characters long so look after that for the 
-variable and store it. The variable ends at the equal sign 
+'export' is 7 characters long so look after that for the
+variable and store it. The variable ends at the equal sign
 so after that comes the value, store it as well
 */
 void	export_handler(t_data *info, int index)
@@ -105,7 +104,6 @@ void	export_handler(t_data *info, int index)
 
 	index = 1;
 	i = 0;
-
 	while (info->cmd[info->index].cmd[index])
 	{
 		while (info->cmd[info->index].cmd[index][i] != '\0')

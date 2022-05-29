@@ -16,7 +16,7 @@
 @param 34 double quote
 @param 39 single quote
 
-counts how many dollar signs are in the input 
+counts how many dollar signs are in the input
 but keeps track on the quoations
 */
 char	*quote_handler(char *input)

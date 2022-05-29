@@ -68,8 +68,8 @@ char	*remove_spaces_at_pipes(char *input)
 			flag = 1;
 		else if (input[x] == '\'' && flag == 1)
 			flag = 0;
-		if (input[x] == '|' && (input[x - 1] == ' ' || input[x + 1] == ' ') \
-			&& flag == 0)
+		if (input[x] == '|' && (input[x - 1] == ' ' || input[x + 1] == ' ') &&
+			flag == 0)
 		{
 			new_str = remove_spaces(input, x, i);
 			return (new_str);
@@ -112,7 +112,7 @@ char	*remove_multi_spaces(char *input, int i, int j)
 }
 
 /*
-takes the input in puts it into the cmd_table. 
+takes the input in puts it into the cmd_table.
 before that, it removes the spaces around the pipe
 and then splits the input by pipe.
 */
@@ -128,6 +128,5 @@ char	*cmd_table_handler(t_data *info, char *input)
 	while (amount_multis-- > 0)
 		input = remove_multi_spaces(input, 0, 0);
 	info->cmd_table = ft_split(input, '|');
-	
 	return (input);
 }

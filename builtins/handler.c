@@ -21,7 +21,7 @@ int	builtin_handler(t_data *info)
 	int	y;
 
 	y = 0;
-	if(info->cmd[info->index].cmd[0])
+	if (info->cmd[info->index].cmd[0])
 	{
 		if (!ft_strncmp(info->cmd[info->index].cmd[0], "echo", 4))
 		{
@@ -40,7 +40,8 @@ int	builtin_handler(t_data *info)
 			print_2d_array(info->env, 1);
 			info->ret_val = 0;
 			return (1);
-		}else if (!ft_strncmp(info->cmd[info->index].cmd[0], "pwd", 3))
+		}
+		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "pwd", 3))
 		{
 			print_path();
 			info->ret_val = 0;

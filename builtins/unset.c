@@ -12,10 +12,10 @@
 
 #include "../minishell.h"
 
-int	replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr)
+int		replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr)
 {
-	if (!ft_strncmp(var_val[0], var, ft_strlen(var)) \
-		&& !var_val[0][ft_strlen(var)])
+	if (!ft_strncmp(var_val[0], var, ft_strlen(var)) &&
+		!var_val[0][ft_strlen(var)])
 	{
 		tmp = curr->next;
 		free(tmp->content);
@@ -50,20 +50,19 @@ void	remove_in_envv(t_list **envv, char *var)
 }
 
 /*
-takes the variables that are given and removes them 
+takes the variables that are given and removes them
 one by one from the list envv
 */
 void	unset_handler(t_data *info, int index)
 {
 	int		i;
-	// char	**variables;
 	char	*var;
 
+	// char	**variables;
 	i = 0;
 	index = 1;
 	while (info->cmd[info->index].cmd[index])
 	{
-
 		while (info->cmd[info->index].cmd[index][i] != '\0')
 			i++;
 		var = ft_substr(info->cmd[info->index].cmd[index], 0, i);

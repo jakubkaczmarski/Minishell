@@ -12,59 +12,64 @@
 
 #include "minishell.h"
 
-int input_error()
+int		input_error()
 {
 	printf("Input Error\n");
 	return (1);
 }
 
-void free_all(t_data *info, int counter)
+void	free_all(t_data *info, int counter)
 {
-	int i = 0;
-	int j;
-		j = 0;
-		while(i < info->amount_cmd)
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < info->amount_cmd)
+	{
+		while (info->cmd[i].cmd[j])
 		{
-			while(info->cmd[i].cmd[j])
-			{
-				free(info->cmd[i].cmd[j]);
-				j++;
-			}
-			j = 0;
-			while(info->cmd[i].in[j])
-			{
-				free(info->cmd[i].in[j]);
-				j++;
-			}
-			j = 0;
-			while(info->cmd[i].out[j])
-			{
-				free(info->cmd[i].out[j]);
-				j++;
-			}
-			// free(info->cmd[i].command_path);
-			// free(info->cmd[i].gen_path);
-			i++;
+			free(info->cmd[i].cmd[j]);
+			j++;
 		}
-		while (info->cmd_table[counter])
-			free(info->cmd_table[counter++]);
-		
+		j = 0;
+		while (info->cmd[i].in[j])
+		{
+			free(info->cmd[i].in[j]);
+			j++;
+		}
+		j = 0;
+		while (info->cmd[i].out[j])
+		{
+			free(info->cmd[i].out[j]);
+			j++;
+		}
+		// free(info->cmd[i].command_path);
+		// free(info->cmd[i].gen_path);
+		i++;
+	}
+	while (info->cmd_table[counter])
+		free(info->cmd_table[counter++]);
 }
 
-void update_env(t_data *info)
+void	update_env(t_data *info)
 {
-	char **str = convert_env_list_to_str(&info->envv);
+	char	**str;
+
+	str = convert_env_list_to_str(&info->envv);
 	// int i = 0;
 	info->env = add_env(str);
 }
 
-void end_free(char *input, t_data *info)
+void	end_free(char *input, t_data *info)
 {
-	if(!input)
+	if (!input)
 	{
 		free(input);
 		free(info);
-	}else{
+	}
+	else
+	{
 		free(info->cmd_table[0]);
 		ft_lstclear(&(info->envv), free);
 		free(info->envv);
@@ -76,12 +81,15 @@ void end_free(char *input, t_data *info)
 @param argv arguments as array
 @param envv enviromental variables as array \
 */
-int main(int argc, char **argv, char **envv)
+int		main(int argc, char **argv, char **envv)
 {
-	t_data *info;
-	char *input;
-	int counter;
-	if(argv[0]){};
+	t_data	*info;
+	char	*input;
+	int		counter;
+
+	if (argv[0])
+	{
+	};
 	if (argc != 1)
 		return (input_error());
 	info = malloc(sizeof(t_data *));
@@ -90,19 +98,19 @@ int main(int argc, char **argv, char **envv)
 	info->ret_val = 0;
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-	handle_sigs_interactive(); //signal
+	handle_sigs_interactive(); // signal
 	while (1)
 	{
 		input = readline("minishell🦖>");
 		if (!input)
 			break ;
-		if(input[0] == '\0')
-			continue;
+		if (input[0] == '\0')
+			continue ;
 		update_env(info);
 		add_history(input);
-		input = handle_input(info, input, envv);	
-		if(!input)
-			break;
+		input = handle_input(info, input, envv);
+		if (!input)
+			break ;
 		exec_stuff(info);
 		free(input);
 		counter = 0;

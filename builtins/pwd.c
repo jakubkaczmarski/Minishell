@@ -14,11 +14,11 @@
 
 void	print_path(void)
 {
-	char buff[4096];
-    char *str;
-	
+	char	buff[4096];
+	char	*str;
+
 	str = getcwd(&buff[0], sizeof(buff));
-    if(!str)
-        return ;
-    printf("%s\n", str);
+	if (!str)
+		return ;
+	printf("%s\n", str);
 }

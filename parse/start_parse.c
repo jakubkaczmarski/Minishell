@@ -12,13 +12,14 @@
 
 #include "../minishell.h"
 
-int parse(t_data *info, char *line)
+int	parse(t_data *info, char *line)
 {
-    int i;
-    i = 0;
-    info->amount_cmd = 0;
-    //Get rid of additional spaces if the spaces are not in the quotes
-    while(line[i])
-    {   
-    }
+	int	i;
+
+	i = 0;
+	info->amount_cmd = 0;
+	// Get rid of additional spaces if the spaces are not in the quotes
+	while (line[i])
+	{
+	}
 }

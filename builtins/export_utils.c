@@ -17,7 +17,7 @@ resets the index of the list
 */
 void	indexing(t_list *envv)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = envv;
 	while (tmp != NULL)
@@ -69,8 +69,10 @@ void	sort_list(t_list *envv)
 	{
 		while (curr->next != NULL)
 		{
-			if (ft_strncmp(curr->content, smallest->content, \
-				ft_strlen(smallest->content)) < 0 && curr->index != -1)
+			if (ft_strncmp(curr->content,
+							smallest->content,
+							ft_strlen(smallest->content)) < 0 &&
+				curr->index != -1)
 				smallest = curr;
 			curr = curr->next;
 			while (curr->index == -1 && curr->next != NULL)

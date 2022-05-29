@@ -19,8 +19,9 @@ char	*find_dollar(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '$' && ((input[i - 1] != '\'') \
-			|| (input[i - 1] == '\'' && input[i - 2] == '"')))
+		if (input[i] == '$' &&
+			((input[i - 1] != '\'') ||
+				(input[i - 1] == '\'' && input[i - 2] == '"')))
 			return (&input[i]);
 		i++;
 	}
@@ -41,7 +42,7 @@ char	*check_input(char *input, char **envv)
 	var = get_value(pos_dollar, &var_len);
 	value = return_envv_val(envv, var + 1);
 	if (value)
-	{	
+	{
 		input = modify_input(input, value, var_len);
 		free(value);
 	}
@@ -50,28 +51,27 @@ char	*check_input(char *input, char **envv)
 }
 
 /*
-counts how many dollar signgs are in the input so 
+counts how many dollar signgs are in the input so
 he function in the handler know how many variables
 have to get replaced.
 */
-int	count_dollars(char *input)
+int		count_dollars(char *input)
 {
-	int		i;
-	int		amount;
+	int	i;
+	int	amount;
 
 	i = 0;
 	amount = 0;
 	while (input[i])
 	{
-		if (input[i] == '$' && ((input[i - 1] != '\'') \
-			|| (input[i - 1] == '\'' && input[i - 2] == '"')))
+		if (input[i] == '$' &&
+			((input[i - 1] != '\'') ||
+				(input[i - 1] == '\'' && input[i - 2] == '"')))
 			amount++;
 		i++;
 	}
 	return (amount);
 }
-
-
 
 /*
 put envv in a struct and replace them with the actual values
@@ -79,7 +79,10 @@ put envv in a struct and replace them with the actual values
 char	*handle_input(t_data *info, char *input, char **envv)
 {
 	int	amount_dollars;
-	if(envv){}
+
+	if (envv)
+	{
+	}
 	free(info->env[0]);
 	info->env[0] = ft_strdup(envv[0]);
 	if (ft_strncmp(input, "$?", 2) == 0)
