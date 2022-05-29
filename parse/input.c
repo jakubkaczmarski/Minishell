@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 15:00:09 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:05:21 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ char	*handle_input(t_data *info, char *input, char **envv)
 {
 	int	amount_dollars;
 	if(envv){}
-	printf("ENV \n\n");
-	
 	free(info->env[0]);
 	info->env[0] = ft_strdup(envv[0]);
 	if (ft_strncmp(input, "$?", 2) == 0)

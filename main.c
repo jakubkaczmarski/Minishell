@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 14:52:58 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:05:06 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ int main(int argc, char **argv, char **envv)
 			continue;
 		update_env(info);
 		add_history(input);
-		printf("\n\n\n");
-		print_2d_array(info->env, 1);
 		input = handle_input(info, input, envv);	
 		if(!input)
 			break;
