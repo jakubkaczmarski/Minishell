@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/28 17:40:39 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:00:09 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,24 @@ put envv in a struct and replace them with the actual values
 char	*handle_input(t_data *info, char *input, char **envv)
 {
 	int	amount_dollars;
-
-	// if (ft_strncmp(input, "exit", 4) == 0)
-	// 	return (NULL);
+	if(envv){}
+	printf("ENV \n\n");
+	
+	free(info->env[0]);
+	info->env[0] = ft_strdup(envv[0]);
 	if (ft_strncmp(input, "$?", 2) == 0)
 		return (cmd_table_handler(info, input));
 	amount_dollars = count_dollars(input);
 	while (amount_dollars-- > 0)
 	{
-		input = check_input(input, envv);
+		input = check_input(input, info->env);
 		input = quote_handler(input);
 	}
 	input = cmd_table_handler(info, input);
 	crop_redir(info);
 	handle_struct(info);
+	free(info->env[0]);
+	info->env[0] = ft_strdup(envv[0]);
 	print_cmd_table(info->cmd_table);
 	return (input);
 }

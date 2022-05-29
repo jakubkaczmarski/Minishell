@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 00:56:22 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 14:52:58 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ void free_all(t_data *info)
 		}
 		
 }
+
+void update_env(t_data *info)
+{
+	char **str = convert_env_list_to_str(&info->envv);
+	// int i = 0;
+	info->env = add_env(str);
+}
 /*
 @param argc amount of arguments
 @param argv arguments as array
@@ -67,17 +74,13 @@ int main(int argc, char **argv, char **envv)
 	info->ret_val = 0;
 	// printf("Start %s\n", argv[0]);
 	// print_2d_array(convert_env_list_to_str(&info->envv),1 );
-
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-	
 	// printf("\n\n");
- 	info->env = add_env(envv);
+
+
 	// printf("Size of list %d \n", get_size_of_list(&(info->envv)));
-	
-
 	handle_sigs_interactive(); //signal
-
 	while (1)
 	{
 
@@ -86,9 +89,10 @@ int main(int argc, char **argv, char **envv)
 			break ;
 		if(input[0] == '\0')
 			continue;
-
+		update_env(info);
 		add_history(input);
-			
+		printf("\n\n\n");
+		print_2d_array(info->env, 1);
 		input = handle_input(info, input, envv);	
 		if(!input)
 			break;
@@ -97,6 +101,7 @@ int main(int argc, char **argv, char **envv)
 		free(input);
 		counter = 0;
 		free_all(info);
+		
 		while (info->cmd_table[counter])
 			free(info->cmd_table[counter++]);	
 	}

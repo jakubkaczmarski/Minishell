@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 01:09:07 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 14:41:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int put_proper_out_fd(t_data *info, int out_fd)
             if((out_fd =open(&info->cmd->out[i][2], O_WRONLY | O_CREAT | O_APPEND, 0777 )) < 0)
                 {
                     write(2, "No file to read from", 21);
+                    exit(1);
                 }else{
                     i++;
                     close(out_fd);
@@ -57,6 +58,7 @@ int put_proper_out_fd(t_data *info, int out_fd)
                 if((out_fd = open(&info->cmd->out[i][2], O_WRONLY | O_CREAT, 0777 )) < 0)
                 {
                     write(2, "No file to read from", 21);
+                   exit(1);
                 }else{
                     close(out_fd);
                     i++;
@@ -91,7 +93,7 @@ int child_process_in(t_data *info, int fd, int *pipe_1)
            {
                if ((check = dup2(pipe_1[0], STDIN_FILENO)) < 0)
             {
-                return (-1);
+                exit(1);
             }
             return (pipe_1[0]);
            }
