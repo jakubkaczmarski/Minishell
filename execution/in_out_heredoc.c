@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 18:14:43 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 00:21:29 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ void	fake_here_doc(char *line)
 {
 	char	*magic_word;
 
-	printf("Line in Fake %s", line);
 	handle_here_doc_sig_par();
 	while (1)
 	{
 		magic_word = readline("> ");
-		printf("Halp %s", magic_word);
 		if (!magic_word)
 		{
 			printf("Magic word exists %s", magic_word);
@@ -29,7 +27,6 @@ void	fake_here_doc(char *line)
 		}
 		if (ft_strncmp(line, magic_word, ft_strlen(magic_word)) == 0)
 		{
-			printf("Halp %s", magic_word);
 			free(magic_word);
 			break ;
 		}

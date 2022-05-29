@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 19:46:12 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 00:24:09 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int	builtin_handler(t_data *info)
 	if (info->cmd[info->index].cmd[0])
 	{
 		if (check_echo_and_env(info) == 1)
-		{
-		}
+			return (1);
 		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "env", 3))
 		{
 			print_2d_array(info->env, 1);
