@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 20:17:59 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 21:35:49 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,18 +100,19 @@ void	handle_red_t(t_data *info, char **temp, int j, char *joined, int i)
 
 void	handle_red_p(t_data *info, char **temp, int j, char *joined, int i)
 {
-		if (temp[j][1] && temp[j][1] == '<')
-		{
-			info->cmd[i].in = add_after_string(info->cmd[i].in,
-					temp[j]);
-		}
-		else
-		{
-			temp[j][0] = ' ';
-			joined = ft_strjoin("<", temp[j]);
-			info->cmd[i].in = add_after_string(info->cmd[i].in, joined);
-		}
+	if (temp[j][1] && temp[j][1] == '<')
+	{
+		info->cmd[i].in = add_after_string(info->cmd[i].in,
+				temp[j]);
+	}
+	else
+	{
+		temp[j][0] = ' ';
+		joined = ft_strjoin("<", temp[j]);
+		info->cmd[i].in = add_after_string(info->cmd[i].in, joined);
+	}
 }
+
 void	handle_struct(t_data *info)
 {
 	int		i;
