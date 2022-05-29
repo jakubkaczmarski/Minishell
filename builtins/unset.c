@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 07:29:01 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 17:07:39 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 19:46:44 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr)
+int	replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr)
 {
-	if (!ft_strncmp(var_val[0], var, ft_strlen(var)) &&
-		!var_val[0][ft_strlen(var)])
+	if (!ft_strncmp(var_val[0], var, ft_strlen(var))
+		&& !var_val[0][ft_strlen(var)])
 	{
 		tmp = curr->next;
 		free(tmp->content);
@@ -58,7 +58,6 @@ void	unset_handler(t_data *info, int index)
 	int		i;
 	char	*var;
 
-	// char	**variables;
 	i = 0;
 	index = 1;
 	while (info->cmd[info->index].cmd[index])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/24 15:49:36 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 19:36:08 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ void	ft_echo(t_data *info)
 
 	flag = 0;
 	i = 1;
-	// echo -n -n-n-n-n-n bla bla bla
 	if (!info->cmd[info->index].cmd[1])
 	{
 		printf("\n");
 		return ;
 	}
-	// if str[1] == -n set flag to 1
 	if (!ft_strncmp(info->cmd[info->index].cmd[1], "-n", 2))
 	{
 		flag = 1;

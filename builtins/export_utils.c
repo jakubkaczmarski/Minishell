@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:07:25 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/28 15:35:39 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 19:42:20 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ void	split_and_print(char *smallest)
 	free(var_val);
 }
 
+void	sort_list_helper(t_list *curr, t_list *smallest)
+{
+	if (ft_strncmp(curr->content, smallest->content,
+			ft_strlen(smallest->content)) < 0 && curr->index != -1)
+		smallest = curr;
+}
+
 /*
 sorts the list and prints it out in alphabetical order with
 a specific shema
@@ -69,11 +76,7 @@ void	sort_list(t_list *envv)
 	{
 		while (curr->next != NULL)
 		{
-			if (ft_strncmp(curr->content,
-							smallest->content,
-							ft_strlen(smallest->content)) < 0 &&
-				curr->index != -1)
-				smallest = curr;
+			sort_list_helper(curr, smallest);
 			curr = curr->next;
 			while (curr->index == -1 && curr->next != NULL)
 				curr = curr->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:56:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/26 23:34:24 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 19:37:08 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ char	*find_home(t_data *info)
 // CD
 // first check if there is an argument to the cd command
 // If there isn't find HOME variable and cd into it
+
 void	cd(t_data *info)
 {
 	char	*home;
 	char	arr[4000];
 	int		ret;
 
-	// char *full_path;
 	if (!info->cmd[info->index].cmd[0])
 		return ;
 	home = find_home(info);
@@ -48,7 +48,6 @@ void	cd(t_data *info)
 	else
 	{
 		printf("Path %s\n", home);
-		// print_2d_array(info->env, 1);
 		chdir(home);
 		printf("%s\n", getcwd(arr, 4000));
 	}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:35:13 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 00:35:52 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 19:38:27 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		check_if_only_nums(char *str)
+int	check_if_only_nums(char *str)
 {
 	int	i;
 

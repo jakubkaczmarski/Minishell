@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 17:08:00 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 19:38:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ft_valid_helper(char *str, int flag)
+int	ft_valid_helper(char *str, int flag)
 {
 	if (flag == 0)
 	{
@@ -25,7 +25,7 @@ int		ft_valid_helper(char *str, int flag)
 /*
 checks if the input is alphanum and _ . ,
 */
-int		ft_isvalid(char *str)
+int	ft_isvalid(char *str)
 {
 	int	i;
 	int	flag;
@@ -38,7 +38,8 @@ int		ft_isvalid(char *str)
 			flag = 1;
 		if ((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122))
 			i++;
-		else if ((str[i] >= 48 && str[i] <= 57) || str[i] == 123 || str[i] == 125)
+		else if ((str[i] >= 48 && str[i] <= 57)
+			|| str[i] == 123 || str[i] == 125)
 			i++;
 		else if (str[i] == 95 || str[i] == 46 || str[i] == 44 || str[i] == 61)
 			i++;
@@ -54,7 +55,7 @@ int		ft_isvalid(char *str)
 /*
 counts the character until the given character
 */
-int		ft_strint(char *str, char c)
+int	ft_strint(char *str, char c)
 {
 	int	i;
 
@@ -80,7 +81,8 @@ void	export_in_envv(t_list **envv, char *var_val)
 	while (tmp->next != NULL)
 	{
 		if (!ft_strncmp(
-				tmp->content, element->content, ft_strint(element->content, '=')))
+				tmp->content, element->content,
+				ft_strint(element->content, '=')))
 		{
 			free(tmp->content);
 			tmp->content = element->content;
