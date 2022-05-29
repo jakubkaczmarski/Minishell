@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 17:10:18 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 18:12:43 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,34 @@ int	fork_and_exec(t_data *info, int fd, int out_fd)
 	return (pipe_1[0]);
 }
 
-int	exec_prep_thingys(t_data *info, int fd, int out_fd)
+int	prep_manag(t_data *info, int *fd, int *out_fd)
 {
 	if (!info->cmd[info->index].in[0] && info->index == 0)
-		fd = -1;
+		*fd = -1;
 	else if (info->cmd[info->index].in[0])
-		if ((fd = put_proper_in_fd(info, fd)) < 0)
+	{
+		*fd = put_proper_in_fd(info, *fd);
+		if (*fd < 0)
 			return (-1);
+	}
 	if (!info->cmd[info->index].out[0] && info->index == 0)
-		out_fd = -1;
+		*out_fd = -1;
 	else if (info->cmd[info->index].out[0])
 	{
-		if ((out_fd = put_proper_out_fd(info, out_fd)) < 0)
+		*out_fd = put_proper_out_fd(info, *out_fd);
+		if (*out_fd < 0)
 		{
-			close(fd);
+			close(*fd);
 			return (-1);
 		}
 	}
+	return (0);
+}
+
+int	exec_prep_thingys(t_data *info, int fd, int out_fd)
+{
+	if (prep_manag(info, &fd, &out_fd) == 0)
+		return (-1);
 	if (!info->cmd[info->index].cmd[0])
 	{
 		close(fd);
@@ -84,7 +95,8 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 		return (-1);
 	}
 	info->cmd[info->index].gen_path = get_path(info->env);
-	if ((!(info->cmd[info->index].command_path = cmd_exists(info))))
+	info->cmd[info->index].command_path = cmd_exists(info);
+	if (!info->cmd[info->index].command_path)
 	{
 		if (non_fork_buid_ins(info) == 1)
 			return (STDIN_FILENO);
@@ -98,6 +110,7 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 	}
 	return (fork_and_exec(info, fd, out_fd));
 }
+
 int	exec_stuff(t_data *info)
 {
 	int	fd;

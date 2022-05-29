@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:54:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/27 14:54:38 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 18:07:56 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	redirections(t_cmd *cmd, char *string)
 	}
 }
 
-int		cmd_tracker(t_cmd *cmd, char *string)
+int	cmd_tracker(t_cmd *cmd, char *string)
 {
 	int	i;
 	int	j;
@@ -92,8 +92,8 @@ int		cmd_tracker(t_cmd *cmd, char *string)
 			i++;
 		i++;
 	}
-	while (string[i + j] != '<' && string[i + j] != '>' &&
-			string[i + j] != '\0' && (i + j) != len)
+	while (string[i + j] != '<' && string[i + j] != '>'
+		&& string[i + j] != '\0' && (i + j) != len)
 		j++;
 	printf("is it here\n");
 	cmd->cmd = ft_split(ft_substr(string, i, j), ' ');

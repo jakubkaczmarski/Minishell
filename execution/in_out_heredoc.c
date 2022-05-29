@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 01:09:41 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 18:14:43 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	fake_here_doc(char *line)
 	}
 }
 
-int		real_here_doc(char *line)
+int	real_here_doc(char *line)
 {
 	char	*magic_word;
 	int		pipe_1[2];
@@ -62,11 +62,10 @@ int		real_here_doc(char *line)
 		free(magic_word);
 	}
 	close(pipe_1[1]);
-	// printf("pipe 1 after exec  %d\n", pipe_1[1]);
 	return (pipe_1[0]);
 }
 
-int		get_real_one(t_data *info, int i)
+int	get_real_one(t_data *info, int i)
 {
 	int	err;
 
@@ -91,15 +90,17 @@ int		get_real_one(t_data *info, int i)
 	return (err);
 }
 
-int		get_the_real_one_out(t_data *info, int out_fd, int i)
+int	get_the_real_one_out(t_data *info, int out_fd, int i)
 {
 	if (out_fd == -1)
 	{
 		out_fd = STDOUT_FILENO;
 	}
-	if (info->cmd[info->index].out[i] && info->cmd[info->index].out[i][1] == '>')
+	if (info->cmd[info->index].out[i]
+		&& info->cmd[info->index].out[i][1] == '>')
 	{
-		out_fd = open(&info->cmd->out[i][2], O_WRONLY | O_CREAT | O_APPEND, 0777);
+		out_fd = open(&info->cmd->out[i][2], O_WRONLY
+				| O_CREAT | O_APPEND, 0777);
 		return (out_fd);
 	}
 	else
