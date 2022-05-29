@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:08:41 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 14:50:54 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 18:37:04 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 handles the input given by the user and puts it into a struct
 */
-int		copy_envv(t_list **l_envv, char **envv)
+int	copy_envv(t_list **l_envv, char **envv)
 {
 	t_list	*s;
 	t_list	*tmp;
@@ -57,7 +57,7 @@ void	print_envv(t_list **envv, int flag)
 	}
 }
 
-int		get_size_of_list(t_list **envv)
+int	get_size_of_list(t_list **envv)
 {
 	t_list	*temp;
 	int		counter;

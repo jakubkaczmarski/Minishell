@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 15:07:53 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 18:38:30 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*find_dollar(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '$' &&
-			((input[i - 1] != '\'') ||
-				(input[i - 1] == '\'' && input[i - 2] == '"')))
+		if (input[i] == '$'
+			&& ((input[i - 1] != '\'') || (input[i - 1] == '\''
+					&& input[i - 2] == '"')))
 			return (&input[i]);
 		i++;
 	}
@@ -55,7 +55,7 @@ counts how many dollar signgs are in the input so
 he function in the handler know how many variables
 have to get replaced.
 */
-int		count_dollars(char *input)
+int	count_dollars(char *input)
 {
 	int	i;
 	int	amount;
@@ -64,9 +64,9 @@ int		count_dollars(char *input)
 	amount = 0;
 	while (input[i])
 	{
-		if (input[i] == '$' &&
-			((input[i - 1] != '\'') ||
-				(input[i - 1] == '\'' && input[i - 2] == '"')))
+		if (input[i] == '$'
+			&& ((input[i - 1] != '\'') || (input[i - 1] == '\''
+					&& input[i - 2] == '"')))
 			amount++;
 		i++;
 	}

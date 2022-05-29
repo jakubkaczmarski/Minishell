@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 08:09:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/25 15:43:33 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 18:39:10 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ char	*remove_spaces_at_pipes(char *input)
 			flag = 1;
 		else if (input[x] == '\'' && flag == 1)
 			flag = 0;
-		if (input[x] == '|' && (input[x - 1] == ' ' || input[x + 1] == ' ') &&
-			flag == 0)
+		if (input[x] == '|' && (input[x - 1] == ' '
+				|| input[x + 1] == ' ') && flag == 0)
 		{
 			new_str = remove_spaces(input, x, i);
 			return (new_str);

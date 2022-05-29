@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:35:54 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/26 14:33:17 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 18:40:12 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	replace_line(t_data *info, int index, char c)
 	info->cmd_table[index] = new_line;
 	return (0);
 }
+
 int	crop_redir(t_data *info)
 {
 	int	i;
@@ -77,6 +78,6 @@ int	crop_redir(t_data *info)
 			return (-1);
 		}
 		i++;
-	};
+	}
 	return (0);
 }
