@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 15:03:28 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 19:54:40 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	**add_after_string(char **arr, char *new_el)
 	free(arr);
 	return (temp);
 }
+
 void	print_2d_array(char **arr, int fd)
 {
 	int	i;
@@ -65,6 +66,7 @@ void	free_2d_array(char **arr)
 	}
 	free(arr);
 }
+
 t_cmd	*alloc_mem_for_info(t_cmd *cmd)
 {
 	cmd->out = ft_calloc(sizeof(char *), 2);
@@ -78,6 +80,7 @@ t_cmd	*alloc_mem_for_info(t_cmd *cmd)
 	cmd->out[1] = NULL;
 	return (cmd);
 }
+
 void	handle_struct(t_data *info)
 {
 	int		i;
@@ -103,7 +106,8 @@ void	handle_struct(t_data *info)
 			{
 				if (temp[j][1] && temp[j][1] == '<')
 				{
-					info->cmd[i].in = add_after_string(info->cmd[i].in, temp[j]);
+					info->cmd[i].in = add_after_string(info->cmd[i].in,
+							temp[j]);
 				}
 				else
 				{
@@ -117,15 +121,16 @@ void	handle_struct(t_data *info)
 			{
 				if (temp[j][1] && temp[j][1] == '>')
 				{
-					info->cmd[i].out =
-						add_after_string(info->cmd[i].out, temp[j]);
+					info->cmd[i].out = add_after_string(info->cmd[i].out,
+							temp[j]);
 				}
 				else
 				{
 					temp[j][0] = ' ';
 					joined = ft_strjoin(">", temp[j]);
 					printf("Joined %s\n", joined);
-					info->cmd[i].out = add_after_string(info->cmd[i].out, joined);
+					info->cmd[i].out = add_after_string(info->cmd[i].out,
+							joined);
 				}
 				argum = 1;
 			}
@@ -138,14 +143,15 @@ void	handle_struct(t_data *info)
 			}
 			j++;
 		}
-		// printf("Command amount %d\n", info->amount_cmd);
+		i++;
+	}
+	alloc_mem_for_info(&info->cmd[i]);
+}
+
+	// printf("Command amount %d\n", info->amount_cmd);
 		// printf("Printing in\n");
 		// print_2d_array(info->cmd[i].in, 1);
 		// printf("\nPrinting cmd\n");
 		// print_2d_array(info->cmd[i].cmd, 1);
 		// printf("\nPrinting out\n");
 		// print_2d_array(info->cmd[i].out, 1);
-		i++;
-	}
-	alloc_mem_for_info(&info->cmd[i]);
-}
