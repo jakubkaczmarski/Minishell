@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:35:36 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 01:06:28 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 17:05:25 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*cmd_exists(t_data *info)
 	while (splitted_path[i])
 	{
 		full_cmd_path = check_for_cmd_in_path(splitted_path[i],
-												info->cmd[info->index].cmd[0]);
+				info->cmd[info->index].cmd[0]);
 		if (full_cmd_path)
 			return (full_cmd_path);
 		i++;
