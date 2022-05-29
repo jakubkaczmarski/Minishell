@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 01:49:05 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 17:09:08 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	non_fork_buid_ins(t_data *info)
 {
-	int	y;
-
-	y = 0;
 	if (!ft_strncmp(info->cmd[info->index].cmd[0], "cd", 2))
 	{
 		cd(info);
@@ -30,20 +27,17 @@ int	non_fork_buid_ins(t_data *info)
 	else if (!ft_strncmp(info->cmd[info->index].cmd[0], "export", 6))
 	{
 		export_handler(info, y);
-		info->ret_val = 0;
 		return (1);
 	}
 	else if (!ft_strncmp(info->cmd[info->index].cmd[0], "unset", 5))
 	{
 		unset_handler(info, y);
-		info->ret_val = 0;
 		return (1);
 	}
 	else
-	{
 		return (0);
-	}
 }
+
 int	fork_and_exec(t_data *info, int fd, int out_fd)
 {
 	int	pipe_1[2];
