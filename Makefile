@@ -24,6 +24,7 @@ SRCS =	main.c \
 		execution/in_out_heredoc.c\
 		execution/path_getting.c\
 		execution/child_process.c\
+		execution/handling_cmd.c\
 
 all: minishell
 

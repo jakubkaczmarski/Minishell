@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 18:20:29 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 18:32:47 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,14 @@ int	put_proper_out_fd(t_data *info, int out_fd)
 	{
 		if (info->cmd[info->index].out[i][1] == '>')
 		{
-			out_fd = open(&info->cmd->out[i][2],
-					O_WRONLY | O_CREAT | O_APPEND,
-					0777);
-			if (out_fd < 0)
-			{
-				write(2, "No file to read from", 21);
-				exit(1);
-			}
-			else
-			{
-				i++;
-				close(out_fd);
+			if (get_out(info, i, &out_fd) == 0)
 				continue ;
-			}
 		}
 		else
 		{
 			out_fd = open(&info->cmd->out[i][2], O_WRONLY | O_CREAT, 0777);
 			if (out_fd < 0)
-			{
-				write(2, "No file to read from", 21);
-				exit(1);
-			}
+				write_err();
 			else
 			{
 				close(out_fd);
@@ -144,25 +129,18 @@ void	run_child(t_data *info, int fd, int out_fd, int *pipe_1)
 {
 	int	input;
 	int	output;
-	int	stat;
 
 	input = child_process_in(info, fd, pipe_1);
-	usleep(51);
 	if (input < 0)
 		exit(-1);
 	output = child_process_out(info, out_fd, pipe_1);
-	usleep(50);
 	if (output < 0)
 		exit(-1);
-	stat = builtin_handler(info) == 1;
-	if (stat == 1)
+	if (builtin_handler(info) == 1)
 	{
 		close(pipe_1[0]);
 		close(pipe_1[1]);
 		exit(-1);
-	}
-	else if (stat == 2)
-	{
 	}
 	else
 	{

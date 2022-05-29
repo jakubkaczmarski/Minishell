@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 18:13:09 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/29 18:33:08 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,8 @@ void    fake_here_doc(char *line);
 char **convert_env_list_to_str(t_list **envv);
 void update_env(t_data *info);
 int		prep_manag(t_data *info, int *fd, int *out_fd);
+int	get_out(t_data *info, int i, int *out_fd);
+void	write_err(void);
 //Exit 
 void exit_program(t_data *info);
 void end_free(char *input, t_data *info);
@@ -180,7 +182,6 @@ void			print_envv(t_list **envv, int flag);
 int				get_size_of_list(t_list **envv);
 char		**convert_env_list_to_str(t_list **envv);
 char		**add_env(char **env);
-
 
 // char	**get_env_arr(t_data *info);
 // void	manage_exec(t_data *info, char **env);
