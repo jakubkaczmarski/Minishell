@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 17:57:05 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:23:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ int		main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);
 		if (!input)
 			break ;
-		
 		exec_stuff(info);
 		printf("Ret value %d\n", info->ret_val );
 		free(input);
