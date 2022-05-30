@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_table_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:55:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/27 13:53:36 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:35:27 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	flag_check(char *input, int counter)
 	int	flag_d;
 
 	i = 0;
-	flag_d = 0;
+	flag_s = 0;
 	flag_d = 0;
 	while (i <= counter)
 	{
