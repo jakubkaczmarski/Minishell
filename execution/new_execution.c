@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 18:22:00 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:51:55 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ int	fork_and_exec(t_data *info, int fd, int out_fd)
 	if (info->pid == 0)
 		run_child(info, fd, out_fd, pipe_1);
 	waitpid(info->pid, &status, 0);
+	info->ret_val = status;
+	if (status > 255)
+		info->ret_val = status / 256;
 	handle_child_signals();
 	close(pipe_1[1]);
 	if (fd > 2)
@@ -105,6 +108,7 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 			close(fd);
 			close(out_fd);
 			write(2, "Command is wrong\n", 19);
+			info->ret_val = 1;
 			return (STDIN_FILENO);
 		}
 	}
