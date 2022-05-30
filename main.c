@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 13:03:32 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:00:34 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	free_all(t_data *info, int counter)
 	j = 0;
 	while (i < info->amount_cmd)
 	{
-		while (info->cmd[i].cmd[j])
-		{
-			free(info->cmd[i].cmd[j]);
-			j++;
-		}
-		j = 0;
+		// while (info->cmd[i].cmd[j])
+		// {
+		// 	free(info->cmd[i].cmd[j]);
+		// 	j++;
+		// }
+		// j = 0;
 		while (info->cmd[i].in[j])
 		{
 			free(info->cmd[i].in[j]);
@@ -76,6 +76,19 @@ void	end_free(char *input, t_data *info)
 		free(info);
 	}
 }
+
+/*
+mallocs the data struct to safe some lines 
+*/
+int malloc_struct(t_data **info)
+{
+	*info = malloc(sizeof(t_data *));
+	(*info)->envv = malloc(sizeof(t_list *));
+	if (!*info || !(*info)->envv)
+		return (1);
+	return (0);
+}
+
 /*
 @param argc amount of arguments
 @param argv arguments as array
@@ -87,13 +100,10 @@ int		main(int argc, char **argv, char **envv)
 	char	*input;
 	int		counter;
 
-	if (argv[0])
-	{
-	};
-	if (argc != 1)
+	//info = NULL;
+	if (argc != 1 || !argv[0])
 		return (input_error());
-	info = malloc(sizeof(t_data *));
-	if (!info)
+	if (malloc_struct(&info))
 		return (1);
 	info->ret_val = 0;
 	if (copy_envv(&(info->envv), envv))

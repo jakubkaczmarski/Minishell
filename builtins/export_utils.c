@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:07:25 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 19:42:20 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:28:32 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	sort_list(t_list *envv)
 		smallest = envv;
 		while (smallest->index == -1 && smallest->next != NULL)
 			smallest = smallest->next;
-		curr = envv;
+		curr = envv->next;
 	}
 	indexing(envv);
 }

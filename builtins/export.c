@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 13:11:15 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/30 13:23:47 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	export_handler(t_data *info, int index)
 
 	index = 1;
 	i = 0;
-	print_2d_array(convert_env_list_to_str(&info->envv), 1);
+	//print_2d_array(convert_env_list_to_str(&info->envv), 1);
 	while (info->cmd[info->index].cmd[index])
 	{
 		while (info->cmd[info->index].cmd[index][i] != '\0')
