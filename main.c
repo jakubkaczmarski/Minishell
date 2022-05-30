@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 14:00:34 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/30 15:16:23 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int		main(int argc, char **argv, char **envv)
 		return (input_error());
 	if (malloc_struct(&info))
 		return (1);
-	info->ret_val = 0;
 	if (copy_envv(&(info->envv), envv))
 		return (1);
 	handle_sigs_interactive(); // signal
@@ -121,7 +120,9 @@ int		main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);
 		if (!input)
 			break ;
+		
 		exec_stuff(info);
+		printf("Ret value %d\n", info->ret_val );
 		free(input);
 		counter = 0;
 		free_all(info, counter);
