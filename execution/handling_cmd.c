@@ -6,16 +6,16 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 18:32:51 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:16:06 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	write_err(void)
+void	write_err(t_data *info)
 {
 	write (2, "No file to read from", 21);
-	exit (1);
+	info->ret_val = 127;
 }
 
 int	get_out(t_data *info, int i, int *out_fd)

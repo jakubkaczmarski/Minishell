@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/30 13:58:34 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/30 22:17:04 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ char			**convert_env_list_to_str(t_list **envv);
 void			update_env(t_data *info);
 int				prep_manag(t_data *info, int *fd, int *out_fd);
 int				get_out(t_data *info, int i, int *out_fd);
-void			write_err(void);
+void			write_err(t_data *info);
 // Exit
 void			exit_program(t_data *info);
 void			end_free(char *input, t_data *info);
