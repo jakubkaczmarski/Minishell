@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_getting.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:35:36 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 17:05:25 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:06:18 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ char	*cmd_exists(t_data *info)
 	int		i;
 	char	**splitted_path;
 	char	*full_cmd_path;
-
+	if(!info->cmd[info->index].gen_path)
+	{
+		perror("No path found\n");
+		exit(1);
+	}
 	splitted_path = ft_split(info->cmd[info->index].gen_path, ':');
 	i = 0;
 	while (splitted_path[i])

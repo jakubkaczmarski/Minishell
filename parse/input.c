@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 18:38:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:14:43 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ char	*handle_input(t_data *info, char *input, char **envv)
 	}
 	free(info->env[0]);
 	info->env[0] = ft_strdup(envv[0]);
-	if (ft_strncmp(input, "$?", 2) == 0)
-		return (cmd_table_handler(info, input));
 	amount_dollars = count_dollars(input);
 	while (amount_dollars-- > 0)
 	{
@@ -96,8 +94,8 @@ char	*handle_input(t_data *info, char *input, char **envv)
 	input = cmd_table_handler(info, input);
 	crop_redir(info);
 	handle_struct(info);
-	free(info->env[0]);
-	info->env[0] = ft_strdup(envv[0]);
+	// free(info->env[0]);
+	// info->env[0] = ft_strdup(envv[0]);
 	print_cmd_table(info->cmd_table);
 	return (input);
 }
