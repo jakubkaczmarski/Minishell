@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/31 15:30:11 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:54:26 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,19 @@ int	exec_stuff(t_data *info)
 
 	fd = STDIN_FILENO;
 	info->index = 0;
-	if(info->index == 0)
+	if(info->index == 0 && info->cmd[info->index].in[0])
 	{
+		printf("%s Input", &info->cmd[info->index].in[0][2]);
+		if (info->cmd[info->index].in[0][1] == '<')
+			fake_here_doc(&info->cmd[info->index].in[0][2]);
+		else
+		{
+			if (access(&info->cmd->in[0][2], F_OK) != 0)
+			{
+				info->ret_val = 127;
+				write(2, "No file to read from", 21);
+			}
+		}
 	}
 	while (info->index < info->amount_cmd)
 	{
