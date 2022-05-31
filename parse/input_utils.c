@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:07:23 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/31 09:21:20 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/31 18:04:20 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,10 @@ char	*return_envv_val(char **envv, char *str)
 	value = NULL;
 	while (envv[i])
 	{
+		printf("compare: %s with %s\n", envv[i], str);
 		if (!ft_strncmp(envv[i], str, ft_strlen(str)))
 		{
+			printf("trigger\n");
 			while (envv[i][counter] != '=')
 				counter++;
 			if (counter != ft_strlen(str))
