@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/30 22:16:06 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:22:28 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	get_out(t_data *info, int i, int *out_fd)
 	if (*out_fd < 0)
 	{
 		write(2, "No file to read from", 21);
-		exit(1);
+		exit(127);
 	}
 	else
 	{

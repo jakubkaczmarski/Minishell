@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/30 22:14:49 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:30:11 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	fork_and_exec(t_data *info, int fd, int out_fd)
 	info->ret_val = status;
 	if (status > 255)
 		info->ret_val = status / 256;
-	handle_child_signals();
+	// handle_child_signals();
 	close(pipe_1[1]);
 	if (fd > 2)
 		close(fd);
@@ -73,6 +73,8 @@ int	prep_manag(t_data *info, int *fd, int *out_fd)
 		*fd = put_proper_in_fd(info, *fd);
 		if (*fd < 0)
 			return (-1);
+		else if(*fd == 127)
+			return (-1);
 	}
 	if (!info->cmd[info->index].out[0] && info->index == 0)
 		*out_fd = -1;
@@ -83,7 +85,8 @@ int	prep_manag(t_data *info, int *fd, int *out_fd)
 		{
 			close(*fd);
 			return (-1);
-		}
+		}else if(*out_fd == 127)
+			return (-1);
 	}
 	return (0);
 }
@@ -112,14 +115,13 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 		close(out_fd);
 		return (-1);
 	}
-
 	info->cmd[info->index].gen_path = get_path(info->env);
 	info->cmd[info->index].command_path = cmd_exists(info);
 	if (!info->cmd[info->index].command_path)
 	{
 		if (non_fork_buid_ins(info) == 1)
 			return (STDIN_FILENO);
-		else if(check_for_build_child_build_ins(info) == 0)
+		if(check_for_build_child_build_ins(info) == 0)
 		{
 			close(fd);
 			close(out_fd);
@@ -127,7 +129,15 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 			info->ret_val = 1;
 			return (STDIN_FILENO);
 		}
+	}else if(!ft_strncmp(info->cmd[info->index].cmd[0], "cd", 2))
+	{
+		cd(info);
+		close(fd);
+		close(out_fd);
+		info->ret_val = 1;
+		return (1);
 	}
+	
 	return (fork_and_exec(info, fd, out_fd));
 }
 

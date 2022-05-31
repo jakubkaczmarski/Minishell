@@ -1,0 +1,13 @@
+Libft
+Makefile
+README.md
+Siemanko.txt
+builtins
+execution
+main.c
+minishell
+minishell.dSYM
+minishell.h
+parse
+ss
+w
