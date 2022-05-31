@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/31 17:03:35 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:36:25 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 			info->ret_val = 1;
 			return (STDIN_FILENO);
 		}
-	}else if(!ft_strncmp(info->cmd[info->index].cmd[0], "cd", 2))
+	}else if(ft_strncmp(info->cmd[info->index].cmd[0], "cd", 2) == 0)
 	{
 		cd(info);
 		close(fd);
@@ -137,7 +137,6 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 		info->ret_val = 1;
 		return (1);
 	}
-	
 	return (fork_and_exec(info, fd, out_fd));
 }
 
