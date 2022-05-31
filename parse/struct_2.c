@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:54:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 18:07:56 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/31 09:07:11 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ inserts a space at the position that you pass
 char	*insert_space(char *string, int i)
 {
 	char	*new_string;
-	int		j;
 
-	j = 0;
 	new_string = malloc(sizeof(char *) * ft_strlen(string) + 1);
 	if (!new_string)
 		return (string);

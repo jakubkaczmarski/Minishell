@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_execution.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@students.42wolfsburg.de>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/30 13:29:34 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/31 09:08:06 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 		{
 			close(fd);
 			close(out_fd);
-			write(2, "Command is wrong\n", 19);
+			write(2, "Command is wrong\n", 18);
 			return (STDIN_FILENO);
 		}
 	}
