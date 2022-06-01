@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/01 09:50:34 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 09:59:42 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ char	*handle_input(t_data *info, char *input, char **envv)
 	while (amount_dollars-- > 0)
 	{
 		input = check_input(input, info->env);
-		input = quote_handler(input);
 	}
+	input = quote_handler(input);
 	input = cmd_table_handler(info, input);
 	crop_redir(info);
 	handle_struct(info);

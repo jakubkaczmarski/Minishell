@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/01 09:48:53 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 09:53:10 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void			handle_struct(t_data *info);
 
 // quotes.c
 char			*quote_handler(char *input);
-char			*cut_off_douq(char *input);
+char			*cut_off_quotes(char *input, int quote);
 
 // envv.c
 int				copy_envv(t_list **l_envv, char **envv);
