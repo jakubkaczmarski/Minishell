@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/01 22:29:35 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/01 23:54:13 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,5 +180,5 @@ void			print_envv(t_list **envv, int flag);
 int				get_size_of_list(t_list **envv);
 char			**convert_env_list_to_str(t_list **envv);
 char			**add_env(char **env);
-
+void	free_2d_array(char **arr);
 #endif

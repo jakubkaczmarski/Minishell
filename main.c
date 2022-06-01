@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/01 23:53:06 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/01 23:53:56 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	update_env(t_data *info)
 	str = convert_env_list_to_str(&info->envv);
 	// int i = 0;
 	info->env = add_env(str);
-	free(str);
+	free_2d_array(str);
 }
 
 void	end_free(char *input, t_data *info)
