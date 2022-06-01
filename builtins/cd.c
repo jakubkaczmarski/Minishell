@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:56:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/29 19:37:08 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:32:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ char	*find_home(t_data *info)
 void	cd(t_data *info)
 {
 	char	*home;
-	char	arr[4000];
 	int		ret;
-
 	if (!info->cmd[info->index].cmd[0])
 		return ;
 	home = find_home(info);
@@ -43,12 +41,12 @@ void	cd(t_data *info)
 		{
 			perror("Path name doesn't exist\n");
 		}
-		printf("%s\n", getcwd(arr, 4000));
+		// printf("%s\n", getcwd(arr, 4000));
 	}
 	else
 	{
-		printf("Path %s\n", home);
+		// printf("Path %s\n", home);
 		chdir(home);
-		printf("%s\n", getcwd(arr, 4000));
+		// printf("%s\n", getcwd(arr, 4000));
 	}
 }

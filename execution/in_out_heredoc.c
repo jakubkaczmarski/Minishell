@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/30 00:21:29 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:09:01 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ void	fake_here_doc(char *line)
 	{
 		magic_word = readline("> ");
 		if (!magic_word)
+			break;
+		if (magic_word[0] && ft_strncmp(line, magic_word, ft_strlen(magic_word)) == 0)
 		{
-			printf("Magic word exists %s", magic_word);
-			break ;
-		}
-		if (ft_strncmp(line, magic_word, ft_strlen(magic_word)) == 0)
-		{
-			free(magic_word);
+			if(magic_word)
+				free(magic_word);
 			break ;
 		}
 		free(magic_word);
@@ -46,12 +44,12 @@ int	real_here_doc(char *line)
 		magic_word = readline(">");
 		if (!magic_word)
 		{
-			close(pipe_1[1]);
-			return (-1);
+			break;
 		}
-		if (ft_strncmp(line, magic_word, ft_strlen(magic_word)) == 0)
+		if (magic_word[0] &&ft_strncmp(line, magic_word, ft_strlen(magic_word)) == 0)
 		{
-			free(magic_word);
+			if(magic_word)
+				free(magic_word);
 			break ;
 		}
 		write(pipe_1[1], magic_word, ft_strlen(magic_word));

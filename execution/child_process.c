@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/30 13:55:28 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:33:01 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int	put_proper_in_fd(t_data *info, int fd)
 		else
 		{
 			if (access(&info->cmd->in[i][2], F_OK) != 0)
+			{
+				info->ret_val = 127;	
 				write(2, "No file to read from", 21);
+				break;
+			}
 			else
 			{
 				i++;
@@ -54,7 +58,10 @@ int	put_proper_out_fd(t_data *info, int out_fd)
 		{
 			out_fd = open(&info->cmd->out[i][2], O_WRONLY | O_CREAT, 0777);
 			if (out_fd < 0)
-				write_err();
+			{
+				write_err(info);
+				break;
+			}
 			else
 			{
 				close(out_fd);
@@ -140,14 +147,14 @@ void	run_child(t_data *info, int fd, int out_fd, int *pipe_1)
 	{
 		close(pipe_1[0]);
 		close(pipe_1[1]);
-		exit(-1);
+		exit(0);
 	}
 	else
 	{
 		execve(info->cmd[info->index].command_path,
 			info->cmd[info->index].cmd,
 			info->env);
-		info->ret_val = 0;
+		exit(0);
 	}
 	close(pipe_1[0]);
 	close(pipe_1[1]);

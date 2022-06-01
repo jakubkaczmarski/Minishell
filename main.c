@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 15:16:23 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/31 16:00:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int		main(int argc, char **argv, char **envv)
 	char	*input;
 	int		counter;
 
-	//info = NULL;
 	if (argc != 1 || !argv[0])
 		return (input_error());
 	if (malloc_struct(&info))
@@ -120,9 +119,7 @@ int		main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);
 		if (!input)
 			break ;
-		
 		exec_stuff(info);
-		printf("Ret value %d\n", info->ret_val );
 		free(input);
 		counter = 0;
 		free_all(info, counter);

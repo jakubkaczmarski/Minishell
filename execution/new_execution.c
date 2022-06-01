@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   new_execution.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/30 15:16:54 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/31 17:36:25 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../minishell.h"
 
@@ -54,7 +55,7 @@ int	fork_and_exec(t_data *info, int fd, int out_fd)
 	info->ret_val = status;
 	if (status > 255)
 		info->ret_val = status / 256;
-	handle_child_signals();
+	// handle_child_signals();
 	close(pipe_1[1]);
 	if (fd > 2)
 		close(fd);
@@ -72,6 +73,8 @@ int	prep_manag(t_data *info, int *fd, int *out_fd)
 		*fd = put_proper_in_fd(info, *fd);
 		if (*fd < 0)
 			return (-1);
+		else if(*fd == 127)
+			return (-1);
 	}
 	if (!info->cmd[info->index].out[0] && info->index == 0)
 		*out_fd = -1;
@@ -82,11 +85,26 @@ int	prep_manag(t_data *info, int *fd, int *out_fd)
 		{
 			close(*fd);
 			return (-1);
-		}
+		}else if(*out_fd == 127)
+			return (-1);
 	}
 	return (0);
 }
-
+int	check_for_build_child_build_ins(t_data *info)
+{
+	if (info->cmd[info->index].cmd[0])
+	{
+		if (!ft_strncmp(info->cmd[info->index].cmd[0], "echo", 4))
+			return (1);
+		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "$?", 2))
+			return (1);
+		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "env", 3))
+			return (1);
+		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "pwd", 3))
+			return (1);
+	}
+		return (0);
+}
 int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 {
 	if (prep_manag(info, &fd, &out_fd) != 0)
@@ -103,7 +121,7 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 	{
 		if (non_fork_buid_ins(info) == 1)
 			return (STDIN_FILENO);
-		else
+		if(check_for_build_child_build_ins(info) == 0)
 		{
 			close(fd);
 			close(out_fd);
@@ -111,6 +129,13 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 			info->ret_val = 1;
 			return (STDIN_FILENO);
 		}
+	}else if(ft_strncmp(info->cmd[info->index].cmd[0], "cd", 2) == 0)
+	{
+		cd(info);
+		close(fd);
+		close(out_fd);
+		info->ret_val = 1;
+		return (1);
 	}
 	return (fork_and_exec(info, fd, out_fd));
 }
@@ -121,6 +146,19 @@ int	exec_stuff(t_data *info)
 
 	fd = STDIN_FILENO;
 	info->index = 0;
+	if(info->amount_cmd == 0 && info->cmd[info->index].in[0])
+	{
+		if (info->cmd[info->index].in[0][1] == '<')
+			fake_here_doc(&info->cmd[info->index].in[0][2]);
+		else
+		{
+			if (access(&info->cmd->in[0][2], F_OK) != 0)
+			{
+				info->ret_val = 127;
+				write(2, "No file to read from\n", 21);
+			}
+		}
+	}
 	while (info->index < info->amount_cmd)
 	{
 		fd = exec_prep_thingys(info, fd, STDOUT_FILENO);
