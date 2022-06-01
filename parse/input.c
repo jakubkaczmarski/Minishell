@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 15:38:00 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 09:06:02 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*find_dollar(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '$' && !flag_check(input, i))
+		if (input[i] == '$' && flag_check(input, i))
 			return (&input[i]);
 		i++;
 	}
@@ -62,7 +62,7 @@ int	count_dollars(char *input)
 	amount = 0;
 	while (input[i])
 	{
-		if (input[i] == '$' && !flag_check(input, i))
+		if (input[i] == '$' && flag_check(input, i))
 			amount++;
 		i++;
 	}
