@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 13:23:47 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 10:51:11 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ void	export_in_envv(t_list **envv, char *var_val)
 	element = ft_lstnew(var_val);
 	if (!element)
 		return ;
-	while (tmp->next != NULL)
+	while (tmp != NULL)
 	{
+		
 		if (!ft_strncmp(
 				tmp->content, element->content,
 				ft_strint(element->content, '=')))
