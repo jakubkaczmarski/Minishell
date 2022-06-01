@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/01 13:52:22 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 22:29:31 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int		main(int argc, char **argv, char **envv)
 			continue ;
 		update_env(info); 
 		add_history(input);
-		input = handle_input(info, input, envv);
+		input = handle_input(info, input);
 		if (!input)
 			break ;
 		exec_stuff(info);

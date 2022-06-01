@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/01 13:52:17 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 22:29:35 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void			print_envv(t_list **envv, int flag);
 
 //			parse
 // input.c
-char			*handle_input(t_data *info, char *input, char **envv);
+char			*handle_input(t_data *info, char *input);
 char			*check_input(char *input, char **envv);
 char			*find_dollar(char *input);
 int				count_dollars(char *input);
