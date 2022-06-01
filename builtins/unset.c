@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 07:29:01 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/01 15:10:24 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/30 13:58:25 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr)
 		&& !var_val[0][ft_strlen(var)])
 	{
 		tmp = curr->next;
+		// free(tmp->content);
+		// printf("first free\n");
 		free(tmp);
 		curr->next = curr->next->next;
 		return (1);

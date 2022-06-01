@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:54:09 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/01 15:12:39 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/05/29 18:07:56 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	cmd_tracker(t_cmd *cmd, char *string)
 	while (string[i + j] != '<' && string[i + j] != '>'
 		&& string[i + j] != '\0' && (i + j) != len)
 		j++;
+	printf("is it here\n");
 	cmd->cmd = ft_split(ft_substr(string, i, j), ' ');
 	i = 0;
 	return (1);
