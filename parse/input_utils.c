@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:07:23 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 18:36:35 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:42:20 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,7 @@ char	*modify_input(char *input, char *value, int var_len)
 		return (input);
 	while (input[i])
 	{
-		if (input[i] == '$'
-			&& ((input[i - 1] != '\'')
-				|| (input[i - 1] == '\'' && input[i - 2] == '"')))
+		if (input[i] == '$' && flag_check(input, i))
 			break ;
 		i++;
 	}
@@ -86,6 +84,8 @@ char	*return_envv_val(char **envv, char *str)
 	i = 0;
 	counter = 1;
 	value = NULL;
+	if (!*str)
+		return (NULL);
 	while (envv[i])
 	{
 		if (!ft_strncmp(envv[i], str, ft_strlen(str)))
