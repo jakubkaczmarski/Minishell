@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:55:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 15:35:27 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 09:48:23 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,29 @@ int	flag_check(char *input, int counter)
 		i++;
 	}
 	if (flag_s == 1 || flag_d == 1)
+		return (0);
+	return (1);
+}
+
+/*
+check if a single quote is opend
+*/
+int	flag_check_single(char *input, int counter)
+{
+	int	i;
+	int	flag_s;
+
+	i = 0;
+	flag_s = 0;
+	while (i <= counter)
+	{
+		if (input[i] == 39 && flag_s == 0)
+			flag_s = 1;
+		else if (input[i] == 39 && flag_s == 1)
+			flag_s = 0;
+		i++;
+	}
+	if (flag_s == 1)
 		return (0);
 	return (1);
 }

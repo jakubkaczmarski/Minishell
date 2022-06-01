@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/01 09:06:02 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 09:50:34 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*find_dollar(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '$' && flag_check(input, i))
+		if (input[i] == '$' && flag_check_single(input, i))
 			return (&input[i]);
 		i++;
 	}
@@ -62,7 +62,7 @@ int	count_dollars(char *input)
 	amount = 0;
 	while (input[i])
 	{
-		if (input[i] == '$' && flag_check(input, i))
+		if (input[i] == '$' && flag_check_single(input, i))
 			amount++;
 		i++;
 	}
@@ -90,8 +90,6 @@ char	*handle_input(t_data *info, char *input, char **envv)
 	input = cmd_table_handler(info, input);
 	crop_redir(info);
 	handle_struct(info);
-	// free(info->env[0]);
-	// info->env[0] = ft_strdup(envv[0]);
 	print_cmd_table(info->cmd_table);
 	return (input);
 }

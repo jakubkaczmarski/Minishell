@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/30 13:58:34 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 09:48:53 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char			*cmd_table_handler(t_data *info, char *input);
 int				count_pipes(char *input);
 int				count_multis(char *input);
 int				flag_check(char *input, int counter);
+int				flag_check_single(char *input, int counter);
 
 //			builtins
 // execution_handler.c
