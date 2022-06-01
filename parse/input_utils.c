@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:07:23 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 15:42:20 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 09:12:34 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ char	*return_envv_val(char **envv, char *str)
 		{
 			while (envv[i][counter] != '=')
 				counter++;
+			if (counter != ft_strlen(str))
+				break;
 			value = ft_substr(envv[i], counter + 1,
 					ft_strlen(&envv[i][counter]));
 			return (value);
