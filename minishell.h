@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/30 22:17:04 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:50:49 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void			handle_struct(t_data *info);
 
 // quotes.c
 char			*quote_handler(char *input);
-char			*cut_off_douq(char *input);
+char			*cut_off_quotes(char *input, int quote);
 
 // envv.c
 int				copy_envv(t_list **l_envv, char **envv);
@@ -103,6 +103,7 @@ char			*cmd_table_handler(t_data *info, char *input);
 int				count_pipes(char *input);
 int				count_multis(char *input);
 int				flag_check(char *input, int counter);
+int				flag_check_single(char *input, int counter);
 
 //			builtins
 // execution_handler.c

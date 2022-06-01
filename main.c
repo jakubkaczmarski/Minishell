@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/31 16:00:42 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:51:08 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ mallocs the data struct to safe some lines
 int malloc_struct(t_data **info)
 {
 	*info = malloc(sizeof(t_data *));
-	(*info)->envv = malloc(sizeof(t_list *));
-	if (!*info || !(*info)->envv)
+	if (!*info)
 		return (1);
 	return (0);
 }
@@ -106,7 +105,7 @@ int		main(int argc, char **argv, char **envv)
 		return (1);
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-	handle_sigs_interactive(); // signal
+	handle_sigs_interactive();
 	while (1)
 	{
 		input = readline("minishell🦖>");

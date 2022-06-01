@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:07:23 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 15:42:20 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 09:49:49 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*modify_input(char *input, char *value, int var_len)
 		return (input);
 	while (input[i])
 	{
-		if (input[i] == '$' && flag_check(input, i))
+		if (input[i] == '$' && flag_check_single(input, i))
 			break ;
 		i++;
 	}
