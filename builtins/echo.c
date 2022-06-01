@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 13:07:31 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 19:36:08 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/05/31 18:28:22 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	ft_echo(t_data *info)
 		i++;
 	}
 	if (!info->cmd[info->index].cmd[1] && !info->cmd[info->index].cmd[2])
+	{
 		return ;
+	}
 	while (info->cmd[info->index].cmd[i])
 		printf("%s ", info->cmd[info->index].cmd[i++]);
 	if (flag == 0)

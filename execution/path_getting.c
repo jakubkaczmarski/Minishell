@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:35:36 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/31 17:37:06 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:42:30 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*cmd_exists(t_data *info)
 {
 	int		i;
+	i = 0;
 	char	**splitted_path;
 	char	*full_cmd_path;
 	if(!info->cmd[info->index].gen_path)
@@ -59,6 +60,7 @@ char	*check_for_cmd_in_path(char *path, char *command)
 	char	*cmd1;
 
 	cmd1 = ft_strjoin(path, "/");
+	// printf("%s\n\n" ,cmd1);
 	if (access(command, X_OK) == 0)
 	{
 		cmd = ft_strjoin("", command);
