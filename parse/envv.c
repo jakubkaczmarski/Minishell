@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:08:41 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 13:36:50 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 13:46:14 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	copy_envv(t_list **l_envv, char **envv)
 	t_list	*tmp;
 	int		i;
 
-	i = 0;
+	*l_envv = malloc(sizeof(char *));
+	i = 1;
 	if (envv)
 	{
 		s = ft_lstnew(envv[0]);
@@ -31,10 +32,8 @@ int	copy_envv(t_list **l_envv, char **envv)
 			ft_lstadd_back(&s, tmp);
 			i++;
 		}
+		free(*l_envv);
 		*l_envv = s;
-		tmp = (*l_envv)->next;
-		(*l_envv)->next = (*l_envv)->next->next;
-		free(tmp);
 		return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/30 15:16:23 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 13:46:35 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ mallocs the data struct to safe some lines
 int malloc_struct(t_data **info)
 {
 	*info = malloc(sizeof(t_data *));
-	(*info)->envv = malloc(sizeof(t_list *));
-	if (!*info || !(*info)->envv)
+	if (!*info)
 		return (1);
 	return (0);
 }
@@ -100,14 +99,13 @@ int		main(int argc, char **argv, char **envv)
 	char	*input;
 	int		counter;
 
-	//info = NULL;
 	if (argc != 1 || !argv[0])
 		return (input_error());
 	if (malloc_struct(&info))
 		return (1);
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-	handle_sigs_interactive(); // signal
+	handle_sigs_interactive();
 	while (1)
 	{
 		input = readline("minishell🦖>");
@@ -122,7 +120,7 @@ int		main(int argc, char **argv, char **envv)
 			break ;
 		
 		exec_stuff(info);
-		printf("Ret value %d\n", info->ret_val );
+		//printf("Ret value %d\n", info->ret_val );
 		free(input);
 		counter = 0;
 		free_all(info, counter);
