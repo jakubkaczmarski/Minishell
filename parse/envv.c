@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:08:41 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/01 13:54:06 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 13:46:14 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	copy_envv(t_list **l_envv, char **envv)
 			ft_lstadd_back(&s, tmp);
 			i++;
 		}
-		if (*l_envv)
-			free(*l_envv);
+		free(*l_envv);
 		*l_envv = s;
 		return (0);
 	}
