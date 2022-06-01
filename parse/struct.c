@@ -6,66 +6,11 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/01 13:45:32 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:47:31 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	**add_after_string(char **arr, char *new_el)
-{
-	int		i;
-	char	**temp;
-
-	i = 0;
-	while (arr[i])
-	{
-		i++;
-	}
-	temp = ft_calloc((sizeof(char *)), i + 2);
-	i = 0;
-	while (arr[i])
-	{
-		temp[i] = arr[i];
-		i++;
-	}
-	temp[i] = new_el;
-	free(arr);
-	return (temp);
-}
-
-void	print_2d_array(char **arr, int fd)
-{
-	int	i;
-
-	i = 0;
-	if (arr)
-	{
-		while (arr[i] != NULL)
-		{
-			ft_putstr_fd(arr[i], fd);
-			if (arr[i][ft_strlen(arr[i]) - 1] != '\n')
-				ft_putchar_fd('\n', fd);
-			i++;
-		}
-	}
-}
-
-void	free_2d_array(char **arr)
-{
-	int	i;
-
-	i = 0;
-	if (arr)
-	{
-		while (arr[i] != NULL)
-		{
-			free(arr[i]);
-			i++;
-		}
-	}
-	free(arr);
-}
 
 t_cmd	*alloc_mem_for_info(t_cmd *cmd)
 {
@@ -110,28 +55,6 @@ void	handle_red_p(t_data *info, char **temp, int j, char *joined, int i)
 		joined = ft_strjoin("<", temp[j]);
 		info->cmd[i].in = add_after_string(info->cmd[i].in, joined);
 	}
-}
-
-char	*cmd_exists_inp(char *line, char *cmd)
-{
-	int		i;
-	char	**splitted_path;
-	char	*full_cmd_path;
-	if(!line)
-	{
-		return NULL;
-	}
-	splitted_path = ft_split(line, ':');
-	i = 0;
-	while (splitted_path[i])
-	{
-		full_cmd_path = check_for_cmd_in_path(splitted_path[i],
-				cmd);
-		if (full_cmd_path)
-			return (full_cmd_path);
-		i++;
-	}
-	return (NULL);
 }
 
 int	find_if_cmd_exist(char *cmd, t_data *info)
