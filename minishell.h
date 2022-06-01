@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/01 13:50:49 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/01 13:52:17 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void			cd(t_data *info);
 // kuba
 
 // New exec
+char		*cmd_exists_inp(char *line, char *cmd);
 void			fake_here_doc(char *line);
 int				real_here_doc(char *line);
 int				get_real_one(t_data *info, int i);
