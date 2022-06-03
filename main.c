@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/02 00:45:55 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/03 23:38:28 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,9 @@ void	free_all(t_data *info, int counter)
 
 void	update_env(t_data *info)
 {
-	char	**str;
-
-	str = convert_env_list_to_str(&info->envv);
 	// int i = 0;
-	info->env = add_env(str);
-	free_2d_array(str);
+	info->env = add_env(convert_env_list_to_str(&info->envv));
+	// free_2d_array(str);
 }
 
 void	end_free(char *input, t_data *info)
@@ -106,6 +103,7 @@ int		main(int argc, char **argv, char **envv)
 		return (1);
 	if (copy_envv(&(info->envv), envv))
 		return (1);
+	update_env(info); 
 	handle_sigs_interactive();
 	while (1)
 	{
@@ -114,13 +112,14 @@ int		main(int argc, char **argv, char **envv)
 			break ;
 		if (input[0] == '\0')
 			continue ;
-		update_env(info); 
+
 		add_history(input);
 		input = handle_input(info, input);
 		if (!input)
 			break ;
+		free(input);
 		exec_stuff(info);
-		// free(input);
+		
 		counter = 0;
 		// free_all(info, counter);
 	}
