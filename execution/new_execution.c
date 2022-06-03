@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/03 23:46:55 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/03 23:54:56 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,8 @@ int	exec_stuff(t_data *info)
 	while (info->index < info->amount_cmd)
 	{
 		fd = exec_prep_thingys(info, fd, STDOUT_FILENO);
-		// if(info->command_and_param)
-			// free(info->command_and_param);
+		if(info->cmd[info->index].command_path)
+			free(info->cmd[info->index].command_path);
 		info->index++;
 	}
 	return (0);
