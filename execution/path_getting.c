@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:35:36 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/01 23:52:41 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/03 23:46:14 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,18 @@ char	*get_path(char **envv)
 	char	*line;
 
 	i = 0;
-	line = NULL;
+
 	while (envv[i])
 	{
 		if (ft_strncmp(envv[i], "PATH=", 5) == 0)
 		{
 			line = envv[i];
 			line = ft_strtrim(line, "PATH=");
+			return line;
 		}
 		i++;
 	}
-	return (line);
+	return (ft_calloc(sizeof(char *), 1));
 }
 
 char	*check_for_cmd_in_path(char *path, char *command)
