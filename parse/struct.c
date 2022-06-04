@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 00:50:27 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 00:53:14 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	handle_struct(t_data *info)
 			}
 			j++;
 		}
-
+		free(temp);
 		// printf("Command amount %d\n", info->amount_cmd);
 		// printf("Printing in\n");
 		// print_2d_array(info->cmd[i].in, 1);
