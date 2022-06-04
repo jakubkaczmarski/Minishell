@@ -83,7 +83,7 @@ mallocs the data struct to safe some lines
 */
 int malloc_struct(t_data **info)
 {
-	*info = malloc(sizeof(t_data *));
+	*info = malloc(sizeof(t_data));
 	if (!*info)
 		return (1);
 	return (0);
