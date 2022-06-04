@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 08:09:29 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/29 18:39:10 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 23:53:52 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	print_cmd_table(char **cmd_table)
 	while (cmd_table[i])
 	{
 		printf("[%d] %s\n", i, cmd_table[i]);
+		free(cmd_table[i]);
 		i++;
 	}
 }

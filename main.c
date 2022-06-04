@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/04 23:44:53 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 23:53:06 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	free_all(t_data *info)
 
 	i = 0;
 	j = 0;
+	// while (info->cmd_table[counter])
+	// 	free(info->cmd_table[counter++]);
 	while (i < info->amount_cmd)
 	{
 		while (info->cmd[i].cmd[j])
@@ -48,8 +50,7 @@ void	free_all(t_data *info)
 		// free(info->cmd[i].gen_path);
 		i++;
 	}
-	// while (info->cmd_table[counter])
-	// 	free(info->cmd_table[counter++]);
+
 }
 
 void	update_env(t_data *info)
