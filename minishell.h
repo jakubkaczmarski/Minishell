@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/01 23:54:13 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 17:07:21 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char			*handle_input(t_data *info, char *input);
 char			*check_input(char *input, char **envv);
 char			*find_dollar(char *input);
 int				count_dollars(char *input);
-
+void		delete_list(t_list **list);
 // input_utils.c
 int				ft_copy(char *dst, char *src, int len);
 char			*modify_input(char *input, char *value, int var_len);

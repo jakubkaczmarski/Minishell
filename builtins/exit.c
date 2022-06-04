@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:35:13 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/04 17:05:05 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 17:07:11 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@ int	check_if_only_nums(char *str)
 		i++;
 	}
 	return (1);
+}
+
+void delete_list(t_list **list)
+{
+	t_list *temp = *list;
+	t_list* next = NULL;
+	while(temp->next != NULL)
+	{
+		next = temp->next;
+		free(temp);
+		temp = next;
+	}
+	*list = NULL;
 }
 
 void	exit_program(t_data *info)

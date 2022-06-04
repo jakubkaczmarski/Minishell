@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/04 17:05:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 17:06:22 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int		main(int argc, char **argv, char **envv)
 			break ;
 		free(input);
 		exec_stuff(info);
+
 		counter = 0;
 		// free_all(info, counter);
 	}
