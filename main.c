@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/04 17:06:22 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 21:25:59 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	update_env(t_data *info)
 {
 	// int i = 0;
 	// info->env =;
+	// printf("Updating \n");
+	// print_envv(&info->envv, 0);
 	info->env =  convert_env_list_to_str(&info->envv);
 	// free_2d_array(str);
 }
@@ -96,7 +98,7 @@ int		main(int argc, char **argv, char **envv)
 {
 	t_data	*info;
 	char	*input;
-	int		counter;
+	// int		counter;
 
 	if (argc != 1 || !argv[0])
 		return (input_error());
@@ -106,23 +108,36 @@ int		main(int argc, char **argv, char **envv)
 		return (1);
 
 	handle_sigs_interactive();
+	update_env(info);
+	int cmd_counter = 0;
 	while (1)
 	{
 		input = readline("minishell🦖>");
 		if (!input)
 			break ;
-		update_env(info); 
+		 
 		if (input[0] == '\0')
 			continue ;	
 		add_history(input);
-		input = handle_input(info, input);
+		input = handle_input(info, input, envv);
 		if (!input)
 			break ;
+		if(cmd_counter != 0)
+		{
+			perror("Zium freeing \n");
+			free_2d_array(info->env);
+		}else{
+			perror("FIrst one \n");
+			info->env[1] = ft_strdup("Zium");
+			free_2d_array(info->env);
+		}
 		free(input);
+		update_env(info);
 		exec_stuff(info);
+	
 
-		counter = 0;
-		// free_all(info, counter);
+		cmd_counter++;
+		// free_all(info, counter);c
 	}
 	end_free(input, info);
 	return (0);

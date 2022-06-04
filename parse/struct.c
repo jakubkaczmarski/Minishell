@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/03 23:53:52 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 20:31:10 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	find_if_cmd_exist(char *cmd, t_data *info)
 		free(info->cmd[info->index].command_path);
 	info->cmd[info->index].gen_path = get_path(info->env);
 	info->cmd[info->index].command_path = cmd_exists_inp(info->cmd[info->index].gen_path, cmd);
-	
 	free(info->cmd[info->index].gen_path);
 	if (info->cmd[info->index].command_path)
 	{

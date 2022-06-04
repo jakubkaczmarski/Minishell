@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:35:13 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/04 17:07:11 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 20:46:51 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ void	exit_program(t_data *info)
 	int	i;
 
 	i = 0;
-	// free_2d_array(info->env);
+	// print_2d_array(info->env, 1);
+	free_2d_array(info->env);
+	delete_list(&info->envv);
 	// free(info->cmd_table[0]);
-	// free(info->envv);
+	// free(info->envv);=
 	if (!info->cmd[info->index].cmd[i + 1])
 	{
 		exit(0);

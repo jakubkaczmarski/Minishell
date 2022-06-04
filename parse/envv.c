@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:08:41 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/04 17:04:12 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 20:33:01 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	**convert_env_list_to_str(t_list **envv)
 	t_list	*temp;
 
 	size = get_size_of_list(envv);
-	env_arr = ft_calloc(sizeof(char *), size + 1);
+	env_arr = ft_calloc(sizeof(char *), size + 2);
 	i = 0;
 	temp = *envv;
 	while (temp != NULL)
