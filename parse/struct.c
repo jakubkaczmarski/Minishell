@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/04 20:31:10 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 23:59:21 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	handle_struct(t_data *info)
 	j = 0;
 	info->amount_cmd = 0;
 	argum = 0;
-	info->cmd = ft_calloc(sizeof(t_cmd *), 30);
+	info->cmd = ft_calloc(sizeof(t_cmd), 30);
 	while (info->cmd_table[i])
 	{
 		temp = ft_split(info->cmd_table[i], ' ');
@@ -146,4 +146,5 @@ void	handle_struct(t_data *info)
 		i++;
 	}
 	alloc_mem_for_info(&info->cmd[i]);
+	i++;
 }
