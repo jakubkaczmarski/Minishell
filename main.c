@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/04 21:29:26 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 23:40:49 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,8 @@ int		main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);
 		if (!input)
 			break ;
-		if(cmd_counter != 0)
-		{
-			perror("Zium freeing \n");
-			free_2d_array(info->env);
-		}else{
-			perror("FIrst one \n");
-			info->env[1] = ft_strdup("Zium");
-			free_2d_array(info->env);
-		}
 		free(input);
+		free_2d_array(info->env);
 		update_env(info);
 		exec_stuff(info);
 	
