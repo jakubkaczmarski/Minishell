@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 00:31:51 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 00:37:27 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	free_all(t_data *info)
 			free(info->cmd[i].out[j]);
 			j++;
 		}
-		// free(info->cmd[i].command_path);
-		// free(info->cmd[i].gen_path);
 		i++;
 	}
 
