@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/04 23:40:49 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/04 23:44:53 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		input_error()
 	return (1);
 }
 
-void	free_all(t_data *info, int counter)
+void	free_all(t_data *info)
 {
 	int	i;
 	int	j;
@@ -27,12 +27,12 @@ void	free_all(t_data *info, int counter)
 	j = 0;
 	while (i < info->amount_cmd)
 	{
-		// while (info->cmd[i].cmd[j])
-		// {
-		// 	free(info->cmd[i].cmd[j]);
-		// 	j++;
-		// }
-		// j = 0;
+		while (info->cmd[i].cmd[j])
+		{
+			free(info->cmd[i].cmd[j]);
+			j++;
+		}
+		j = 0;
 		while (info->cmd[i].in[j])
 		{
 			free(info->cmd[i].in[j]);
@@ -48,8 +48,8 @@ void	free_all(t_data *info, int counter)
 		// free(info->cmd[i].gen_path);
 		i++;
 	}
-	while (info->cmd_table[counter])
-		free(info->cmd_table[counter++]);
+	// while (info->cmd_table[counter])
+	// 	free(info->cmd_table[counter++]);
 }
 
 void	update_env(t_data *info)
@@ -126,10 +126,8 @@ int		main(int argc, char **argv, char **envv)
 		free_2d_array(info->env);
 		update_env(info);
 		exec_stuff(info);
-	
-
+		free_all(info);
 		cmd_counter++;
-		// free_all(info, counter);c
 	}
 	end_free(input, info);
 	return (0);
