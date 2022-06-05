@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 01:27:48 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 01:57:19 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,7 @@ int	put_proper_out_fd(t_data *info, int out_fd)
 	while (info->cmd[info->index].out[i + 1] != NULL)
 	{
 		if (info->cmd[info->index].out[i][1] == '>')
-		{
-			if (get_out(info, i, &out_fd) == 0)
-			{
-				i++;
-				continue ;
-			}
-		}
+			get_out(info, i, &out_fd);
 		else
 		{
 			out_fd = open(&info->cmd->out[i][2], O_WRONLY
@@ -80,7 +74,7 @@ int	child_process_in(t_data *info, int fd, int *pipe_1)
 		check = dup2(fd, STDIN_FILENO);
 		if (check < 0)
 		{
-			perror("fuck off");
+			perror("In Error\n");
 			return (-1);
 		}
 		close(pipe_1[0]);
@@ -107,7 +101,7 @@ int	child_process_out(t_data *info, int out_fd, int *pipe_1)
 		check = dup2(out_fd, STDOUT_FILENO);
 		if (check < 0)
 		{
-			perror("out Error");
+			perror("out Error\n");
 			return (-1);
 		}
 		close(pipe_1[1]);
@@ -119,7 +113,7 @@ int	child_process_out(t_data *info, int out_fd, int *pipe_1)
 	{
 		if (dup2(pipe_1[1], STDOUT_FILENO) < 0)
 		{
-			perror("Out error");
+			perror("Out error\n");
 			return (-1);
 		}
 		return (pipe_1[1]);

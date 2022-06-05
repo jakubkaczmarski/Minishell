@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 23:50:48 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 01:57:25 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_out(t_data *info, int i, int *out_fd)
 			| O_CREAT | O_APPEND, 0777);
 	if (*out_fd < 0)
 	{
-		write(2, "No file to read from", 21);
+		write(2, "No file to read from\n", 22);
 		exit(127);
 	}
 	else
