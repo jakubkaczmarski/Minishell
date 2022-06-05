@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:08:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 19:09:36 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:21:54 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ char	**add_after_string(char **arr, char *new_el)
 
 	i = 0;
 	while (arr[i])
-	{
 		i++;
-	}
 	temp = ft_calloc((sizeof(char *)), i + 2);
 	i = 0;
 	while (arr[i])
@@ -29,7 +27,6 @@ char	**add_after_string(char **arr, char *new_el)
 		temp[i] = ft_strdup(arr[i]);
 		i++;
 	}
-
 	temp[i] = ft_strdup(new_el);
 	free_2d_array(arr);
 	return (temp);
@@ -73,10 +70,9 @@ char	*cmd_exists_inp(char *line, char *cmd)
 	int		i;
 	char	**splitted_path;
 	char	*full_cmd_path;
-	if(!line)
-	{
-		return NULL;
-	}
+
+	if (!line)
+		return (NULL);
 	splitted_path = ft_split(line, ':');
 	i = 0;
 	while (splitted_path[i])

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 19:07:54 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:25:14 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void	handle_red_p(t_data *info, char **temp, int j, char *joined, int i)
 	}
 }
 
-int		find_if_cmd_exist(char *cmd, t_data *info)
+int	find_if_cmd_exist(char *cmd, t_data *info)
 {
 	info->index = 0;
 	if (info->cmd[info->index].command_path)
 		free(info->cmd[info->index].command_path);
 	info->cmd[info->index].gen_path = get_path(info->env);
-	info->cmd[info->index].command_path =
-		cmd_exists_inp(info->cmd[info->index].gen_path, cmd);
+	info->cmd[info->index].command_path
+		= cmd_exists_inp(info->cmd[info->index].gen_path, cmd);
 	free(info->cmd[info->index].gen_path);
 	if (info->cmd[info->index].command_path)
 	{
@@ -65,29 +65,18 @@ int		find_if_cmd_exist(char *cmd, t_data *info)
 		return (1);
 	}
 	else if (ft_strncmp(cmd, "cd", 2) == 0)
-	{
 		return (1);
-	}
 	else if (!ft_strncmp(cmd, "cd", 2))
-	{
 		return (1);
-	}
 	if (!ft_strncmp(cmd, "exit", 4))
-	{
 		return (1);
-	}
 	else if (!ft_strncmp(cmd, "export", 6))
-	{
 		return (1);
-	}
 	else if (!ft_strncmp(cmd, "unset", 5))
-	{
 		return (1);
-	}
-	// free(info->cmd[info->index].gen_path);
 	return (0);
-	// Check if it's the command if not don't add to the command counter
 }
+
 void	handle_struct(t_data *info)
 {
 	int		i;
@@ -122,8 +111,8 @@ void	handle_struct(t_data *info)
 			}
 			else
 			{
-				if (info->amount_cmd == 0 ||
-					(argum == 1 && (find_if_cmd_exist(temp[j], info) == 1)))
+				if (info->amount_cmd == 0
+					|| (argum == 1 && (find_if_cmd_exist(temp[j], info) == 1)))
 					info->amount_cmd++;
 				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
 				argum = 0;
@@ -131,21 +120,22 @@ void	handle_struct(t_data *info)
 			j++;
 		}
 		free_2d_array(temp);
-		// if(temp)
-		// {
-		// 	print_2d_array(temp, 2);
-		// 	free_2d_array(temp);
-		// }
-		// printf("Command amount %d\n", info->amount_cmd);
-		// printf("Printing in\n");
-		// print_2d_array(info->cmd[i].in, 1);
-		// printf("\nPrinting cmd\n");
-		// print_2d_array(info->cmd[i].cmd, 1);
-		// printf("\nPrinting out\n");
-		// print_2d_array(info->cmd[i].out, 1);
 		i++;
 	}
 	ft_putstr_fd("Printing array thingy\n", 1);
 	print_2d_array(info->cmd[0].cmd, 1);
 	alloc_mem_for_info(&info->cmd[i]);
 }
+
+// if(temp)
+// {
+// 	print_2d_array(temp, 2);
+// 	free_2d_array(temp);
+// }
+// printf("Command amount %d\n", info->amount_cmd);
+// printf("Printing in\n");
+// print_2d_array(info->cmd[i].in, 1);
+// printf("\nPrinting cmd\n");
+// print_2d_array(info->cmd[i].cmd, 1);
+// printf("\nPrinting out\n");
+// print_2d_array(info->cmd[i].out, 1);

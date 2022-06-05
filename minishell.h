@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 19:15:18 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:22:46 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void			print_envv(t_list **envv, int flag);
 
 //			parse
 // input.c
-char			*handle_input(t_data *info, char *input, char **env);
+char			*handle_input(t_data *info, char *input);
 char			*check_input(char *input, char **envv);
 char			*find_dollar(char *input);
 int				count_dollars(char *input);

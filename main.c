@@ -6,13 +6,13 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 19:10:59 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:30:27 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		input_error()
+int	input_error(void)
 {
 	printf("Input Error\n");
 	return (1);
@@ -25,8 +25,6 @@ void	free_all(t_data *info)
 
 	i = 0;
 	j = 0;
-	// while (info->cmd_table[counter])
-	// 	free(info->cmd_table[counter++]);
 	while (info->cmd[i].cmd[j])
 	{
 		free_2d_array(info->cmd[i].cmd);
@@ -42,12 +40,7 @@ void	free_all(t_data *info)
 
 void	update_env(t_data *info)
 {
-	// int i = 0;
-	// info->env =;
-	// printf("Updating \n");
-	// print_envv(&info->envv, 0);
 	info->env = convert_env_list_to_str(&info->envv);
-	// free_2d_array(str);
 }
 
 void	end_free(char *input, t_data *info)
@@ -69,7 +62,7 @@ void	end_free(char *input, t_data *info)
 /*
 mallocs the data struct to safe some lines
 */
-int		malloc_struct(t_data **info)
+int	malloc_struct(t_data **info)
 {
 	*info = malloc(sizeof(t_data));
 	if (!*info)
@@ -82,7 +75,7 @@ int		malloc_struct(t_data **info)
 @param argv arguments as array
 @param envv enviromental variables as array \
 */
-int		main(int argc, char **argv, char **envv)
+int	main(int argc, char **argv, char **envv)
 {
 	t_data	*info;
 	char	*input;
@@ -105,7 +98,7 @@ int		main(int argc, char **argv, char **envv)
 		if (input[0] == '\0')
 			continue ;
 		add_history(input);
-		input = handle_input(info, input, envv);
+		input = handle_input(info, input);
 		if (!input)
 			break ;
 		free_2d_array(info->env);
@@ -115,6 +108,7 @@ int		main(int argc, char **argv, char **envv)
 		free_all(info);
 		cmd_counter++;
 	}
-	// end_free(input, info);
 	return (0);
 }
+
+	// end_free(input, info);
