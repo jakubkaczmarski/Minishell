@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 20:05:00 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 23:50:40 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	put_proper_in_fd(t_data *info, int fd)
 			if (access(&info->cmd->in[i][2], F_OK) != 0)
 			{
 				info->ret_val = 127;
-				write (2, "No file to read from", 21);
+				write (2, "No file to read from\n", 22);
 				break ;
 			}
 		}
@@ -40,7 +40,6 @@ int	put_proper_in_fd(t_data *info, int fd)
 int	put_proper_out_fd(t_data *info, int out_fd)
 {
 	int	i;
-
 	i = 0;
 	while (info->cmd[info->index].out[i + 1] != NULL)
 	{
