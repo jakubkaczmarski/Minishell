@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 19:30:27 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:53:00 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ void	free_all(t_data *info)
 	free_2d_array(info->cmd[i].in);
 	free_2d_array(info->cmd[i].out);
 	free(info->cmd);
-}
-
-void	update_env(t_data *info)
-{
-	info->env = convert_env_list_to_str(&info->envv);
 }
 
 void	end_free(char *input, t_data *info)
@@ -79,17 +74,13 @@ int	main(int argc, char **argv, char **envv)
 {
 	t_data	*info;
 	char	*input;
-	int		cmd_counter;
 
 	if (argc != 1 || !argv[0])
 		return (input_error());
-	if (malloc_struct(&info))
-		return (1);
-	if (copy_envv(&(info->envv), envv))
+	if (malloc_struct(&info) || copy_envv(&(info->envv), envv))
 		return (1);
 	handle_sigs_interactive();
-	update_env(info);
-	cmd_counter = 0;
+	info->env = convert_env_list_to_str(&info->envv);
 	while (1)
 	{
 		input = readline("minishell🦖>");
@@ -99,14 +90,11 @@ int	main(int argc, char **argv, char **envv)
 			continue ;
 		add_history(input);
 		input = handle_input(info, input);
-		if (!input)
-			break ;
 		free_2d_array(info->env);
-		update_env(info);
+		info->env = convert_env_list_to_str(&info->envv);
 		free(input);
 		exec_stuff(info);
 		free_all(info);
-		cmd_counter++;
 	}
 	return (0);
 }
