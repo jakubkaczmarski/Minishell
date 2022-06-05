@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 00:53:14 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 15:48:47 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	handle_red_t(t_data *info, char **temp, int j, char *joined, int i)
 		info->cmd[i].out = add_after_string(info->cmd[i].out,
 				joined);
 	}
+
 }
 
 void	handle_red_p(t_data *info, char **temp, int j, char *joined, int i)
@@ -106,6 +107,7 @@ void	handle_struct(t_data *info)
 	{
 		temp = ft_split(info->cmd_table[i], ' ');
 		alloc_mem_for_info(&info->cmd[i]);
+		print_2d_array(temp, 2);
 		argum = 1;
 		j = 0;
 		while (temp[j])
@@ -124,19 +126,19 @@ void	handle_struct(t_data *info)
 			{
 				if (info->amount_cmd == 0 || (argum == 1 && (find_if_cmd_exist(temp[j],info) == 1)))
 					info->amount_cmd++;
+				printf("Temp thingy command %s", temp[j]);
 				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
 				argum = 0;
 			}
 			j++;
 		}
-		free(temp);
-		// printf("Command amount %d\n", info->amount_cmd);
-		// printf("Printing in\n");
-		// print_2d_array(info->cmd[i].in, 1);
-		// printf("\nPrinting cmd\n");
-		// print_2d_array(info->cmd[i].cmd, 1);
-		// printf("\nPrinting out\n");
-		// print_2d_array(info->cmd[i].out, 1);
+		printf("Command amount %d\n", info->amount_cmd);
+		printf("Printing in\n");
+		print_2d_array(info->cmd[i].in, 1);
+		printf("\nPrinting cmd\n");
+		print_2d_array(info->cmd[i].cmd, 1);
+		printf("\nPrinting out\n");
+		print_2d_array(info->cmd[i].out, 1);
 		i++;
 	}
 	alloc_mem_for_info(&info->cmd[i]);
