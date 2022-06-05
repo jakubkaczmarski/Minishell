@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 00:00:14 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 00:20:09 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ int	put_proper_in_fd(t_data *info, int fd)
 	i = 0;
 	if (fd != STDIN_FILENO && fd > 0)
 		close(fd);
-	while (info->cmd[info->index].in[i + 1])
+	while (info->cmd[info->index].in[i + 1] != NULL)
 	{
 		if (info->cmd[info->index].in[i][1] == '<')
-			fake_here_doc(info->cmd[info->index].in[i]);
+		{
+			fake_here_doc(&info->cmd[info->index].in[i][2]);
+		}
 		else
 		{
 			if (access(&info->cmd->in[i][2], F_OK) != 0)

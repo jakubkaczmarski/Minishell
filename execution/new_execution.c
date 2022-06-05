@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 23:31:39 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 00:20:35 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,19 +114,10 @@ int	exec_stuff(t_data *info)
 
 	fd = STDIN_FILENO;
 	info->index = 0;
-	if (info->amount_cmd == 0 && info->cmd[info->index].in[0])
-	{
-		if (info->cmd[info->index].in[0][1] == '<')
-			fake_here_doc(&info->cmd[info->index].in[0][2]);
-		else
-		{
-			if (access(&info->cmd->in[0][2], F_OK) != 0)
-			{
-				info->ret_val = 127;
-				write(2, "No file to read from\n", 21);
-			}
-		}
-	}
+	if ( info->amount_cmd == 0 && info->cmd[info->index].in[0])
+		put_proper_in_fd(info, 2);
+	if ( info->amount_cmd == 0 && info->cmd[info->index].out[0])
+		put_proper_out_fd(info, 2);
 	while (info->index < info->amount_cmd)
 	{
 		fd = exec_prep_thingys(info, fd, STDOUT_FILENO);
@@ -136,3 +127,19 @@ int	exec_stuff(t_data *info)
 	}
 	return (0);
 }
+
+
+			// if (info->cmd[info->index].in[0][1] == '<')
+			// {
+			// 	perror("Zium\n");
+			// 	fake_here_doc(&info->cmd[info->index].in[0][2]);
+			// }
+			// else
+			// {
+			// 	if (access(&info->cmd->in[0][2], F_OK) != 0)
+			// 	{
+			// 		info->ret_val = 127;
+			// 		write(2, "No file to read from\n", 21);
+			// 	}
+			// }
+			// i++;
