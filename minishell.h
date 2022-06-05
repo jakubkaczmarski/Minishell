@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 19:39:36 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:57:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,4 +183,7 @@ char			**add_env(char **env);
 void			free_2d_array(char **arr);
 void			free_all(t_data *info);
 void			clear_before_ex(t_data *info, int i);
+int					no_path_handling(t_data *info, int fd, int out_fd);
+int				check_for_build_child_build_ins(t_data *info);
+int				non_fork_buid_ins(t_data *info);
 #endif

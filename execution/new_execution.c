@@ -6,37 +6,11 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 19:33:12 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:58:40 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	non_fork_buid_ins(t_data *info)
-{
-	if (!ft_strncmp(info->cmd[info->index].cmd[0], "cd", 2))
-	{
-		cd(info);
-		return (1);
-	}
-	if (!ft_strncmp(info->cmd[info->index].cmd[0], "exit", 4))
-	{
-		exit_program(info);
-		return (1);
-	}
-	else if (!ft_strncmp(info->cmd[info->index].cmd[0], "export", 6))
-	{
-		export_handler(info, 0);
-		return (1);
-	}
-	else if (!ft_strncmp(info->cmd[info->index].cmd[0], "unset", 5))
-	{
-		unset_handler(info, 0);
-		return (1);
-	}
-	else
-		return (0);
-}
 
 int	fork_and_exec(t_data *info, int fd, int out_fd)
 {
@@ -121,18 +95,7 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 	info->cmd[info->index].command_path = cmd_exists(info);
 	free(info->cmd[info->index].gen_path);
 	if (!info->cmd[info->index].command_path)
-	{
-		if (non_fork_buid_ins(info) == 1)
-			return (STDIN_FILENO);
-		if (check_for_build_child_build_ins(info) == 0)
-		{
-			close(fd);
-			close(out_fd);
-			write(2, "Command is wrong\n", 19);
-			info->ret_val = 1;
-			return (STDIN_FILENO);
-		}
-	}
+		return (no_path_handling(info, fd, out_fd));
 	else if (ft_strncmp(info->cmd[info->index].cmd[0], "cd", 2) == 0)
 	{
 		cd(info);

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/30 22:22:28 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:58:26 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,45 @@ int	get_out(t_data *info, int i, int *out_fd)
 		close(*out_fd);
 	}
 	return (0);
+}
+
+int	no_path_handling(t_data *info, int fd, int out_fd)
+{
+	if (non_fork_buid_ins(info) == 1)
+		return (STDIN_FILENO);
+	if (check_for_build_child_build_ins(info) == 0)
+	{
+		close(fd);
+		close(out_fd);
+		write(2, "Command is wrong\n", 19);
+		info->ret_val = 1;
+		return (STDIN_FILENO);
+	}
+	return (0);
+}
+
+int	non_fork_buid_ins(t_data *info)
+{
+	if (!ft_strncmp(info->cmd[info->index].cmd[0], "cd", 2))
+	{
+		cd(info);
+		return (1);
+	}
+	if (!ft_strncmp(info->cmd[info->index].cmd[0], "exit", 4))
+	{
+		exit_program(info);
+		return (1);
+	}
+	else if (!ft_strncmp(info->cmd[info->index].cmd[0], "export", 6))
+	{
+		export_handler(info, 0);
+		return (1);
+	}
+	else if (!ft_strncmp(info->cmd[info->index].cmd[0], "unset", 5))
+	{
+		unset_handler(info, 0);
+		return (1);
+	}
+	else
+		return (0);
 }

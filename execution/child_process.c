@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 19:35:58 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 20:00:24 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	put_proper_in_fd(t_data *info, int fd)
 				break ;
 			}
 			else
-			{
 				i++;
-				continue ;
-			}
 		}
 		i++;
 	}
@@ -95,9 +92,7 @@ int	child_process_in(t_data *info, int fd, int *pipe_1)
 	{
 		check = dup2(pipe_1[0], STDIN_FILENO);
 		if (check < 0)
-		{
 			exit(1);
-		}
 		return (pipe_1[0]);
 	}
 	return (check);
