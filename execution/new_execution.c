@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 19:58:40 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 23:31:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	fork_and_exec(t_data *info, int fd, int out_fd)
 	info->ret_val = status;
 	if (status > 255)
 		info->ret_val = status / 256;
-	// handle_child_signals();
+	// handle_child_signals();/
 	close(pipe_1[1]);
 	if (fd > 2)
 		close(fd);
@@ -93,6 +93,7 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 	}
 	info->cmd[info->index].gen_path = get_path(info->env);
 	info->cmd[info->index].command_path = cmd_exists(info);
+	// printf("Path of cmd %s", info->cmd[info->index].command_path);
 	free(info->cmd[info->index].gen_path);
 	if (!info->cmd[info->index].command_path)
 		return (no_path_handling(info, fd, out_fd));
