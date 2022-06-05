@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:35:13 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/04 23:57:06 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 16:50:28 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	exit_program(t_data *info)
 	delete_list(&info->envv);
 
 	free_all(info);
-	free(info);
+	// free(info);
 	// free(info->envv);=
 	if (!info->cmd[info->index].cmd[i + 1])
 	{
