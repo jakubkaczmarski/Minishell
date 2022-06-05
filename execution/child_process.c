@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 23:50:40 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 00:00:14 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@ int	put_proper_out_fd(t_data *info, int out_fd)
 		if (info->cmd[info->index].out[i][1] == '>')
 		{
 			if (get_out(info, i, &out_fd) == 0)
+			{
+				i++;
 				continue ;
+			}
 		}
 		else
 		{
-			out_fd = open(&info->cmd->out[i][2], O_WRONLY | O_CREAT, 0777);
+			out_fd = open(&info->cmd->out[i][2], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 			if (out_fd < 0)
 			{
 				write_err(info);

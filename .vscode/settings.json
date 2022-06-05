@@ -4,6 +4,7 @@
         "minishell.h": "c",
         "chrono": "c",
         "__locale": "c",
-        "ios": "c"
+        "ios": "c",
+        "ostream": "c"
     }
 }
