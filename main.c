@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 18:13:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:04:25 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	free_all(t_data *info)
 	// 	free(info->cmd_table[counter++]);
 	while (info->cmd[i].cmd[j])
 	{
-		perror("Zium\n");
 		free_2d_array(info->cmd[i].cmd);
 		free_2d_array(info->cmd[i].in);
 		free_2d_array(info->cmd[i].out);
@@ -110,10 +109,10 @@ int		main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);
 		if (!input)
 			break ;
-
 		free_2d_array(info->env);
 		update_env(info);
 		free(input);
+	
 		exec_stuff(info);
 		free_all(info);
 		cmd_counter++;

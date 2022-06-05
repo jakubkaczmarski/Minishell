@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 18:15:05 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:07:54 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	handle_struct(t_data *info)
 	j = 0;
 	info->amount_cmd = 0;
 	argum = 0;
-	info->cmd = ft_calloc(sizeof(t_cmd), 30);
+	info->cmd = ft_calloc(sizeof(t_cmd*), 30);
 	while (info->cmd_table[i])
 	{
 		temp = ft_split(info->cmd_table[i], ' ');
@@ -127,11 +127,13 @@ void	handle_struct(t_data *info)
 			{
 				if (info->amount_cmd == 0 || (argum == 1 && (find_if_cmd_exist(temp[j],info) == 1)))
 					info->amount_cmd++;
+			
 				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
 				argum = 0;
 			}
 			j++;
 		}
+
 			free_2d_array(temp);
 			// if(temp)
 			// {
@@ -148,6 +150,8 @@ void	handle_struct(t_data *info)
 		i++;
 
 	}
+				ft_putstr_fd("Printing array thingy\n", 1 );
+			print_2d_array(info->cmd[0].cmd, 1);
 	alloc_mem_for_info(&info->cmd[i]);
-	i++;
+
 }

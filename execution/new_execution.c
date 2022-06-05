@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 17:57:25 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:28:33 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 		info->ret_val = 1;
 		return (1);
 	}
-
 	return (fork_and_exec(info, fd, out_fd));
 }
 
