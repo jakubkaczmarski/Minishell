@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:08:41 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/04 20:33:01 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:06:58 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	copy_envv(t_list **l_envv, char **envv)
 	t_list	*s;
 	t_list	*tmp;
 	int		i;
-
-	*l_envv = malloc(sizeof(char *));
 	i = 1;
 	if (envv)
 	{

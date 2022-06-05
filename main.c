@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 17:57:01 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:08:20 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int malloc_struct(t_data **info)
 int		main(int argc, char **argv, char **envv)
 {
 	t_data	*info;
-	char	*input;
+	// char	*input;
 	// int		counter;
 
 	if (argc != 1 || !argv[0])
@@ -96,39 +96,42 @@ int		main(int argc, char **argv, char **envv)
 		return (1);
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-
+		free_2d_array(info->env);
+		delete_list(&info->envv);
+			free(info);
+	return 0;
 	handle_sigs_interactive();
 	update_env(info);
-	int cmd_counter = 0;
-	while (1)
-	{
-		input = readline("minishell🦖>");
-		if (!input)
-			break ;
+	// int cmd_counter = 0;
+	// while (1)
+	// {
+	// 	input = readline("minishell🦖>");
+	// 	if (!input)
+	// 		break ;
 		 
-		if (input[0] == '\0')
-			continue ;	
-		add_history(input);
-		input = handle_input(info, input, envv);
-		if (!input)
-			break ;
+	// 	if (input[0] == '\0')
+	// 		continue ;	
+	// 	add_history(input);
+	// 	input = handle_input(info, input, envv);
+	// 	if (!input)
+	// 		break ;
 
 		free_2d_array(info->env);
-		update_env(info);
-		if(ft_strncmp(input, "exit",4 ) == 0)
-		{
-			free(input);
-			free_2d_array(info->env);
+	// 	update_env(info);
+	// 	if(ft_strncmp(input, "exit",4 ) == 0)
+	// 	{
+	// 		free(input);
+	// 		free_2d_array(info->env);
 			delete_list(&info->envv);
-			free_all(info);
+	// 		free_all(info);
 			free(info);
-			return 0;
-		}
-		free(input);
-		exec_stuff(info);
-		free_all(info);
-		cmd_counter++;
-	}
-	end_free(input, info);
+	// 		return 0;
+	// 	}
+	// 	free(input);
+	// 	exec_stuff(info);
+	// 	free_all(info);
+	// 	cmd_counter++;
+	// }
+	// end_free(input, info);
 	return (0);
 }

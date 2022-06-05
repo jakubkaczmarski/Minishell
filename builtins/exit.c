@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:35:13 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 16:51:57 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:08:31 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void delete_list(t_list **list)
 		free(temp);
 		temp = next;
 	}
+	free(temp);
 	*list = NULL;
 }
 

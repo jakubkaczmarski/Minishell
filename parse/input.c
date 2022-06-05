@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 17:59:27 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 17:59:45 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ char	*handle_input(t_data *info, char *input, char **envv)
 	input = cmd_table_handler(info, input);
 	// print_2d_array(info->env, 1);
 	crop_redir(info);
-
 	handle_struct(info);
 	free_2d_array(info->cmd_table);
 	return (input);
