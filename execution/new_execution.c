@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 01:25:54 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 01:28:57 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 		close(out_fd);
 		return (-1);
 	}
-
 	info->cmd[info->index].gen_path = get_path(info->env);
 	info->cmd[info->index].command_path = cmd_exists(info);
 	free(info->cmd[info->index].gen_path);
@@ -105,22 +104,23 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 		info->ret_val = 1;
 		return (1);
 	}
-
 	return (fork_and_exec(info, fd, out_fd));
 }
 
 int	exec_stuff(t_data *info)
 {
 	int	fd;
+
 	fd = STDIN_FILENO;
 	info->index = 0;
 	info->size = 0;
-	if ( !info->cmd[info->index].cmd[0] && info->cmd[info->index].in[0])
+	if (!info->cmd[info->index].cmd[0] && info->cmd[info->index].in[0])
 	{
 		info->size++;
 		info->amount_cmd++;
 		put_proper_in_fd(info, 2);
-	}else if (  !info->cmd[info->index].cmd[0] && info->cmd[info->index].out[0])
+	}
+	else if (!info->cmd[info->index].cmd[0] && info->cmd[info->index].out[0])
 	{
 		put_proper_out_fd(info, 2);
 		info->size++;
@@ -129,7 +129,6 @@ int	exec_stuff(t_data *info)
 	info->index += info->size;
 	while (info->index < info->amount_cmd && info->cmd[info->index].cmd[0])
 	{
-		// printf("\n\n\n");
 		fd = exec_prep_thingys(info, fd, STDOUT_FILENO);
 		if (info->cmd[info->index].command_path)
 			free(info->cmd[info->index].command_path);
@@ -138,18 +137,17 @@ int	exec_stuff(t_data *info)
 	return (0);
 }
 
-
-			// if (info->cmd[info->index].in[0][1] == '<')
-			// {
-			// 	perror("Zium\n");
-			// 	fake_here_doc(&info->cmd[info->index].in[0][2]);
-			// }
-			// else
-			// {
-			// 	if (access(&info->cmd->in[0][2], F_OK) != 0)
-			// 	{
-			// 		info->ret_val = 127;
-			// 		write(2, "No file to read from\n", 21);
-			// 	}
-			// }
-			// i++;
+// if (info->cmd[info->index].in[0][1] == '<')
+// {
+// 	perror("Zium\n");
+// 	fake_here_doc(&info->cmd[info->index].in[0][2]);
+// }
+// else
+// {
+// 	if (access(&info->cmd->in[0][2], F_OK) != 0)
+// 	{
+// 		info->ret_val = 127;
+// 		write(2, "No file to read from\n", 21);
+// 	}
+// }
+// i++;

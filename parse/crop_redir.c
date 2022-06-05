@@ -6,15 +6,14 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:35:54 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 20:12:04 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 01:27:13 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // void	prep_redirection(t_data *info, int index, int i char c)
-// {
-	
+// {	
 // }
 int	replace_line(t_data *info, int index, char c)
 {
