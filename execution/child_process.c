@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 20:00:24 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 20:05:00 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	put_proper_in_fd(t_data *info, int fd)
 				write (2, "No file to read from", 21);
 				break ;
 			}
-			else
-				i++;
 		}
 		i++;
 	}
@@ -60,11 +58,7 @@ int	put_proper_out_fd(t_data *info, int out_fd)
 				break ;
 			}
 			else
-			{
 				close(out_fd);
-				i++;
-				continue ;
-			}
 		}
 		i++;
 	}

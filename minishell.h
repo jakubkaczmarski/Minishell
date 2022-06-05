@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 20:01:01 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 20:02:59 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,4 +186,5 @@ void			clear_before_ex(t_data *info, int i);
 int				no_path_handling(t_data *info, int fd, int out_fd);
 int				check_for_build_child_build_ins(t_data *info);
 int				non_fork_buid_ins(t_data *info);
+void			exit_check(t_data *info, int i);
 #endif
