@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:56:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/05/31 15:32:07 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:38:17 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	cd(t_data *info)
 {
 	char	*home;
 	int		ret;
+
 	if (!info->cmd[info->index].cmd[0])
 		return ;
 	home = find_home(info);
@@ -41,12 +42,9 @@ void	cd(t_data *info)
 		{
 			perror("Path name doesn't exist\n");
 		}
-		// printf("%s\n", getcwd(arr, 4000));
 	}
 	else
 	{
-		// printf("Path %s\n", home);
 		chdir(home);
-		// printf("%s\n", getcwd(arr, 4000));
 	}
 }

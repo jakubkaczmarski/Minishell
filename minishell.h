@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 19:22:46 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:39:36 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <string.h>
 # include <unistd.h>
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	char		**in;
 	char		**out;
@@ -33,7 +33,7 @@ typedef struct	s_cmd
 }				t_cmd;
 
 // main-struct
-typedef struct	s_data
+typedef struct s_data
 {
 	char		**cmd_table;
 	t_list		*envv;
@@ -47,7 +47,7 @@ typedef struct	s_data
 	char		**command_and_param;
 	int			ret_val;
 }				t_data;
-typedef struct	s_count_el
+typedef struct s_count_el
 {
 	char		**redirect_arr;
 	t_cmd		*cmd_arr;
@@ -123,7 +123,8 @@ void			indexing(t_list *envv);
 // unset.c
 void			unset_handler(t_data *info, int index);
 void			remove_in_envv(t_list **envv, char *var);
-int				replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr);
+int				replace_value_in_env(char **var_val, char *var,
+					t_list *tmp, t_list *curr);
 void			handle_struct(t_data *info);
 // echo.c
 void			ft_echo(t_data *info);

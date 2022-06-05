@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 18:28:33 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:33:12 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	prep_manag(t_data *info, int *fd, int *out_fd)
 	}
 	return (0);
 }
+
 int	check_for_build_child_build_ins(t_data *info)
 {
 	if (info->cmd[info->index].cmd[0])
@@ -105,6 +106,7 @@ int	check_for_build_child_build_ins(t_data *info)
 	}
 	return (0);
 }
+
 int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 {
 	if (prep_manag(info, &fd, &out_fd) != 0)

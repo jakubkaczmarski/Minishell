@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/01 13:25:30 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/05 19:37:18 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,16 @@ void	export_in_envv(t_list **envv, char *var_val)
 		return ;
 	while (tmp != NULL)
 	{
-		
 		if (!ft_strncmp(
 				tmp->content, element->content,
 				ft_strint(element->content, '=')) \
-				 && ft_strint(element->content, '=') == ft_strint(
+				&& ft_strint(element->content, '=') == ft_strint(
 				tmp->content, '='))
 		{
 			if (!tmp->content)
 				free(tmp->content);
-			tmp->content = ft_calloc(sizeof(char *), ft_strlen(element->content));
+			tmp->content
+				= ft_calloc(sizeof(char *), ft_strlen(element->content));
 			ft_copy(tmp->content, element->content, 0);
 			free(element);
 			return ;
@@ -111,7 +111,6 @@ void	export_handler(t_data *info, int index)
 
 	index = 1;
 	i = 0;
-	//print_2d_array(convert_env_list_to_str(&info->envv), 1);
 	while (info->cmd[info->index].cmd[index])
 	{
 		while (info->cmd[info->index].cmd[index][i] != '\0')
