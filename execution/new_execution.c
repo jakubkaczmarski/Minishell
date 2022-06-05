@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 00:20:35 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 01:25:17 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	fork_and_exec(t_data *info, int fd, int out_fd)
 
 int	prep_manag(t_data *info, int *fd, int *out_fd)
 {
-	if (!info->cmd[info->index].in[0] && info->index == 0)
+	if (!info->cmd[info->index].in[0] && info->index - info->size == 0)
 		*fd = -1;
 	else if (info->cmd[info->index].in[0])
 	{
@@ -49,7 +49,7 @@ int	prep_manag(t_data *info, int *fd, int *out_fd)
 		else if (*fd == 127)
 			return (-1);
 	}
-	if (!info->cmd[info->index].out[0] && info->index == 0)
+	if (!info->cmd[info->index].out[0] && info->index - info->size == 0)
 		*out_fd = -1;
 	else if (info->cmd[info->index].out[0])
 	{
@@ -91,6 +91,7 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 		close(out_fd);
 		return (-1);
 	}
+
 	info->cmd[info->index].gen_path = get_path(info->env);
 	info->cmd[info->index].command_path = cmd_exists(info);
 	// printf("Path of cmd %s", info->cmd[info->index].command_path);
@@ -105,21 +106,31 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 		info->ret_val = 1;
 		return (1);
 	}
+
 	return (fork_and_exec(info, fd, out_fd));
 }
 
 int	exec_stuff(t_data *info)
 {
 	int	fd;
-
 	fd = STDIN_FILENO;
 	info->index = 0;
-	if ( info->amount_cmd == 0 && info->cmd[info->index].in[0])
-		put_proper_in_fd(info, 2);
-	if ( info->amount_cmd == 0 && info->cmd[info->index].out[0])
-		put_proper_out_fd(info, 2);
-	while (info->index < info->amount_cmd)
+	info->size = 0;
+	if ( !info->cmd[info->index].cmd[0] && info->cmd[info->index].in[0])
 	{
+		info->size++;
+		info->amount_cmd++;
+		put_proper_in_fd(info, 2);
+	}else if (  !info->cmd[info->index].cmd[0] && info->cmd[info->index].out[0])
+	{
+		put_proper_out_fd(info, 2);
+		info->size++;
+		info->amount_cmd++;
+	}
+	info->index += info->size;
+	while (info->index < info->amount_cmd && info->cmd[info->index].cmd[0])
+	{
+		// printf("\n\n\n");
 		fd = exec_prep_thingys(info, fd, STDOUT_FILENO);
 		if (info->cmd[info->index].command_path)
 			free(info->cmd[info->index].command_path);

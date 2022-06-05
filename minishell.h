@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 20:09:31 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 01:12:05 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 	char		**env;
 	char		**command_and_param;
 	int			ret_val;
+	int			size;
 }				t_data;
 typedef struct s_count_el
 {

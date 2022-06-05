@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 00:20:45 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 01:24:15 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,14 @@ int	get_the_real_one_out(t_data *info, int out_fd, int i)
 	if (info->cmd[info->index].out[i]
 		&& info->cmd[info->index].out[i][1] == '>')
 	{
-		out_fd = open(&info->cmd->out[i][2], O_WRONLY
+		out_fd = open(&info->cmd[info->index].out[i][2], O_WRONLY
 				| O_CREAT | O_APPEND, 0777);
 		return (out_fd);
 	}
 	else
-		out_fd = open(&info->cmd->out[i][2], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	{
+		out_fd = open(&info->cmd[info->index].out[i][2], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	}
 	if (out_fd < 0)
 	{
 		write(2, "No file to read from\n", 21);
