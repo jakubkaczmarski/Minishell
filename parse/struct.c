@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 16:00:19 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 17:47:20 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_cmd	*alloc_mem_for_info(t_cmd *cmd)
 {
-	cmd->out = ft_calloc(sizeof(char *), 4);
-	cmd->in = ft_calloc(sizeof(char *), 4);
-	cmd->cmd = ft_calloc(sizeof(char *), 4);
+	cmd->out = ft_calloc(sizeof(char **), 5);
+	cmd->in = ft_calloc(sizeof(char **), 5);
+	cmd->cmd = ft_calloc(sizeof(char **), 5);
 	return (cmd);
 }
 
@@ -129,7 +129,7 @@ void	handle_struct(t_data *info)
 				argum = 0;
 			}
 			j++;
-			}
+		}
 			free_2d_array(temp);
 			// if(temp)
 			// {

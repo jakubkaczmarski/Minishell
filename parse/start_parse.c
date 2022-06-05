@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:08:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 16:00:55 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 17:37:03 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	**add_after_string(char **arr, char *new_el)
 		temp[i] = arr[i];
 		i++;
 	}
+	free_2d_array(arr);
 	temp[i] = ft_strdup(new_el);
 	return (temp);
 }

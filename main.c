@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 00:44:15 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 17:57:01 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,18 @@ void	free_all(t_data *info)
 	j = 0;
 	// while (info->cmd_table[counter])
 	// 	free(info->cmd_table[counter++]);
-	while (i < info->amount_cmd)
+	while (info->cmd[i].cmd[j])
 	{
-		while (info->cmd[i].cmd[j])
-		{
-			free(info->cmd[i].cmd[j]);
-			j++;
-		}
-		j = 0;
-		while (info->cmd[i].in[j])
-		{
-			free(info->cmd[i].in[j]);
-			j++;
-		}
-		j = 0;
-		while (info->cmd[i].out[j])
-		{
-			free(info->cmd[i].out[j]);
-			j++;
-		}
+		perror("Zium\n");
+		free_2d_array(info->cmd[i].cmd);
+		free_2d_array(info->cmd[i].in);
+		free_2d_array(info->cmd[i].out);
 		i++;
 	}
+	free_2d_array(info->cmd[i].cmd);
+	free_2d_array(info->cmd[i].in);
+	free_2d_array(info->cmd[i].out);
+	free(info->cmd);
 
 }
 
@@ -121,9 +112,19 @@ int		main(int argc, char **argv, char **envv)
 		input = handle_input(info, input, envv);
 		if (!input)
 			break ;
-		free(input);
+
 		free_2d_array(info->env);
 		update_env(info);
+		if(ft_strncmp(input, "exit",4 ) == 0)
+		{
+			free(input);
+			free_2d_array(info->env);
+			delete_list(&info->envv);
+			free_all(info);
+			free(info);
+			return 0;
+		}
+		free(input);
 		exec_stuff(info);
 		free_all(info);
 		cmd_counter++;
