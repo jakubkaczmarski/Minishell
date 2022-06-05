@@ -15,19 +15,20 @@
 char	*cmd_exists(t_data *info)
 {
 	int		i;
-	i = 0;
 	char	**splitted_path;
 	char	*full_cmd_path;
-	if(!info->cmd[info->index].gen_path)
+
+	i = 0;
+	if (!info->cmd[info->index].gen_path)
 	{
-		return NULL;
+		return (NULL);
 	}
 	splitted_path = ft_split(info->cmd[info->index].gen_path, ':');
 	i = 0;
 	while (splitted_path[i])
 	{
 		full_cmd_path = check_for_cmd_in_path(splitted_path[i],
-				info->cmd[info->index].cmd[0]);
+												info->cmd[info->index].cmd[0]);
 		if (full_cmd_path)
 		{
 			free_2d_array(splitted_path);
@@ -45,14 +46,13 @@ char	*get_path(char **envv)
 	char	*line;
 
 	i = 0;
-
 	while (envv[i])
 	{
 		if (ft_strncmp(envv[i], "PATH=", 5) == 0)
 		{
 			line = envv[i];
 			line = ft_strtrim(line, "PATH=");
-			return line;
+			return (line);
 		}
 		i++;
 	}

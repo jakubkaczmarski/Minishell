@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-int	check_if_only_nums(char *str)
+int		check_if_only_nums(char *str)
 {
 	int	i;
 
@@ -30,11 +30,14 @@ int	check_if_only_nums(char *str)
 	return (1);
 }
 
-void delete_list(t_list **list)
+void	delete_list(t_list **list)
 {
-	t_list *temp = *list;
-	t_list* next = NULL;
-	while(temp->next != NULL)
+	t_list	*temp;
+	t_list	*next;
+
+	temp = *list;
+	next = NULL;
+	while (temp->next != NULL)
 	{
 		next = temp->next;
 		free(temp);
@@ -45,11 +48,11 @@ void delete_list(t_list **list)
 }
 void	clear_before_ex(t_data *info, int i)
 {
-		free_2d_array(info->env);
-		if(i == 1)
-			delete_list(&info->envv);
-		free_all(info);
-		free(info);
+	free_2d_array(info->env);
+	if (i == 1)
+		delete_list(&info->envv);
+	free_all(info);
+	free(info);
 }
 void	exit_program(t_data *info)
 {
@@ -79,6 +82,6 @@ void	exit_program(t_data *info)
 			clear_before_ex(info, 1);
 			perror("Non numerical arguments");
 			exit(1);
-		}	
+		}
 	}
 }

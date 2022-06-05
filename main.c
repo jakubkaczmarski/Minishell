@@ -38,7 +38,6 @@ void	free_all(t_data *info)
 	free_2d_array(info->cmd[i].in);
 	free_2d_array(info->cmd[i].out);
 	free(info->cmd);
-
 }
 
 void	update_env(t_data *info)
@@ -47,7 +46,7 @@ void	update_env(t_data *info)
 	// info->env =;
 	// printf("Updating \n");
 	// print_envv(&info->envv, 0);
-	info->env =  convert_env_list_to_str(&info->envv);
+	info->env = convert_env_list_to_str(&info->envv);
 	// free_2d_array(str);
 }
 
@@ -68,9 +67,9 @@ void	end_free(char *input, t_data *info)
 }
 
 /*
-mallocs the data struct to safe some lines 
+mallocs the data struct to safe some lines
 */
-int malloc_struct(t_data **info)
+int		malloc_struct(t_data **info)
 {
 	*info = malloc(sizeof(t_data));
 	if (!*info)
@@ -87,6 +86,7 @@ int		main(int argc, char **argv, char **envv)
 {
 	t_data	*info;
 	char	*input;
+	int		cmd_counter;
 
 	if (argc != 1 || !argv[0])
 		return (input_error());
@@ -96,15 +96,14 @@ int		main(int argc, char **argv, char **envv)
 		return (1);
 	handle_sigs_interactive();
 	update_env(info);
-	int cmd_counter = 0;
+	cmd_counter = 0;
 	while (1)
 	{
 		input = readline("minishell🦖>");
 		if (!input)
 			break ;
-		 
 		if (input[0] == '\0')
-			continue ;	
+			continue ;
 		add_history(input);
 		input = handle_input(info, input, envv);
 		if (!input)

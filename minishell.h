@@ -23,17 +23,17 @@
 # include <string.h>
 # include <unistd.h>
 
-typedef struct s_cmd
+typedef struct	s_cmd
 {
-	char	**in;
-	char	**out;
-	char	**cmd;
-	char	*command_path;
-	char	*gen_path;
+	char		**in;
+	char		**out;
+	char		**cmd;
+	char		*command_path;
+	char		*gen_path;
 }				t_cmd;
 
 // main-struct
-typedef struct s_data
+typedef struct	s_data
 {
 	char		**cmd_table;
 	t_list		*envv;
@@ -47,7 +47,7 @@ typedef struct s_data
 	char		**command_and_param;
 	int			ret_val;
 }				t_data;
-typedef struct s_count_el
+typedef struct	s_count_el
 {
 	char		**redirect_arr;
 	t_cmd		*cmd_arr;
@@ -73,7 +73,7 @@ char			*handle_input(t_data *info, char *input, char **env);
 char			*check_input(char *input, char **envv);
 char			*find_dollar(char *input);
 int				count_dollars(char *input);
-void		delete_list(t_list **list);
+void			delete_list(t_list **list);
 // input_utils.c
 int				ft_copy(char *dst, char *src, int len);
 char			*modify_input(char *input, char *value, int var_len);
@@ -123,8 +123,7 @@ void			indexing(t_list *envv);
 // unset.c
 void			unset_handler(t_data *info, int index);
 void			remove_in_envv(t_list **envv, char *var);
-int				replace_value_in_env(char **var_val,
-					char *var, t_list *tmp, t_list *curr);
+int				replace_value_in_env(char **var_val, char *var, t_list *tmp, t_list *curr);
 void			handle_struct(t_data *info);
 // echo.c
 void			ft_echo(t_data *info);
@@ -142,7 +141,7 @@ void			cd(t_data *info);
 // kuba
 
 // New exec
-char		*cmd_exists_inp(char *line, char *cmd);
+char			*cmd_exists_inp(char *line, char *cmd);
 void			fake_here_doc(char *line);
 int				real_here_doc(char *line);
 int				get_real_one(t_data *info, int i);
@@ -180,7 +179,7 @@ void			print_envv(t_list **envv, int flag);
 int				get_size_of_list(t_list **envv);
 char			**convert_env_list_to_str(t_list **envv);
 char			**add_env(char **env);
-void	free_2d_array(char **arr);
-void	free_all(t_data *info);
-void	clear_before_ex(t_data *info, int i);
+void			free_2d_array(char **arr);
+void			free_all(t_data *info);
+void			clear_before_ex(t_data *info, int i);
 #endif
