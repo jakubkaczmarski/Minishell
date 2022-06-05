@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 18:10:45 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:13:30 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,6 @@ int		main(int argc, char **argv, char **envv)
 		return (1);
 	if (copy_envv(&(info->envv), envv))
 		return (1);
-		// free_2d_array(info->env);
-		// delete_list(&info->envv);
-		// 	free(info);
 	handle_sigs_interactive();
 	update_env(info);
 	int cmd_counter = 0;

@@ -1,7 +1,8 @@
-ER=jkaczmar
 Libft
 Makefile
 README.md
+Siemanko.txt
+a.out
 builtins
 en.subject.pdf
 execution

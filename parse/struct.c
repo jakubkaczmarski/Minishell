@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 17:47:20 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:15:05 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	handle_red_t(t_data *info, char **temp, int j, char *joined, int i)
 		joined = ft_strjoin(">", temp[j]);
 		info->cmd[i].out = add_after_string(info->cmd[i].out,
 				joined);
+		free(joined);
 	}
 
 }
@@ -49,6 +50,7 @@ void	handle_red_p(t_data *info, char **temp, int j, char *joined, int i)
 		temp[j][0] = ' ';
 		joined = ft_strjoin("<", temp[j]);
 		info->cmd[i].in = add_after_string(info->cmd[i].in, joined);
+		free(joined);
 	}
 }
 

@@ -1,0 +1,14 @@
+Libft
+Makefile
+README.md
+Siemanko.txt
+a.out
+builtins
+en.subject.pdf
+execution
+main.c
+minishell
+minishell.dSYM
+minishell.h
+papiez.p
+parse
