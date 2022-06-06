@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/06 09:37:50 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/07 01:00:58 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,8 @@ void	export_in_envv(t_list **envv, char *var_val)
 	while (tmp != NULL)
 	{
 		if (!ft_strncmp(tmp->content, element->content,
-				ft_strint(element->content, '=')) \
-				&& ft_strint(element->content, '=') == ft_strint(
-				tmp->content, '='))
+				ft_strint(element->content, '=')) && ft_strint(
+				element->content, '=') == ft_strint (tmp->content, '='))
 		{
 			if (tmp->flag == -2)
 				free(tmp->content);
