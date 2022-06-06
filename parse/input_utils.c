@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 09:07:23 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/01 09:49:49 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/06 08:10:25 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*modify_input(char *input, char *value, int var_len)
 returns the value of the variable that is given in str.
 If none is found NULL gets returned
 */
-char	*return_envv_val(char **envv, char *str)
+char	*return_envv_val(t_list *envv, char *str)
 {
 	int		i;
 	int		counter;
@@ -86,17 +86,17 @@ char	*return_envv_val(char **envv, char *str)
 	value = NULL;
 	if (!*str)
 		return (NULL);
-	while (envv[i])
+	while (envv != NULL)
 	{
-		if (!ft_strncmp(envv[i], str, ft_strlen(str)))
+		if (!ft_strncmp(envv->content, str, ft_strlen(str)))
 		{
-			while (envv[i][counter] != '=')
+			while (envv->content[counter] != '=')
 				counter++;
-			value = ft_substr(envv[i], counter + 1,
-					ft_strlen(&envv[i][counter]));
+			value = ft_substr(envv->content, counter + 1,
+					ft_strlen(&envv->content[counter]));
 			return (value);
 		}
-		i++;
+		envv = envv->next;
 	}
 	return (NULL);
 }

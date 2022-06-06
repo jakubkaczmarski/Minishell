@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 07:46:08 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/06 08:09:02 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ void			print_envv(t_list **envv, int flag);
 //			parse
 // input.c
 char			*handle_input(t_data *info, char *input);
-char			*check_input(char *input, char **envv);
+char			*check_input(char *input, t_list *envv);
 char			*find_dollar(char *input);
 int				count_dollars(char *input);
 void			delete_list(t_list **list);
 // input_utils.c
 int				ft_copy(char *dst, char *src, int len);
 char			*modify_input(char *input, char *value, int var_len);
-char			*return_envv_val(char **envv, char *str);
+char			*return_envv_val(t_list *envv, char *str);
 char			*ft_crop_brackets(char *var);
 char			*get_value(char *var, int *counter);
 int				replace_line(t_data *info, int index, char c);

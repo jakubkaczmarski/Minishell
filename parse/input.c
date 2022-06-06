@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:11:12 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/06 01:26:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 08:08:07 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*find_dollar(char *input)
 /*
 is checking the input for $-sign and replaces the variable by the value
 */
-char	*check_input(char *input, char **envv)
+char	*check_input(char *input, t_list *envv)
 {
 	char	*var;
 	char	*value;
@@ -79,7 +79,7 @@ char	*handle_input(t_data *info, char *input)
 	amount_dollars = count_dollars(input);
 	while (amount_dollars-- > 0)
 	{
-		input = check_input(input, info->env);
+		input = check_input(input, info->envv);
 	}
 	input = quote_handler(input);
 	input = cmd_table_handler(info, input);
