@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 19:53:00 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 07:51:50 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@ void	free_all(t_data *info)
 
 	i = 0;
 	j = 0;
-	while (info->cmd[i].cmd[j])
+	if (info->cmd[i].cmd[j])
 	{
-		free_2d_array(info->cmd[i].cmd);
-		free_2d_array(info->cmd[i].in);
-		free_2d_array(info->cmd[i].out);
-		i++;
+		while (info->cmd[i].cmd[j])
+		{
+			free_2d_array(info->cmd[i].cmd);
+			free_2d_array(info->cmd[i].in);
+			free_2d_array(info->cmd[i].out);
+			i++;
+		}
 	}
 	free_2d_array(info->cmd[i].cmd);
 	free_2d_array(info->cmd[i].in);

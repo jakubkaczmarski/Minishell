@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:08:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/05 19:21:54 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 07:58:15 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ void	free_2d_array(char **arr)
 	i = 0;
 	if (arr)
 	{
-		while (arr[i] != NULL)
+		while (arr[i])
 		{
-			free(arr[i]);
+			if (ft_strlen(arr[i]) > 0)
+				free(arr[i]);
 			i++;
 		}
 	}

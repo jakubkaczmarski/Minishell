@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/05 20:03:34 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 07:49:14 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	export_handler(t_data *info, int index)
 		if (ft_isvalid(var_val))
 			return ;
 		export_in_envv(&(info->envv), var_val);
+		free(var_val);
 		i = 0;
 		index++;
 	}
