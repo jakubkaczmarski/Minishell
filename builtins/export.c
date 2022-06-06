@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:50 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/06 07:49:14 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/06 09:15:52 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,12 @@ void	export_in_envv(t_list **envv, char *var_val)
 				&& ft_strint(element->content, '=') == ft_strint(
 				tmp->content, '='))
 		{
-			if (!tmp->content)
+			if (tmp->index == -2)
 				free(tmp->content);
 			tmp->content
 				= ft_calloc(sizeof(char *), ft_strlen(element->content));
 			ft_copy(tmp->content, element->content, 0);
+			tmp->index = -2;
 			free(element);
 			return ;
 		}
