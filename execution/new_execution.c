@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 21:12:23 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 23:20:02 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,8 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 	free(info->cmd[info->index].gen_path);
 	if (!info->cmd[info->index].command_path)
 	{
-		int ret = (no_path_handling(info, fd, out_fd));
-		if(ret == 0)
-		{
-			close(fd);
-			close(out_fd);
-			return ret;
-		}
+		if (no_path_handling(info, fd, out_fd) == STDIN_FILENO)
+			return (STDIN_FILENO);
 	}
 	else if (ft_strncmp(info->cmd[info->index].cmd[0], "cd", 2) == 0)
 	{

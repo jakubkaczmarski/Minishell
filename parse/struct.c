@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/06 23:07:16 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 23:11:35 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ void	handle_struct(t_data *info)
 			else
 			{
 				if (info->amount_cmd == 0
-					|| ((argum == 1)
-						&& (find_if_cmd_exist(temp[container.j], info, container.i) == 1)))
+					|| ((argum == 1) && (find_if_cmd_exist(temp[container.j],
+								info, container.i) == 1)))
 					info->amount_cmd++;
 				info->cmd[container.i].cmd = add_after_string(
 						info->cmd[container.i].cmd, temp[container.j]);
@@ -130,7 +130,6 @@ void	handle_struct(t_data *info)
 	}
 	alloc_mem_for_info(&info->cmd[container.i]);
 }
-
 
 // printf("Printing in\n");
 // print_2d_array(info->cmd[container.i].in, 1);

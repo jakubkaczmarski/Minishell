@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:41:00 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 21:13:53 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 23:20:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,6 @@ void	run_child(t_data *info, int fd, int out_fd, int *pipe_1)
 		exit(-1);
 	if (builtin_handler(info) == 1)
 	{
-		// close(pipe_1[0]);
-		// close(pipe_1[1]);
 		exit(0);
 	}
 	else
