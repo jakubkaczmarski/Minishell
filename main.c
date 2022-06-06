@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/06 10:16:49 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/06 18:20:44 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,13 @@ int	main(int argc, char **argv, char **envv)
 		input = handle_input(info, input);
 		free_2d_array(info->env);
 		info->env = convert_env_list_to_str(&info->envv);
+		if(ft_strncmp(input, "exit" , 4)  == 0)
+		{
+			exit_program(info);
+			return 0;
+		}
 		free(input);
-		exec_stuff(info);
+		// exec_stuff(info);
 		free_all(info);
 	}
 	return (0);

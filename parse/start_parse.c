@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:08:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 18:00:13 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:26:15 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,12 @@ char	*cmd_exists_inp(char *line, char *cmd)
 		full_cmd_path = check_for_cmd_in_path(splitted_path[i],
 				cmd);
 		if (full_cmd_path)
+		{
+			free_2d_array(splitted_path);
 			return (full_cmd_path);
+		}
 		i++;
 	}
+	free_2d_array(splitted_path);
 	return (NULL);
 }
