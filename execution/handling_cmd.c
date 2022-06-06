@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 01:57:25 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 02:05:19 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,20 @@ int	non_fork_buid_ins(t_data *info)
 	}
 	else
 		return (0);
+}
+
+int	check_for_build_child_build_ins(t_data *info)
+{
+	if (info->cmd[info->index].cmd[0])
+	{
+		if (!ft_strncmp(info->cmd[info->index].cmd[0], "echo", 4))
+			return (1);
+		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "$?", 2))
+			return (1);
+		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "env", 3))
+			return (1);
+		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "pwd", 3))
+			return (1);
+	}
+	return (0);
 }

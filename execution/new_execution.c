@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 23:38:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 01:28:57 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 02:05:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	fork_and_exec(t_data *info, int fd, int out_fd)
 	info->ret_val = status;
 	if (status > 255)
 		info->ret_val = status / 256;
-	// handle_child_signals();/
 	close(pipe_1[1]);
 	if (fd > 2)
 		close(fd);
@@ -37,6 +36,7 @@ int	fork_and_exec(t_data *info, int fd, int out_fd)
 	return (pipe_1[0]);
 }
 
+// handle_child_signals();/
 int	prep_manag(t_data *info, int *fd, int *out_fd)
 {
 	if (!info->cmd[info->index].in[0] && info->index - info->size == 0)
@@ -61,22 +61,6 @@ int	prep_manag(t_data *info, int *fd, int *out_fd)
 		}
 		else if (*out_fd == 127)
 			return (-1);
-	}
-	return (0);
-}
-
-int	check_for_build_child_build_ins(t_data *info)
-{
-	if (info->cmd[info->index].cmd[0])
-	{
-		if (!ft_strncmp(info->cmd[info->index].cmd[0], "echo", 4))
-			return (1);
-		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "$?", 2))
-			return (1);
-		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "env", 3))
-			return (1);
-		else if (!ft_strncmp(info->cmd[info->index].cmd[0], "pwd", 3))
-			return (1);
 	}
 	return (0);
 }
@@ -107,13 +91,8 @@ int	exec_prep_thingys(t_data *info, int fd, int out_fd)
 	return (fork_and_exec(info, fd, out_fd));
 }
 
-int	exec_stuff(t_data *info)
+void	manage_for_in_out(t_data *info)
 {
-	int	fd;
-
-	fd = STDIN_FILENO;
-	info->index = 0;
-	info->size = 0;
 	if (!info->cmd[info->index].cmd[0] && info->cmd[info->index].in[0])
 	{
 		info->size++;
@@ -126,6 +105,16 @@ int	exec_stuff(t_data *info)
 		info->size++;
 		info->amount_cmd++;
 	}
+}
+
+int	exec_stuff(t_data *info)
+{
+	int	fd;
+
+	fd = STDIN_FILENO;
+	info->index = 0;
+	info->size = 0;
+	manage_for_in_out(info);
 	info->index += info->size;
 	while (info->index < info->amount_cmd && info->cmd[info->index].cmd[0])
 	{
