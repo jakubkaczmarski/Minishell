@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 02:14:24 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 07:46:08 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ typedef struct s_container
 {
 	int			i;
 	int			j;
-	char	*line;	
+	char		*line;
 }				t_container;
+
 // main-struct
 typedef struct s_data
 {
@@ -54,6 +55,7 @@ typedef struct s_data
 	int			ret_val;
 	int			size;
 }				t_data;
+
 typedef struct s_count_el
 {
 	char		**redirect_arr;
