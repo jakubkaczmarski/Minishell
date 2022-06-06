@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 01:26:15 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 01:58:52 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ int	get_the_real_one_out(t_data *info, int out_fd, int i)
 	}
 	else
 	{
-		out_fd = open(&info->cmd[info->index].out[i][2], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		out_fd = open(&info->cmd[info->index].out[i][2], O_WRONLY
+				| O_CREAT | O_TRUNC, 0777);
 	}
 	if (out_fd < 0)
 	{
@@ -110,8 +111,6 @@ int	get_the_real_one_out(t_data *info, int out_fd, int i)
 		return (-1);
 	}
 	else
-	{
 		return (out_fd);
-	}
 	return (out_fd);
 }
