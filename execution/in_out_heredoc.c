@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:46:34 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 18:57:11 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 20:44:53 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,12 @@ int	real_here_doc(char *line)
 		if (!magic_word)
 		{
 			free(magic_word);
-			exit(1);
 			break ;
 		}
 		if (magic_word[0]
 			&& ft_strncmp(line, magic_word, ft_strlen(magic_word)) == 0)
 		{
-			if (magic_word)
-				free (magic_word);
+			free (magic_word);
 			break ;
 		}
 		write(pipe_1[1], magic_word, ft_strlen(magic_word));
