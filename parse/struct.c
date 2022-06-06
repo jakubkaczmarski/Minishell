@@ -6,36 +6,11 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/06 23:11:35 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 23:27:56 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_cmd	*alloc_mem_for_info(t_cmd *cmd)
-{
-	cmd->out = ft_calloc(sizeof(char *), 5);
-	cmd->in = ft_calloc(sizeof(char *), 5);
-	cmd->cmd = ft_calloc(sizeof(char *), 5);
-	return (cmd);
-}
-
-void	handle_red_t(t_data *info, char **temp, t_container *container)
-{
-	if (temp[container->j][1] && temp[container->j][1] == '>')
-	{
-		info->cmd[container->i].out
-			= add_after_string(info->cmd[container->i].out, temp[container->j]);
-	}
-	else
-	{
-		temp[container->j][0] = ' ';
-		container->line = ft_strjoin(">", temp[container->j]);
-		info->cmd[container->i].out
-			= add_after_string(info->cmd[container->i].out, container->line);
-		free(container->line);
-	}
-}
 
 void	handle_red_p(t_data *info, char **temp, t_container *container)
 {
@@ -83,6 +58,31 @@ int	find_if_cmd_exist(char *cmd, t_data *info, int index)
 	return (0);
 }
 
+void	handle_redirec_in_struct(char **temp, t_container *container,
+			int *argum, t_data *info)
+{
+	if (temp[container->j][0] == '<')
+	{
+		handle_red_p(info, temp, container);
+		*argum = 1;
+	}
+	else if (temp[container->j][0] == '>')
+	{
+		handle_red_t(info, temp, container);
+		*argum = 1;
+	}
+	else
+	{
+		if (info->amount_cmd == 0
+			|| ((*argum == 1) && (find_if_cmd_exist(temp[container->j],
+						info, container->i) == 1)))
+			info->amount_cmd++;
+		info->cmd[container->i].cmd = add_after_string(
+				info->cmd[container->i].cmd, temp[container->j]);
+		*argum = 0;
+	}
+}
+
 void	handle_struct(t_data *info)
 {
 	char				**temp;
@@ -103,26 +103,7 @@ void	handle_struct(t_data *info)
 		container.j = 0;
 		while (temp[container.j])
 		{
-			if (temp[container.j][0] == '<')
-			{
-				handle_red_p(info, temp, &container);
-				argum = 1;
-			}
-			else if (temp[container.j][0] == '>')
-			{
-				handle_red_t(info, temp, &container);
-				argum = 1;
-			}
-			else
-			{
-				if (info->amount_cmd == 0
-					|| ((argum == 1) && (find_if_cmd_exist(temp[container.j],
-								info, container.i) == 1)))
-					info->amount_cmd++;
-				info->cmd[container.i].cmd = add_after_string(
-						info->cmd[container.i].cmd, temp[container.j]);
-				argum = 0;
-			}
+			handle_redirec_in_struct(temp, &container, &argum, info);
 			container.j ++;
 		}
 		free_2d_array(temp);

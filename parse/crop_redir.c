@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:35:54 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 01:54:17 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 23:26:54 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,29 @@ int	crop_redir(t_data *info)
 		i++;
 	}
 	return (0);
+}
+
+t_cmd	*alloc_mem_for_info(t_cmd *cmd)
+{
+	cmd->out = ft_calloc(sizeof(char *), 5);
+	cmd->in = ft_calloc(sizeof(char *), 5);
+	cmd->cmd = ft_calloc(sizeof(char *), 5);
+	return (cmd);
+}
+
+void	handle_red_t(t_data *info, char **temp, t_container *container)
+{
+	if (temp[container->j][1] && temp[container->j][1] == '>')
+	{
+		info->cmd[container->i].out
+			= add_after_string(info->cmd[container->i].out, temp[container->j]);
+	}
+	else
+	{
+		temp[container->j][0] = ' ';
+		container->line = ft_strjoin(">", temp[container->j]);
+		info->cmd[container->i].out
+			= add_after_string(info->cmd[container->i].out, container->line);
+		free(container->line);
+	}
 }
