@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/06 18:28:20 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:39:29 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,12 @@ int	main(int argc, char **argv, char **envv)
 	{
 		input = readline("minishell🦖>");
 		if (!input)
+		{
+			free_2d_array(info->env);
+			delete_list(&info->envv);
+			free(info);
 			break ;
+		}
 		if (input[0] == '\0')
 			continue ;
 		add_history(input);
@@ -99,7 +104,7 @@ int	main(int argc, char **argv, char **envv)
 		exec_stuff(info);
 		free_all(info);
 	}
-	return (0);
+	return (1);
 }
 
 	// end_free(input, info);
