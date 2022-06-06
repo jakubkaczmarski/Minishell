@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 23:28:35 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 23:34:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_container
 {
 	int			i;
 	int			j;
+	int			index;
 	char		*line;
 }				t_container;
 
