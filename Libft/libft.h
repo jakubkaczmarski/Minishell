@@ -6,7 +6,7 @@
 /*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:53:22 by jtomala           #+#    #+#             */
-/*   Updated: 2022/05/18 13:36:40 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/06 09:37:39 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_list
 {
 	char			*content;
 	int				index;
+	int				flag;
 	struct s_list	*next;
 }				t_list;
 
