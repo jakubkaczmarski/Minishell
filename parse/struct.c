@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/06 02:22:23 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:58:37 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_cmd	*alloc_mem_for_info(t_cmd *cmd)
 {
-	cmd->out = ft_calloc(sizeof(char **), 5);
-	cmd->in = ft_calloc(sizeof(char **), 5);
-	cmd->cmd = ft_calloc(sizeof(char **), 5);
+	cmd->out = ft_calloc(sizeof(char *), 5);
+	cmd->in = ft_calloc(sizeof(char *), 5);
+	cmd->cmd = ft_calloc(sizeof(char *), 5);
 	return (cmd);
 }
 
@@ -54,18 +54,18 @@ void	handle_red_p(t_data *info, char **temp, t_container *container)
 	}
 }
 
-int	find_if_cmd_exist(char *cmd, t_data *info)
+int	find_if_cmd_exist(char *cmd, t_data *info, int index)
 {
 	info->index = 0;
-	if (info->cmd[info->index].command_path)
-		free(info->cmd[info->index].command_path);
-	info->cmd[info->index].gen_path = get_path(info->env);
-	info->cmd[info->index].command_path
-		= cmd_exists_inp(info->cmd[info->index].gen_path, cmd);
-	free(info->cmd[info->index].gen_path);
-	if (info->cmd[info->index].command_path)
+	if (info->cmd[index].command_path)
+		free(info->cmd[index].command_path);
+	info->cmd[index].gen_path = get_path(info->env);
+	info->cmd[index].command_path
+		= cmd_exists_inp(info->cmd[index].gen_path, cmd);
+	free(info->cmd[index].gen_path);
+	if (info->cmd[index].command_path)
 	{
-		free(info->cmd[info->index].command_path);
+		free(info->cmd[index].command_path);
 		return (1);
 	}
 	else if (ft_strncmp(cmd, "cd", 2) == 0)
@@ -92,7 +92,7 @@ void	handle_struct(t_data *info)
 	container.j = 0;
 	info->amount_cmd = 0;
 	argum = 0;
-	info->cmd = ft_calloc(sizeof(t_cmd *), 30);
+	info->cmd = ft_calloc(sizeof(t_cmd), 30);
 	while (info->cmd_table[container.i])
 	{
 		temp = ft_split(info->cmd_table[container.i], ' ');
@@ -114,8 +114,8 @@ void	handle_struct(t_data *info)
 			else
 			{
 				if (info->amount_cmd == 0
-					|| (argum == 1
-						&& (find_if_cmd_exist(temp[container.j], info) == 1)))
+					|| ((argum == 1)
+						&& (find_if_cmd_exist(temp[container.j], info, container.i) == 1)))
 					info->amount_cmd++;
 				info->cmd[container.i].cmd = add_after_string(
 						info->cmd[container.i].cmd, temp[container.j]);

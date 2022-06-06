@@ -5,6 +5,7 @@
         "chrono": "c",
         "__locale": "c",
         "ios": "c",
-        "ostream": "c"
+        "ostream": "c",
+        "iterator": "c"
     }
 }

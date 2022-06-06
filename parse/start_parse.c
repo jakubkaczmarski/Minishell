@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:08:39 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 07:58:15 by jtomala          ###   ########.fr       */
+/*   Updated: 2022/06/06 17:58:45 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**add_after_string(char **arr, char *new_el)
 	i = 0;
 	while (arr[i])
 		i++;
-	temp = ft_calloc((sizeof(char *)), i + 2);
+	temp = ft_calloc((sizeof(char *)), i + 10);
 	i = 0;
 	while (arr[i])
 	{
