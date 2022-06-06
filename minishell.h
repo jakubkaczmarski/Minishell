@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 23:34:07 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 23:46:28 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ int				check_for_build_child_build_ins(t_data *info);
 int				non_fork_buid_ins(t_data *info);
 void			exit_check(t_data *info, int i);
 void			manage_for_in_out(t_data *info);
-t_cmd		*alloc_mem_for_info(t_cmd *cmd);
+t_cmd			*alloc_mem_for_info(t_cmd *cmd);
 void			handle_red_p(t_data *info, char **temp, t_container *container);
 void			handle_red_t(t_data *info, char **temp, t_container *container);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 20:08:54 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/06 23:21:13 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/07 00:49:13 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,12 @@ void	free_all(t_data *info)
 	free(info->cmd);
 }
 
-void	end_free(char *input, t_data *info)
+int	alternative_free(t_data *info)
 {
-	if (!input)
-	{
-		free(input);
-		free(info);
-	}
-	else
-	{
-		free(info->cmd_table[0]);
-		ft_lstclear(&(info->envv), free);
-		free(info->envv);
-		free(info);
-	}
+	free_2d_array(info->env);
+	delete_list(&info->envv);
+	free(info);
+	return (0);
 }
 
 /*
@@ -88,12 +80,7 @@ int	main(int argc, char **argv, char **envv)
 	{
 		input = readline("minishell🦖>");
 		if (!input)
-		{
-			free_2d_array(info->env);
-			delete_list(&info->envv);
-			free(info);
-			break ;
-		}
+			return (alternative_free(info));
 		if (input[0] == '\0')
 			continue ;
 		add_history(input);
