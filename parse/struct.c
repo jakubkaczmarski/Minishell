@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 13:59:32 by jtomala           #+#    #+#             */
-/*   Updated: 2022/06/06 01:26:55 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 02:22:23 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,37 @@ t_cmd	*alloc_mem_for_info(t_cmd *cmd)
 	return (cmd);
 }
 
-void	handle_red_t(t_data *info, char **temp, int j, char *joined, int i)
+void	handle_red_t(t_data *info, char **temp, t_container *container)
 {
-	if (temp[j][1] && temp[j][1] == '>')
+	if (temp[container->j][1] && temp[container->j][1] == '>')
 	{
-		info->cmd[i].out = add_after_string(info->cmd[i].out, temp[j]);
+		info->cmd[container->i].out
+			= add_after_string(info->cmd[container->i].out, temp[container->j]);
 	}
 	else
 	{
-		temp[j][0] = ' ';
-		joined = ft_strjoin(">", temp[j]);
-		info->cmd[i].out = add_after_string(info->cmd[i].out, joined);
-		free(joined);
+		temp[container->j][0] = ' ';
+		container->line = ft_strjoin(">", temp[container->j]);
+		info->cmd[container->i].out
+			= add_after_string(info->cmd[container->i].out, container->line);
+		free(container->line);
 	}
 }
 
-void	handle_red_p(t_data *info, char **temp, int j, char *joined, int i)
+void	handle_red_p(t_data *info, char **temp, t_container *container)
 {
-	if (temp[j][1] && temp[j][1] == '<')
+	if (temp[container->j][1] && temp[container->j][1] == '<')
 	{
-		info->cmd[i].in = add_after_string(info->cmd[i].in, temp[j]);
+		info->cmd[container->i].in
+			= add_after_string(info->cmd[container->i].in, temp[container->j]);
 	}
 	else
 	{
-		temp[j][0] = ' ';
-		joined = ft_strjoin("<", temp[j]);
-		info->cmd[i].in = add_after_string(info->cmd[i].in, joined);
-		free(joined);
+		temp[container->j][0] = ' ';
+		container->line = ft_strjoin("<", temp[container->j]);
+		info->cmd[container->i].in
+			= add_after_string(info->cmd[container->i].in, container->line);
+		free(container->line);
 	}
 }
 
@@ -79,50 +83,50 @@ int	find_if_cmd_exist(char *cmd, t_data *info)
 
 void	handle_struct(t_data *info)
 {
-	int		i;
-	int		j;
-	char	**temp;
-	char	*joined;
-	int		argum;
+	char				**temp;
+	int					argum;
+	t_container			container;
 
-	joined = NULL;
-	i = 0;
-	j = 0;
+	container.line = NULL;
+	container.i = 0;
+	container.j = 0;
 	info->amount_cmd = 0;
 	argum = 0;
 	info->cmd = ft_calloc(sizeof(t_cmd *), 30);
-	while (info->cmd_table[i])
+	while (info->cmd_table[container.i])
 	{
-		temp = ft_split(info->cmd_table[i], ' ');
-		alloc_mem_for_info(&info->cmd[i]);
+		temp = ft_split(info->cmd_table[container.i], ' ');
+		alloc_mem_for_info(&info->cmd[container.i]);
 		argum = 1;
-		j = 0;
-		while (temp[j])
+		container.j = 0;
+		while (temp[container.j])
 		{
-			if (temp[j][0] == '<')
+			if (temp[container.j][0] == '<')
 			{
-				handle_red_p(info, temp, j, joined, i);
+				handle_red_p(info, temp, &container);
 				argum = 1;
 			}
-			else if (temp[j][0] == '>')
+			else if (temp[container.j][0] == '>')
 			{
-				handle_red_t(info, temp, j, joined, i);
+				handle_red_t(info, temp, &container);
 				argum = 1;
 			}
 			else
 			{
 				if (info->amount_cmd == 0
-					|| (argum == 1 && (find_if_cmd_exist(temp[j], info) == 1)))
+					|| (argum == 1
+						&& (find_if_cmd_exist(temp[container.j], info) == 1)))
 					info->amount_cmd++;
-				info->cmd[i].cmd = add_after_string(info->cmd[i].cmd, temp[j]);
+				info->cmd[container.i].cmd = add_after_string(
+						info->cmd[container.i].cmd, temp[container.j]);
 				argum = 0;
 			}
-			j++;
+			container.j ++;
 		}
 		free_2d_array(temp);
-		i++;
+		container.i++;
 	}
-	alloc_mem_for_info(&info->cmd[i]);
+	alloc_mem_for_info(&info->cmd[container.i]);
 }
 
 // ft_putstr_fd("Printing array thingy\n", 1);

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:02:58 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 02:11:14 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/06 02:14:24 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ typedef struct s_cmd
 	char		*gen_path;
 }				t_cmd;
 
-typedef struct s_pair
+typedef struct s_container
 {
-	int	index;
-	int	j;
-}				t_pair;
+	int			i;
+	int			j;
+	char	*line;	
+}				t_container;
 // main-struct
 typedef struct s_data
 {
