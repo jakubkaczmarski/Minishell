@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtomala <jtomala@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:52:56 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/06 23:15:21 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/07 16:11:21 by jtomala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,20 @@
 
 void	print_path(void)
 {
-	char	buff[4096];
-	char	*str;
+	char	*buff;
+	int		counter;
 
-	str = getcwd(&buff[0], sizeof(buff));
-	if (!str)
-		return ;
-	printf("%s\n", str);
+	counter = 10;
+	buff = malloc(counter * sizeof(char));
+	getcwd(buff, counter);
+	while (errno == ERANGE)
+	{
+		errno = 0;
+		counter += 10;
+		free(buff);
+		buff = malloc(counter * sizeof(char));
+		getcwd(buff, counter);
+	}
+	printf("%s\n", buff);
+	free(buff);
 }
